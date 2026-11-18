@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tienda online</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary-color:#0F766E;--on-primary:#ffffff;--btn-color:#0F766E;--on-btn:#ffffff;--bg:#09090b;--fg:#fafafa}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg)}
+.muted{color:color-mix(in srgb,var(--fg) 62%,var(--bg))}
+.surf{background:color-mix(in srgb,var(--fg) 6%,var(--bg))}
+.line{border-color:color-mix(in srgb,var(--fg) 14%,var(--bg))}
+.hdr{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid color-mix(in srgb,var(--fg) 12%,transparent)}
+.glass{background:color-mix(in srgb,var(--fg) 8%,transparent);border:1px solid color-mix(in srgb,var(--fg) 15%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.card2{position:relative;border:1px solid transparent;background:linear-gradient(color-mix(in srgb,var(--fg) 6%,var(--bg)),color-mix(in srgb,var(--fg) 6%,var(--bg))) padding-box,linear-gradient(145deg,color-mix(in srgb,var(--fg) 24%,transparent),color-mix(in srgb,var(--fg) 4%,transparent) 42%,color-mix(in srgb,var(--primary-color) 38%,transparent)) border-box;border-radius:1.25rem;padding:1.25rem}
+.inp{width:100%;background:color-mix(in srgb,var(--fg) 7%,var(--bg));border:1px solid color-mix(in srgb,var(--fg) 16%,var(--bg));border-radius:.75rem;padding:.6rem .9rem;font-size:.875rem;color:var(--fg)}
+.inp::placeholder{color:color-mix(in srgb,var(--fg) 45%,var(--bg))}
+.bg-p{background:var(--primary-color);color:var(--on-primary)}
+.text-p{color:var(--primary-color)}
+.border-p{border-color:var(--primary-color)}
+.glow{background:var(--primary-color)}
+.btn-p{position:relative;overflow:hidden;background:var(--btn-color);color:var(--on-btn);box-shadow:0 12px 40px -10px var(--btn-color);transition:filter .15s,transform .15s}
+.btn-p:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn-p:active{transform:scale(.98)}
+.grad-text{background:linear-gradient(100deg,var(--fg) 15%,color-mix(in srgb,var(--primary-color) 70%,var(--fg)) 45%,var(--fg) 80%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 9s ease-in-out infinite}
+@keyframes sh{50%{background-position:100% 0}}
+.card{position:relative;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);border-color:var(--primary-color);box-shadow:0 24px 60px -24px var(--primary-color)}
+.float{animation:fl 5s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-10px)}}
+.nv{padding:.45rem .95rem;border-radius:9999px;white-space:nowrap;font-weight:600;font-size:.875rem;transition:background .15s}
+.nv:hover{background:color-mix(in srgb,var(--fg) 10%,transparent)}
+.nv[aria-current="page"]{background:var(--primary-color);color:var(--on-primary)}
+.view{display:none}.view.on{display:block}
+.tag{display:inline-block;padding:.1rem .6rem;border-radius:9999px;font-size:.72rem;font-weight:600}
+.t-open{background:rgba(16,185,129,.18);color:#10b981}.t-human{background:rgba(245,158,11,.2);color:#f59e0b}.t-closed{background:rgba(148,163,184,.2);color:#94a3b8}.t-alta{background:rgba(244,63,94,.18);color:#f43f5e}
+.dy{background:var(--primary-color)}.nt{background:#f59e0b}
+.mb{max-width:80%;padding:.5rem .8rem;border-radius:.9rem;font-size:.85rem}
+.mc{background:color-mix(in srgb,var(--fg) 11%,var(--bg));align-self:flex-start}
+.ma{background:color-mix(in srgb,var(--primary-color) 30%,var(--bg));align-self:flex-end}
+.mp{background:rgba(245,158,11,.25);align-self:flex-end}
+.mn{align-self:center;font-size:.7rem;background:rgba(245,158,11,.2);padding:.1rem .7rem;border-radius:9999px}
+.fn2{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.15rem;padding:1rem .75rem;border-radius:1.1rem;cursor:pointer;transition:opacity .25s,box-shadow .25s,border-color .25s;background:color-mix(in srgb,var(--fg) 6%,var(--bg));border:1px solid color-mix(in srgb,var(--fg) 14%,var(--bg))}
+.fn2.ai{background:color-mix(in srgb,var(--primary-color) 14%,var(--bg))}
+.fk{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.1rem;transition:opacity .25s}
+.dim .fn2,.dim .fk{opacity:.25}.dim .on{opacity:1}
+.fn2.on{border-color:var(--primary-color);box-shadow:0 0 0 1px var(--primary-color),0 14px 44px -14px var(--primary-color)}
+.heart[aria-pressed="true"]{color:#f43f5e}
+body[data-view="panel"] :is(#fab,#chat,#bubble,#sticky),body[data-view="flujo"] :is(#fab,#chat,#bubble,#sticky){display:none!important}
+#cart,#chat,#bubble,#ed{color:#1c1917}
+.pay-opt[aria-pressed="true"]{border-color:var(--primary-color);box-shadow:0 0 0 1px var(--primary-color);background:#fafaf9}
+input:focus,select:focus,textarea:focus{border-color:var(--primary-color);outline:none;box-shadow:0 0 0 1px var(--primary-color)}
+:focus-visible{outline:2px solid var(--primary-color);outline-offset:2px}
+details>summary{cursor:pointer;list-style:none}details>summary::-webkit-details-marker{display:none}
+details[open] .pl{transform:rotate(45deg)}
+.dot{animation:blink 1s infinite both}.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.cloud{display:flex;align-items:center;gap:.65rem;background:#fff;color:#1c1917;border-radius:1.6rem;padding:.65rem 1.15rem;box-shadow:0 16px 44px -10px rgba(0,0,0,.5);max-width:min(92vw,25rem)}
+.cloud::before,.cloud::after{display:none;content:''}
+@media (min-width:768px){.cloud:not(.free)::before{display:block;position:absolute;left:-8px;top:50%;width:16px;height:16px;background:#fff;transform:translateY(-50%) rotate(45deg);border-radius:3px}}
+#tipBtn[aria-pressed="false"]{opacity:.45}
+.flash{animation:fh 1.8s ease-out}
+@keyframes fh{0%,60%{box-shadow:0 0 0 4px var(--primary-color),0 0 44px var(--primary-color)}100%{box-shadow:0 0 0 0 transparent}}
+.msg-in{animation:pop .25s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+body::before{content:'';position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:radial-gradient(38% 34% at 12% 8%,color-mix(in srgb,var(--primary-color) 30%,transparent),transparent 70%),radial-gradient(34% 30% at 88% 18%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 45%,#7c3aed) 26%,transparent),transparent 70%),radial-gradient(40% 36% at 70% 92%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 40%,#06b6d4) 22%,transparent),transparent 70%);animation:drift 32s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(4%,3%,0) scale(1.08) rotate(3deg)}}
+body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hdr::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--primary-color),transparent);opacity:.7}
+#sticky::after{display:none}
+.card::before,.card2::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--primary-color) 20%,transparent),transparent 65%)}
+.card:hover::before,.card2:hover::before{opacity:1}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
+.btn-p:hover::after{transform:translateX(120%)}
+#tilt::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--a),transparent 55%,var(--primary-color) 78%,#fff 86%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite;pointer-events:none}
+@keyframes spin{to{--a:360deg}}
+.gridbg{background-image:linear-gradient(color-mix(in srgb,var(--fg) 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--fg) 7%,transparent) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent)}
+.marq-t{animation:mq 30s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
+.tip-on{outline:2px solid color-mix(in srgb,var(--primary-color) 60%,transparent);outline-offset:10px;border-radius:1.75rem;box-shadow:0 0 70px -24px var(--primary-color)}
+@media (max-width:767px){.tip-on{outline-offset:-3px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="pb-20 md:pb-0 overflow-x-hidden" data-view="tienda">
+<div id="pg" class="fixed top-0 left-0 h-[3px] w-0 bg-p z-[80]"></div>
+<div id="tipCloud" class="cloud fixed z-[55] left-1/2 -translate-x-1/2 bottom-[5.5rem] md:translate-x-0 md:bottom-auto md:w-[15.5rem] md:origin-left opacity-0 scale-95 transition duration-300 pointer-events-none" role="status" aria-live="polite"><span id="tipE" class="text-xl">💡</span><span class="leading-tight"><b id="tipT" class="block text-sm" style="color:var(--primary-color)"></b><span id="tipD" class="text-xs text-stone-500"></span></span></div>
+<div id="toast" class="fixed right-4 top-[7.5rem] md:top-24 z-[50] glass rounded-2xl px-4 py-3 text-xs max-w-[16rem] opacity-0 translate-x-4 transition-all duration-500 pointer-events-none" aria-hidden="true"></div>
+<div id="topbar" class="bg-p text-center text-sm font-semibold py-2 px-4">🚚 Envío gratis en tu primer pedido · Recíbelo en 24–48 h</div>
+
+<header class="hdr sticky top-0 z-30">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap md:flex-nowrap items-center gap-x-3 gap-y-2 md:gap-5">
+    <a href="#" class="order-1 shrink-0 flex items-center" aria-label="Inicio">
+      <img id="logo" class="hidden h-9 max-w-[140px] object-contain" alt="">
+      <span id="brandText" class="text-xl font-extrabold tracking-tight" data-marca></span>
+    </a>
+    <nav class="order-4 md:order-2 w-full md:w-auto flex gap-1 overflow-x-auto -mx-1 px-1" aria-label="Principal">
+      <a href="#" class="nv" data-nav="tienda">Tienda</a>
+      <a href="#panel" class="nv" data-nav="panel">Panel del asistente</a>
+      <a href="#flujo" class="nv" data-nav="flujo">Cómo funciona</a>
+    </nav>
+    <button id="tipBtn" aria-pressed="true" class="order-2 md:order-4 ml-auto shrink-0 w-10 h-10 rounded-full grid place-items-center hover:bg-white/10" title="Consejos de conversión" aria-label="Activar o desactivar consejos de conversión">💡</button>
+    <button id="cartBtn" class="order-2 md:order-4 relative shrink-0 p-2 rounded-full hover:bg-white/10" aria-label="Abrir carrito">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <span id="cartCount" class="hidden absolute -top-0.5 -right-0.5 bg-p text-[11px] font-bold w-5 h-5 rounded-full grid place-items-center">1</span>
+    </button>
+    <div class="order-3 relative w-full md:w-auto md:flex-1 md:max-w-sm">
+      <input id="q" type="search" autocomplete="off" placeholder="Buscar con IA…" aria-label="Buscar productos" class="inp !rounded-full pl-10">
+      <svg class="absolute left-3.5 top-2.5 w-4 h-4 muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <ul id="sug" class="hidden absolute left-0 right-0 top-11 bg-white text-stone-800 rounded-xl shadow-2xl overflow-hidden text-sm"></ul>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TIENDA ============ -->
+<main id="v-tienda" class="view on">
+  <section data-tip="🎯 Hero claro|Producto, precio y botón visibles" class="relative isolate max-w-6xl mx-auto px-4 pt-10 pb-14 md:pt-20 md:pb-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <div class="gridbg pointer-events-none absolute -z-10 inset-0"></div>
+    <div class="glow pointer-events-none absolute -z-10 -top-20 right-0 w-[30rem] h-[30rem] rounded-full blur-[130px] opacity-35"></div>
+    <div class="glow pointer-events-none absolute -z-10 bottom-0 -left-10 w-72 h-72 rounded-full blur-[120px] opacity-20"></div>
+    <div class="order-2 md:order-1">
+      <span class="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold">
+        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full glow opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 glow"></span></span>
+        Pocas unidades en <b data-marca></b>
+      </span>
+      <h1 class="grad-text mt-5 text-5xl md:text-7xl font-extrabold leading-[1.02] tracking-tight pb-1" data-producto></h1>
+      <p class="mt-5 muted text-lg max-w-md">Lo más pedido de <span class="font-semibold" data-marca></span>. Lo eliges, pagas en un paso y te lo enviamos hoy mismo.</p>
+      <div class="mt-6 flex items-center gap-3">
+        <p class="text-4xl font-extrabold tracking-tight" data-precio></p>
+        <span class="bg-p text-xs font-extrabold rounded-full px-3 py-1.5">-10% hoy</span>
+      </div>
+      <div class="mt-6 max-w-sm">
+        <div class="flex justify-between text-xs muted mb-2"><span>🔥 Quedan solo 3 unidades</span><span>La oferta termina en <b id="cd" class="tabular-nums" style="color:var(--fg)">10:00</b></span></div>
+        <div class="h-2 rounded-full overflow-hidden" style="background:color-mix(in srgb,var(--fg) 12%,transparent)"><div class="h-full w-[88%] rounded-full glow"></div></div>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <button data-buy class="btn-p rounded-full px-8 py-4 font-extrabold text-base">⚡ Compra en 1 Clic</button>
+        <a href="#productos" class="glass rounded-full px-8 py-4 font-bold">Ver más productos</a>
+      </div>
+      <div class="mt-8 flex items-center gap-3 text-sm muted">
+        <div class="flex -space-x-2"><span class="w-8 h-8 rounded-full bg-rose-400 border-2" style="border-color:var(--bg)"></span><span class="w-8 h-8 rounded-full bg-amber-300 border-2" style="border-color:var(--bg)"></span><span class="w-8 h-8 rounded-full bg-sky-400 border-2" style="border-color:var(--bg)"></span><span class="w-8 h-8 rounded-full bg-emerald-400 border-2" style="border-color:var(--bg)"></span></div>
+        <p><span class="text-amber-400">★★★★★</span> 4.9 · +2,300 clientes felices</p>
+      </div>
+    </div>
+    <div class="order-1 md:order-2 relative">
+      <div class="glow absolute inset-8 rounded-[3rem] blur-3xl opacity-45"></div>
+      <div id="tilt" class="glass relative rounded-[2rem] p-3 will-change-transform transition-transform duration-150"><img data-img-prod alt="" class="w-full aspect-square object-cover rounded-[1.5rem] bg-zinc-800" fetchpriority="high"></div>
+      <div class="glass float absolute -left-2 top-10 md:-left-8 rounded-2xl px-4 py-3 text-sm"><p class="font-extrabold">⭐ 4.9 / 5</p><p class="text-xs muted">+2,300 reseñas</p></div>
+      <div class="glass float absolute -right-2 bottom-10 md:-right-6 rounded-2xl px-4 py-3 text-sm" style="animation-delay:-2.5s"><p class="font-extrabold">🔥 47 vendidos hoy</p><p class="text-xs muted">Envío gratis incluido</p></div>
+    </div>
+  </section>
+
+  <div class="overflow-hidden border-y line py-4 mb-14" aria-hidden="true"><div class="marq-t flex gap-10 w-max text-sm font-semibold muted whitespace-nowrap"><span>✦ Envío gratis</span><span>✦ Pago en 1 clic</span><span>✦ Asistente con IA 24/7</span><span>✦ 30 días de garantía</span><span>✦ Compra protegida</span><span>✦ Soporte por WhatsApp</span><span>✦ Envío gratis</span><span>✦ Pago en 1 clic</span><span>✦ Asistente con IA 24/7</span><span>✦ 30 días de garantía</span><span>✦ Compra protegida</span><span>✦ Soporte por WhatsApp</span></div></div>
+
+  <section data-tip="📊 Prueba social|Números reales dan credibilidad" class="max-w-6xl mx-auto px-4 pb-14 grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="card2 text-center"><p class="text-3xl font-extrabold"><span data-count="2300" data-suf="+">0</span></p><p class="muted text-xs mt-1">clientes felices</p></div>
+    <div class="card2 text-center"><p class="text-3xl font-extrabold"><span data-count="4.9" data-dec="1">0</span> ★</p><p class="muted text-xs mt-1">valoración promedio</p></div>
+    <div class="card2 text-center"><p class="text-3xl font-extrabold"><span id="stEnvio" data-count="48" data-suf=" h">0</span></p><p class="muted text-xs mt-1">entrega promedio</p></div>
+    <div class="card2 text-center"><p class="text-3xl font-extrabold"><span data-count="30" data-suf=" días">0</span></p><p class="muted text-xs mt-1">de garantía</p></div>
+  </section>
+
+  <section id="productos" data-tip="🛍️ Compra en 1 clic|Menos pasos, más ventas" class="max-w-6xl mx-auto px-4 pb-16 scroll-mt-28">
+    <div class="flex items-end justify-between mb-8"><h2 class="text-3xl font-extrabold tracking-tight">Los más vendidos</h2><p class="muted text-sm hidden sm:block">Pago en 1 paso · Envío gratis</p></div>
+    <div id="grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"></div>
+  </section>
+
+  <section data-tip="💳 Pagos visibles|Quitan dudas al pagar" class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="card2 text-center !py-8">
+      <h2 class="text-xl font-extrabold">Paga como prefieras</h2>
+      <div id="payChips" class="mt-4 flex flex-wrap justify-center gap-2 text-sm font-semibold"></div>
+      <p id="payNote" class="muted text-xs mt-4"></p>
+    </div>
+  </section>
+
+  <section id="pasos" data-tip="🧭 Proceso claro|Saber qué sigue baja el miedo" class="max-w-6xl mx-auto px-4 pb-16 scroll-mt-28">
+    <h2 class="text-3xl font-extrabold tracking-tight mb-8 text-center">Comprar es así de fácil</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card2"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold mb-4">1</span><h3 class="font-bold">Elige tu producto</h3><p class="muted text-sm mt-1">Busca con IA o explora lo más vendido.</p></div>
+      <div class="card2"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold mb-4">2</span><h3 class="font-bold">Paga en 1 clic</h3><p class="muted text-sm mt-1">Elige tu método favorito y paga sin crear cuenta.</p></div>
+      <div class="card2"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold mb-4">3</span><h3 id="pasoEnvio" class="font-bold">Recíbelo en 24–48 h</h3><p class="muted text-sm mt-1">Seguimiento por WhatsApp hasta tu puerta.</p></div>
+    </div>
+  </section>
+
+  <section id="resenas" data-tip="⭐ Reseñas|Opiniones reales = confianza" class="max-w-6xl mx-auto px-4 pb-16 scroll-mt-28">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-8"><h2 class="text-3xl font-extrabold tracking-tight">Lo que dicen los clientes</h2><p class="muted text-sm"><span class="text-amber-400">★★★★★</span> 4.9 de 5 · reseñas de ejemplo</p></div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <figure class="card2"><p class="text-amber-400 text-sm">★★★★★</p><blockquote class="mt-3 text-sm leading-relaxed">Llegó en dos días y es justo como en las fotos. La compra en un paso fue facilísima.</blockquote><figcaption class="mt-4 flex items-center gap-3 text-sm"><span class="w-9 h-9 rounded-full bg-rose-400 grid place-items-center font-bold text-black">L</span><span><b>Laura M.</b><br><span class="muted text-xs" data-rc>Compra verificada</span></span></figcaption></figure>
+      <figure class="card2"><p class="text-amber-400 text-sm">★★★★★</p><blockquote class="mt-3 text-sm leading-relaxed">El asistente por chat me resolvió todo al instante y me dio un descuento. Volveré a comprar.</blockquote><figcaption class="mt-4 flex items-center gap-3 text-sm"><span class="w-9 h-9 rounded-full bg-sky-400 grid place-items-center font-bold text-black">D</span><span><b>Diego R.</b><br><span class="muted text-xs" data-rc>Compra verificada</span></span></figcaption></figure>
+      <figure class="card2"><p class="text-amber-400 text-sm">★★★★☆</p><blockquote class="mt-3 text-sm leading-relaxed">Muy buena calidad. Pagué con transferencia y me confirmaron el pedido en minutos.</blockquote><figcaption class="mt-4 flex items-center gap-3 text-sm"><span class="w-9 h-9 rounded-full bg-emerald-400 grid place-items-center font-bold text-black">A</span><span><b>Ana P.</b><br><span class="muted text-xs" data-rc>Compra verificada</span></span></figcaption></figure>
+    </div>
+  </section>
+
+  <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="card2 !p-6 md:!p-10 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center relative overflow-hidden isolate">
+      <div class="glow absolute -z-10 -right-16 -top-16 w-72 h-72 rounded-full blur-[110px] opacity-30"></div>
+      <div><h2 class="text-3xl font-extrabold tracking-tight">Mira cómo funciona por dentro</h2><p class="muted mt-3 max-w-lg">El asistente de IA no solo conversa: registra cada chat, recupera carritos y pasa los casos difíciles a tu equipo. Explora el panel y el flujo de esta demo.</p></div>
+      <div class="flex flex-col gap-3"><a href="#panel" class="btn-p rounded-full px-6 py-3.5 font-bold text-center">Ver el panel del asistente →</a><a href="#flujo" class="glass rounded-full px-6 py-3.5 font-bold text-center">Ver cómo está conectado el flujo →</a></div>
+    </div>
+  </section>
+
+  <section id="cupon" data-tip="🎁 Cupón de bienvenida|Captura correos y recupera visitas" class="max-w-4xl mx-auto px-4 pb-16 scroll-mt-28">
+    <div class="card2 !p-8 md:!p-10 text-center relative overflow-hidden isolate">
+      <div class="glow absolute -z-10 left-1/2 -translate-x-1/2 -top-24 w-80 h-80 rounded-full blur-[110px] opacity-30"></div>
+      <h2 class="text-3xl font-extrabold tracking-tight">Llévate 10% en tu primer pedido</h2>
+      <p class="muted mt-2 text-sm">Déjanos tu correo y te enviamos el cupón al instante.</p>
+      <form id="cpForm" class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"><input type="email" required placeholder="tucorreo@ejemplo.com" class="inp flex-1" aria-label="Correo"><button class="btn-p rounded-full px-6 py-3 font-bold whitespace-nowrap">Quiero mi cupón</button></form>
+      <div id="cpOk" class="hidden mt-6"><p class="muted text-sm">¡Listo! Usa este código al pagar (demo):</p><div class="mt-2 inline-flex items-center gap-3 glass rounded-full pl-5 pr-2 py-2"><b class="tracking-widest">BIENVENIDO10</b><button id="cpCopy" type="button" class="btn-p rounded-full px-4 py-1.5 text-sm font-bold">Copiar</button></div></div>
+    </div>
+  </section>
+
+  <section id="faq" data-tip="❓ Preguntas frecuentes|Resuelven dudas antes de que frenen" class="max-w-3xl mx-auto px-4 pb-16 scroll-mt-28">
+    <h2 class="text-3xl font-extrabold tracking-tight mb-6 text-center">Preguntas frecuentes</h2>
+    <div class="space-y-3">
+      <details class="card2 !py-4"><summary class="flex justify-between items-center font-bold">¿Cuánto tarda el envío?<span class="pl text-xl transition-transform">+</span></summary><p id="faqEnvio" class="muted text-sm mt-3"></p></details>
+      <details class="card2 !py-4"><summary class="flex justify-between items-center font-bold">¿Qué métodos de pago aceptan?<span class="pl text-xl transition-transform">+</span></summary><p id="faqPago" class="muted text-sm mt-3"></p></details>
+      <details class="card2 !py-4"><summary class="flex justify-between items-center font-bold">¿Puedo devolver mi compra?<span class="pl text-xl transition-transform">+</span></summary><p class="muted text-sm mt-3">Sí, tienes 30 días de garantía y devolución sin preguntas.</p></details>
+      <details class="card2 !py-4"><summary class="flex justify-between items-center font-bold">¿El asistente de IA puede generarme el link de pago?<span class="pl text-xl transition-transform">+</span></summary><p class="muted text-sm mt-3">Sí. Escríbele por el chat y te genera el pedido con el pago listo en un clic.</p></details>
+    </div>
+  </section>
+
+  <section id="contacto" data-tip="✉️ Contacto real|Un humano detrás da confianza" class="max-w-4xl mx-auto px-4 pb-20 scroll-mt-28">
+    <div class="card2 !p-6 md:!p-10 grid md:grid-cols-2 gap-8">
+      <div><h2 class="text-3xl font-extrabold tracking-tight">Hablemos</h2><p class="muted mt-3 text-sm">¿Dudas sobre un pedido o quieres una cotización? Escríbenos y te respondemos hoy.</p><ul class="mt-6 space-y-2 text-sm"><li id="ctDir"></li><li id="ctTel"></li><li id="ctMail"></li><li id="ctHora"></li></ul></div>
+      <form id="cform" class="space-y-3"><input class="inp" placeholder="Tu nombre" required><input class="inp" type="email" placeholder="Tu correo" required><textarea class="inp" rows="3" placeholder="¿En qué podemos ayudarte?" required></textarea><button class="btn-p w-full rounded-full py-3.5 font-bold">Enviar mensaje</button><p id="cok" class="hidden text-sm font-semibold text-p">✓ ¡Mensaje enviado! (formulario de demostración)</p></form>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PANEL ============ -->
+<main id="v-panel" class="view max-w-6xl mx-auto px-4 py-8 md:py-12">
+  <div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+    <div><h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Panel del asistente IA</h1><p id="pSub" class="muted text-sm mt-1"></p></div>
+    <div class="flex items-center gap-2"><span class="tag t-human">Datos ficticios de ejemplo</span><select id="rg" class="inp !w-auto"><option value="0">Últimos 7 días</option><option value="1" selected>Últimos 30 días</option><option value="2">Últimos 90 días</option></select></div>
+  </div>
+  <div id="ptabs" class="flex gap-2 overflow-x-auto mb-6"></div>
+  <div id="pBody"></div>
+</main>
+
+<!-- ============ FLUJO ============ -->
+<main id="v-flujo" class="view max-w-5xl mx-auto px-4 py-8 md:py-12">
+  <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Cómo está conectado el asistente</h1>
+  <p class="muted mt-2 mb-8">Pulsa Reproducir para ver el recorrido de un mensaje, o toca cualquier caja para saber qué hace.</p>
+  <div id="flowRoot" class="card2"></div>
+  <div class="flex flex-wrap items-center gap-2 mt-5">
+    <button id="fPlay" class="btn-p rounded-full px-5 py-2.5 font-bold text-sm">▶ Reproducir</button>
+    <button id="fPrev" class="glass rounded-full w-10 h-10 font-bold" aria-label="Paso anterior">‹</button>
+    <button id="fNext" class="glass rounded-full w-10 h-10 font-bold" aria-label="Paso siguiente">›</button>
+    <span id="fCnt" class="muted text-xs"></span>
+  </div>
+  <div id="fCap" class="card2 mt-3 text-sm min-h-[4rem]">Pulsa Reproducir, o toca cualquier caja para ver qué hace.</div>
+  <a href="#panel" class="inline-block mt-6 font-bold text-p underline">Ver el panel del asistente →</a>
+</main>
+
+<footer data-tip="🔒 Pie de confianza|Marca y soporte siempre a la vista" class="relative border-t line pt-14 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
+    <div><p class="text-lg font-extrabold" data-marca></p><p class="muted mt-2 max-w-xs">Tecnología, diseño y atención con IA para que comprar sea simple.</p></div>
+    <div><p class="font-bold mb-3">Explora</p><ul class="space-y-2 muted"><li><a href="#productos" class="hover:underline">Productos</a></li><li><a href="#resenas" class="hover:underline">Reseñas</a></li><li><a href="#faq" class="hover:underline">Preguntas frecuentes</a></li><li><a href="#contacto" class="hover:underline">Contacto</a></li></ul></div>
+    <div><p class="font-bold mb-3">La demo</p><ul class="space-y-2 muted"><li><a href="#panel" class="hover:underline">Panel del asistente</a></li><li><a href="#flujo" class="hover:underline">Cómo funciona</a></li></ul></div>
+  </div>
+  <p aria-hidden="true" class="grad-text select-none text-center font-extrabold leading-[.85] tracking-tighter opacity-25 mt-12 text-[14vw] md:text-[11rem] whitespace-nowrap overflow-hidden" data-marca></p>
+  <p class="text-center text-xs muted pb-6 pt-2">© <span data-marca></span> · Vista de demostración</p>
+</footer>
+
+<button id="up" class="fixed left-4 bottom-[9.5rem] md:bottom-20 z-30 w-11 h-11 rounded-full glass opacity-0 pointer-events-none transition-opacity font-bold" aria-label="Ir arriba">↑</button>
+
+<div id="sticky" class="md:hidden fixed bottom-0 inset-x-0 z-30 hdr !border-b-0 border-t line p-3 flex items-center gap-3">
+  <img data-img-prod alt="" class="w-11 h-11 rounded-lg object-cover bg-zinc-800">
+  <div class="min-w-0 flex-1 leading-tight">
+    <p class="text-sm font-bold truncate" data-producto></p>
+    <p class="text-sm muted" data-precio></p>
+  </div>
+  <button data-buy class="btn-p rounded-full px-5 py-2.5 font-bold text-sm">Comprar</button>
+</div>
+
+<div id="ed" class="hidden fixed left-4 bottom-24 md:bottom-6 z-[44] flex flex-col-reverse items-start">
+  <button id="edBtn" class="bg-white rounded-full shadow-xl px-4 py-2.5 text-sm font-bold">⚙️ Personalizar demo</button>
+  <form id="edForm" class="hidden mb-2 w-72 max-h-[70vh] overflow-y-auto bg-white rounded-2xl shadow-2xl p-4 space-y-2.5 text-sm"></form>
+</div>
+
+<!-- Slide cart -->
+<div id="overlay" class="hidden fixed inset-0 z-[60] bg-black/50"></div>
+<aside id="cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[70] translate-x-full transition-transform duration-300 flex flex-col" aria-hidden="true" aria-label="Checkout exprés">
+  <div class="flex items-center justify-between px-5 h-16 border-b border-stone-200">
+    <h2 class="font-extrabold text-lg">Checkout exprés</h2>
+    <button id="cartClose" class="p-2 rounded-full hover:bg-stone-100" aria-label="Cerrar">✕</button>
+  </div>
+  <form id="checkout" class="flex-1 overflow-y-auto px-5 py-5 space-y-5">
+    <div class="flex gap-3 items-center">
+      <img id="cImg" alt="" class="w-16 h-16 rounded-xl object-cover bg-stone-200">
+      <div class="flex-1 min-w-0"><p id="cName" class="font-bold truncate"></p><p class="text-sm text-stone-500">Cantidad: 1</p></div>
+      <p id="cPrice" class="font-bold"></p>
+    </div>
+    <div class="space-y-3">
+      <input id="email" type="email" required placeholder="Correo electrónico" autocomplete="email" class="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">
+      <input type="tel" placeholder="WhatsApp (para tu guía de envío)" autocomplete="tel" class="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">
+    </div>
+    <div>
+      <p class="font-bold text-sm mb-2">Método de pago</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button type="button" class="pay-opt flex items-center gap-2 border border-stone-300 rounded-xl p-3 text-sm font-semibold" aria-pressed="true"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Tarjeta</button>
+        <button type="button" class="pay-opt flex items-center gap-2 border border-stone-300 rounded-xl p-3 text-sm font-semibold" aria-pressed="false"><span class="w-6 h-6 grid place-items-center rounded bg-black text-white text-[9px] font-bold">Pay</span>Apple Pay</button>
+        <button type="button" class="pay-opt flex items-center gap-2 border border-stone-300 rounded-xl p-3 text-sm font-semibold" aria-pressed="false"><span class="w-6 h-6 grid place-items-center rounded border border-stone-300 text-[11px] font-extrabold text-blue-600">G</span>Google Pay</button>
+        <button type="button" class="pay-opt flex items-center gap-2 border border-stone-300 rounded-xl p-3 text-sm font-semibold" aria-pressed="false"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10 12 4l9 6M5 10v8m4-8v8m6-8v8m4-8v8M3 20h18"/></svg><span data-pl>OXXO / Transferencia</span></button>
+      </div>
+    </div>
+    <dl class="text-sm space-y-2 border-t border-stone-200 pt-4">
+      <div class="flex justify-between"><dt class="text-stone-500">Subtotal</dt><dd id="sSub"></dd></div>
+      <div id="sDiscRow" class="hidden flex justify-between text-p font-semibold"><dt>Descuento 10%</dt><dd id="sDisc"></dd></div>
+      <div class="flex justify-between"><dt class="text-stone-500">Envío</dt><dd class="font-semibold">Gratis</dd></div>
+      <div class="flex justify-between text-base font-extrabold pt-2"><dt>Total</dt><dd id="sTotal"></dd></div>
+    </dl>
+    <button id="payBtn" type="submit" class="btn-p w-full rounded-full py-4 font-extrabold text-base"></button>
+    <p class="text-xs text-center text-stone-500">🔒 Pago cifrado. Esto es una demostración: no se realiza ningún cobro.</p>
+  </form>
+  <div id="done" class="hidden flex-1 flex-col items-center justify-center text-center px-8">
+    <div class="w-16 h-16 rounded-full bg-p grid place-items-center text-3xl mb-4">✓</div>
+    <h3 class="text-xl font-extrabold">¡Pedido confirmado!</h3>
+    <p class="text-stone-600 mt-2">Así de rápido es el checkout de tu tienda: un solo paso, sin registros.</p>
+    <button id="doneClose" class="btn-p rounded-full px-6 py-3 font-bold mt-6">Seguir comprando</button>
+  </div>
+</aside>
+
+<!-- Chat IA -->
+<button id="fab" class="fixed right-4 bottom-24 md:bottom-6 z-[45] w-14 h-14 rounded-full bg-p shadow-xl grid place-items-center" aria-label="Abrir asistente de IA">
+  <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
+  <span id="notif" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[11px] font-bold grid place-items-center animate-bounce">1</span>
+</button>
+<div id="bubble" class="hidden fixed right-4 bottom-40 md:bottom-24 z-[45] bg-white border border-stone-200 shadow-lg rounded-2xl rounded-br-sm px-4 py-2 text-sm font-semibold max-w-[220px]">💬 Tengo una oferta para ti</div>
+
+<section id="chat" class="hidden fixed right-4 bottom-24 md:bottom-24 z-[46] w-[22rem] max-w-[calc(100vw-2rem)] h-[34rem] max-h-[75vh] flex-col bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden" aria-label="Asistente de IA">
+  <div class="bg-p px-4 py-3 flex items-center gap-3">
+    <div class="w-9 h-9 rounded-full bg-white/25 grid place-items-center font-extrabold" id="avatar">IA</div>
+    <div class="flex-1 leading-tight"><p class="font-bold text-sm">Asistente de <span data-marca></span></p><p class="text-xs opacity-90">● En línea</p></div>
+    <button id="chatReset" class="p-1 rounded hover:bg-white/20" aria-label="Reiniciar chat" title="Reiniciar chat">↺</button>
+    <button id="chatClose" class="p-1 rounded hover:bg-white/20" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div id="msgs" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#efeae2] text-sm"></div>
+  <form id="chatForm" class="border-t border-stone-200 p-2 flex gap-2">
+    <input id="chatIn" placeholder="Escribe un mensaje…" aria-label="Mensaje" class="flex-1 rounded-full border border-stone-300 px-4 py-2 text-sm">
+    <button class="btn-p rounded-full px-4 font-bold text-sm">Enviar</button>
+  </form>
+</section>
+
+<script>
+// ✏️ VALORES POR DEFECTO: edita esta línea para dejar una versión fija para un cliente (los parámetros de la URL los sobrescriben)
+const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',cliente:false};
+</script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const q = new URLSearchParams(location.search);
+  const text = (k, d) => (q.get(k) || '').trim().slice(0, 120) || d;
+  const link = (k, d) => { const v = (q.get(k) || '').trim(); return /^https?:\/\//i.test(v) ? v : d; };
+
+  // ---------- Parámetros de URL ----------
+  const D = DEFAULTS;
+  const marca = text('marca', D.marca).replace(/\*/g, '');
+  const producto = text('producto', D.producto).replace(/\*/g, '');
+  const imgProd = link('img_prod', D.img_prod || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80');
+  const logo = link('logo', D.logo || '');
+  const CUR = { MXN: ['es-MX', 'MXN'], COP: ['es-CO', 'COP'], USD: ['en-US', 'USD'], EUR: ['de-DE', 'EUR'] };
+  const [loc, cc] = CUR[(q.get('moneda') || D.moneda || '').toUpperCase()] || CUR.MXN;
+  const CT = {
+    MXN: { lang: 'es-MX', pais: 'México', dir: 'Av. Paseo de la Reforma 222, Juárez, 06600 Ciudad de México', tel: '+52 55 1234 5678', tld: '.com.mx', hora: 'Lun a Sáb · 9:00–19:00 (hora CDMX)', envio: '24–48 h', envioTxt: 'Entre 24 y 48 horas en todo México', stat: [48, ' h'], pago4: 'OXXO / SPEI', pagos: ['💳 Visa', '💳 Mastercard', 'Apple Pay', 'G Pay', '🏪 OXXO', '🏦 SPEI', 'PayPal'], pagoTxt: 'Tarjeta, Apple Pay, Google Pay, OXXO y transferencia SPEI', fact: 'Facturación (CFDI) disponible', rc: ['Monterrey', 'Guadalajara', 'CDMX'], clientes: ['Carlos · Monterrey', 'Valentina · Guadalajara', 'Luis · CDMX', 'Camila · Puebla', 'Sofía · Querétaro'], promo: '🚚 Envío gratis a todo México en tu primer pedido · Recíbelo en 24–48 h' },
+    COP: { lang: 'es-CO', pais: 'Colombia', dir: 'Cra. 13 #85-32, Chicó, Bogotá', tel: '+57 601 123 4567', tld: '.com.co', hora: 'Lun a Sáb · 9:00–19:00 (hora Bogotá)', envio: '24–72 h', envioTxt: 'Entre 24 y 72 horas en las principales ciudades de Colombia', stat: [48, ' h'], pago4: 'PSE / Nequi', pagos: ['💳 Visa', '💳 Mastercard', 'G Pay', '🏦 PSE', 'Nequi', 'Efecty', 'PayPal'], pagoTxt: 'Tarjeta, Google Pay, PSE, Nequi y Efecty', fact: 'Factura electrónica disponible', rc: ['Bogotá', 'Medellín', 'Cali'], clientes: ['Valentina · Bogotá', 'Camila · Medellín', 'Andrés · Cali', 'Laura · Barranquilla', 'Sebastián · Bucaramanga'], promo: '🚚 Envío gratis a toda Colombia en tu primer pedido · Recíbelo en 24–72 h' },
+    USD: { lang: 'es-US', pais: 'Estados Unidos', dir: '1200 Brickell Ave, Miami, FL 33131', tel: '+1 (305) 555-0142', tld: '.com', hora: 'Lun a Sáb · 9:00–19:00 (hora del Este)', envio: '2–4 días hábiles', envioTxt: 'Entre 2 y 4 días hábiles a todo Estados Unidos', stat: [3, ' días'], pago4: 'PayPal / Zelle', pagos: ['💳 Visa', '💳 Mastercard', 'Apple Pay', 'G Pay', 'PayPal', 'Zelle', '🏦 ACH'], pagoTxt: 'Tarjeta, Apple Pay, Google Pay, PayPal y Zelle', fact: 'Recibo por correo incluido', rc: ['Houston', 'Miami', 'Los Ángeles'], clientes: ['Michael · Houston', 'Ashley · Miami', 'Daniel · Los Ángeles', 'Jessica · Nueva York', 'Chris · Chicago'], promo: '🚚 Envío gratis en todo EE. UU. en tu primer pedido · Recíbelo en 2–4 días hábiles' },
+    EUR: { lang: 'es-ES', pais: 'España', dir: 'Calle Gran Vía 28, 28013 Madrid', tel: '+34 91 123 45 67', tld: '.es', hora: 'Lun a Sáb · 9:00–19:00 (hora peninsular)', envio: '24–72 h', envioTxt: 'Entre 24 y 72 horas en España peninsular', stat: [48, ' h'], pago4: 'Bizum / SEPA', pagos: ['💳 Visa', '💳 Mastercard', 'Apple Pay', 'G Pay', 'Bizum', '🏦 SEPA', 'PayPal'], pagoTxt: 'Tarjeta, Apple Pay, Google Pay, Bizum y transferencia SEPA', fact: 'Factura con IVA incluido', rc: ['Madrid', 'Barcelona', 'Valencia'], clientes: ['Carlos · Madrid', 'Lucía · Barcelona', 'Pablo · Valencia', 'Marta · Sevilla', 'Javier · Bilbao'], promo: '🚚 Envío gratis en España peninsular en tu primer pedido · Recíbelo en 24–72 h' }
+  }[cc];
+  const ct = CT;
+  function money(n) {
+    return new Intl.NumberFormat(loc, { style: 'currency', currency: cc, maximumFractionDigits: cc === 'MXN' || cc === 'COP' ? 0 : 2, minimumFractionDigits: n % 1 ? 2 : 0 }).format(n) + (cc === 'EUR' ? '' : ' ' + cc);
+  }
+  const PR = { MXN: [890, 1190, 1690], COP: [199000, 269000, 379000], USD: [49, 65, 92], EUR: [45, 59, 85] };
+  const pr0 = parsePrice(text('precio', D.precio));
+  const precio = pr0 ? money(pr0.num) : text('precio', D.precio);
+  const hex = (v, d) => { v = (v || '').replace('#', '').trim(); if (!/^([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v)) v = d; return v.length === 3 ? [...v].map(c => c + c).join('') : v; };
+  const ink = h => { const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.62 ? '#111827' : '#ffffff'; };
+  const color = hex(q.get('color') || D.color, '0F766E');
+  const btn = hex(q.get('btn') || D.btn, color);
+  const root = document.documentElement.style;
+  const bg = hex(q.get('fondo') || D.fondo, '09090b');
+  root.setProperty('--bg', '#' + bg); root.setProperty('--fg', ink(bg) === '#ffffff' ? '#fafafa' : '#18181b');
+  root.setProperty('--primary-color', '#' + color);
+  root.setProperty('--on-primary', ink(color));
+  root.setProperty('--btn-color', '#' + btn);
+  root.setProperty('--on-btn', ink(btn));
+  const promo = text('promo', D.promo || ct.promo);
+  if (promo) $('#topbar').textContent = promo;
+
+  document.title = marca + ' | Tienda oficial';
+  $$('[data-marca]').forEach(e => e.textContent = marca);
+  $$('[data-producto]').forEach(e => e.textContent = producto);
+  $$('[data-precio]').forEach(e => e.textContent = precio);
+  $$('[data-img-prod]').forEach(e => { e.src = imgProd; e.alt = producto; });
+  $('#avatar').textContent = marca.charAt(0).toUpperCase();
+  if (logo) {
+    const l = $('#logo');
+    l.src = logo; l.alt = marca;
+    l.onload = () => { l.classList.remove('hidden'); $('#brandText').classList.add('hidden'); };
+  }
+
+  // ---------- Precios ----------
+  function parsePrice(s) {
+    const m = s.match(/\d[\d.,\s]*\d|\d/);
+    if (!m) return null;
+    const raw = m[0].replace(/\s/g, '');
+    const sep = Math.max(raw.lastIndexOf(','), raw.lastIndexOf('.'));
+    let dec = 0, num;
+    if (sep > -1 && raw.length - sep - 1 !== 3) {
+      dec = raw.length - sep - 1;
+      num = parseFloat(raw.slice(0, sep).replace(/[.,]/g, '') + '.' + raw.slice(sep + 1));
+    } else num = parseFloat(raw.replace(/[.,]/g, ''));
+    return { pre: s.slice(0, m.index), suf: s.slice(m.index + m[0].length), num, dec };
+  }
+  const fmt = (p, n) => money(n);
+  const pp = parsePrice(precio);
+  const discounted = pp ? fmt(pp, pp.num * 0.9) : precio;
+
+  // ---------- Cuadrícula de productos ----------
+  const P = [
+    { n: producto, p: precio, i: imgProd, tag: 'Más vendido' },
+    { n: 'Mochila Daily Carry', p: money(PR[cc][0]), i: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80' },
+    { n: 'Audífonos Wave', p: money(PR[cc][1]), i: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80' },
+    { n: 'Reloj Minimal', p: money(PR[cc][2]), i: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80' }
+  ];
+  $('#grid').innerHTML = P.map((x, k) => `
+    <article data-card="${k}" class="card surf border ${k ? 'line' : 'border-p'} rounded-3xl overflow-hidden flex flex-col">
+      <div class="relative overflow-hidden">
+        <img src="${esc(x.i)}" alt="${esc(x.n)}" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-500 hover:scale-105 bg-zinc-800">
+        ${x.tag ? `<span class="absolute top-3 left-3 bg-p text-xs font-bold rounded-full px-3 py-1">${x.tag}</span>` : ''}
+        <button type="button" data-heart aria-pressed="false" aria-label="Guardar en favoritos" class="heart absolute top-3 right-3 w-9 h-9 rounded-full glass text-lg">♡</button>
+      </div>
+      <div class="p-4 flex flex-col flex-1">
+        <p class="text-xs text-amber-400">★★★★★ <span class="muted">${['4.9', '4.8', '4.7', '4.9'][k]} (${[312, 184, 226, 97][k]})</span></p>
+        <h3 class="font-bold text-sm md:text-base leading-snug mt-1">${esc(x.n)}</h3>
+        <p class="text-lg font-extrabold mt-1">${esc(x.p)}</p>
+        <button data-item="${k}" class="btn-p mt-4 rounded-full py-3 text-sm font-bold w-full">Comprar en 1 clic</button>
+      </div>
+    </article>`).join('');
+  $('#grid').addEventListener('click', e => {
+    const b = e.target.closest('[data-item]');
+    if (b) openCart(P[b.dataset.item]);
+  });
+
+  // ---------- Buscador predictivo simulado ----------
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const KW = ['oferta destacado mas vendido top estrella nuevo', 'mochila bolso bolsa maleta laptop viaje escuela trabajo', 'audifonos audio musica auriculares sonido bluetooth headphones', 'reloj watch hora smartwatch pulsera accesorio'];
+  const CAT = ['Más vendido', 'Mochilas', 'Audio', 'Accesorios'];
+  P.forEach((x, k) => { x.kw = norm(x.n + ' ' + KW[k]); });
+  const lev = (a, b) => { const d = Array.from({ length: a.length + 1 }, (_, i) => [i]); for (let j = 1; j <= b.length; j++) d[0][j] = j; for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[a.length][b.length]; };
+  function score(x, v) {
+    const toks = v.split(/\s+/).filter(Boolean), words = x.kw.split(/\s+/); let s = 0;
+    for (const t of toks) {
+      if (words.some(w => w.startsWith(t))) s += 3;
+      else if (x.kw.includes(t)) s += 2;
+      else if (t.length > 3 && words.some(w => lev(t, w.slice(0, t.length)) <= 1)) s += 1;
+      else return 0;
+    }
+    return s || 1;
+  }
+  const hl = (n, raw) => { const t = norm(raw).split(/\s+/)[0], i = t ? norm(n).indexOf(t) : -1; return i < 0 ? esc(n) : esc(n.slice(0, i)) + '<mark class="bg-transparent text-p font-extrabold">' + esc(n.slice(i, i + t.length)) + '</mark>' + esc(n.slice(i + t.length)); };
+  const qi = $('#q'), sug = $('#sug');
+  let recent = [], act = -1;
+  const paint = items => items.forEach((b, i) => b.classList.toggle('bg-stone-100', i === act));
+  function suggest() {
+    const raw = qi.value.trim(), v = norm(raw); act = -1;
+    const hits = P.map((x, k) => [x, k, v ? score(x, v) : 1]).filter(h => h[2] > 0).sort((a, b) => b[2] - a[2]);
+    let h = '<li class="px-4 pt-2.5 pb-1 text-[11px] text-stone-400 font-semibold">🤖 Búsqueda inteligente</li>';
+    if (!v) {
+      h += `<li class="px-4 py-2 flex flex-wrap gap-1.5">${['audífonos', 'mochila', 'reloj', 'oferta'].map(t => `<button type="button" data-t="${t}" class="px-3 py-1 rounded-full bg-stone-100 text-xs font-semibold hover:bg-stone-200">🔥 ${t}</button>`).join('')}</li>`;
+      if (recent.length) h += '<li class="px-4 pt-1 pb-1 text-[11px] text-stone-400 font-semibold">Recientes</li>' + recent.map(t => `<li><button type="button" data-t="${esc(t)}" class="w-full text-left px-4 py-1.5 hover:bg-stone-100 text-stone-600">🕘 ${esc(t)}</button></li>`).join('');
+    }
+    h += hits.length ? hits.map(([x, k]) => `<li><button type="button" data-i data-k="${k}" class="w-full flex items-center gap-3 text-left px-4 py-2 hover:bg-stone-100"><img src="${esc(x.i)}" alt="" class="w-10 h-10 rounded-lg object-cover bg-stone-200"><span class="flex-1 min-w-0"><span class="block font-semibold truncate">${hl(x.n, raw)}</span><span class="block text-xs text-stone-500">${esc(x.p)} · ${CAT[k]}</span></span><span data-q="${k}" role="button" title="Comprar en 1 clic" class="px-2.5 py-1 rounded-full bg-p text-xs font-bold">⚡</span></button></li>`).join('')
+      : `<li class="px-4 py-3 text-stone-500">Sin resultados para «${esc(raw)}». Prueba con «audífonos» o «mochila».</li>`;
+    if (v) h += `<li><button type="button" data-i data-ai class="w-full text-left px-4 py-2.5 border-t border-stone-100 hover:bg-stone-100 font-semibold">🤖 Preguntar al asistente: <span class="text-p">«${esc(raw)}»</span></button></li>`;
+    sug.innerHTML = h; sug.classList.remove('hidden');
+  }
+  function go(k) {
+    const flash = () => { const c = document.querySelector('[data-card="' + k + '"]'); if (c) { c.classList.add('flash'); setTimeout(() => c.classList.remove('flash'), 1900); } };
+    if (location.hash === '#productos') $('#productos').scrollIntoView({ behavior: 'smooth' }); else location.hash = 'productos';
+    setTimeout(flash, 650);
+  }
+  qi.addEventListener('input', suggest);
+  qi.addEventListener('focus', suggest);
+  qi.addEventListener('keydown', e => {
+    const items = [...sug.querySelectorAll('[data-i]')];
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (items.length) { act = (act + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length; paint(items); } }
+    else if (e.key === 'Enter') { e.preventDefault(); const it = items[act] || items[0]; if (it) it.click(); }
+    else if (e.key === 'Escape') { sug.classList.add('hidden'); qi.blur(); }
+  });
+  sug.addEventListener('click', e => {
+    const t = e.target.closest('[data-t]');
+    if (t) { qi.value = t.dataset.t; suggest(); qi.focus(); return; }
+    if (e.target.closest('[data-ai]')) { sug.classList.add('hidden'); ask(qi.value.trim()); return; }
+    const qb = e.target.closest('[data-q]');
+    if (qb) { sug.classList.add('hidden'); openCart(P[qb.dataset.q]); return; }
+    const b = e.target.closest('[data-k]');
+    if (!b) return;
+    const k = +b.dataset.k, raw = qi.value.trim();
+    if (raw && !recent.includes(raw)) recent = [raw, ...recent].slice(0, 3);
+    qi.value = P[k].n; sug.classList.add('hidden'); go(k);
+  });
+  const PH = ['Buscar con IA…', 'Prueba: «audífonos»', 'Prueba: «mochila para laptop»', 'Prueba: «reloj»']; let pi = 0;
+  setInterval(() => { if (document.activeElement !== qi && !qi.value) qi.placeholder = PH[pi = (pi + 1) % PH.length]; }, 3000);
+  document.addEventListener('keydown', e => { if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); qi.focus(); } });
+  document.addEventListener('click', e => { if (!e.target.closest('#q, #sug')) sug.classList.add('hidden'); });
+
+  // ---------- Slide cart ----------
+  const cart = $('#cart'), overlay = $('#overlay');
+  function openCart(item, disc) {
+    const p = parsePrice(item.p);
+    const base = p ? p.num : 0, tot = disc ? base * 0.9 : base;
+    $('#cImg').src = item.i; $('#cImg').alt = item.n;
+    $('#cName').textContent = item.n;
+    $('#cPrice').textContent = item.p;
+    $('#sSub').textContent = item.p;
+    $('#sDiscRow').classList.toggle('hidden', !disc);
+    $('#sDisc').textContent = p ? '−' + fmt(p, base - tot) : '−10%';
+    const total = p ? fmt(p, tot) : item.p;
+    $('#sTotal').textContent = total;
+    $('#payBtn').textContent = 'Pagar ' + total;
+    $('#checkout').classList.remove('hidden');
+    $('#done').classList.add('hidden'); $('#done').classList.remove('flex');
+    $('#cartCount').classList.remove('hidden');
+    overlay.classList.remove('hidden');
+    cart.classList.remove('translate-x-full'); cart.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    cart.classList.add('translate-x-full'); cart.setAttribute('aria-hidden', 'true');
+    overlay.classList.add('hidden'); document.body.style.overflow = '';
+  }
+  $$('[data-buy]').forEach(b => b.addEventListener('click', () => openCart(P[0])));
+  $('#cartBtn').addEventListener('click', () => openCart(P[0]));
+  $('#cartClose').addEventListener('click', closeCart);
+  $('#doneClose').addEventListener('click', closeCart);
+  overlay.addEventListener('click', closeCart);
+  $$('.pay-opt').forEach(b => b.addEventListener('click', () => {
+    $$('.pay-opt').forEach(o => o.setAttribute('aria-pressed', 'false'));
+    b.setAttribute('aria-pressed', 'true');
+  }));
+  $('#checkout').addEventListener('submit', e => {
+    e.preventDefault();
+    $('#checkout').classList.add('hidden');
+    $('#done').classList.remove('hidden'); $('#done').classList.add('flex');
+  });
+
+  // ---------- Chat de IA ----------
+  const chat = $('#chat'), msgs = $('#msgs'), notif = $('#notif'), bubble = $('#bubble');
+  let greeted = false, awaiting = '';
+  const used = new Set();
+  const rich = str => {
+    const f = document.createDocumentFragment();
+    str.split('**').forEach((t, i) => { if (i % 2) { const s = document.createElement('strong'); s.textContent = t; f.append(s); } else f.append(t); });
+    return f;
+  };
+  const scroll = () => msgs.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
+  function bot(content, wide) {
+    const d = document.createElement('div');
+    d.className = (wide ? 'w-full ' : 'max-w-[88%] ') + 'bg-white border border-stone-200 rounded-2xl rounded-bl-sm px-3.5 py-2.5 leading-relaxed msg-in';
+    d.append(content);
+    const tm = document.createElement('span'); tm.className = 'block text-[10px] text-stone-400 text-right mt-1';
+    tm.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); d.append(tm);
+    msgs.append(d); scroll(); return d;
+  }
+  function user(t) {
+    const d = document.createElement('div');
+    d.className = 'max-w-[88%] ml-auto bg-p rounded-2xl rounded-br-sm px-3.5 py-2.5 msg-in';
+    d.textContent = t; msgs.append(d); scroll();
+  }
+  function typing(cb, ms) {
+    const d = document.createElement('div');
+    d.className = 'w-fit bg-white border border-stone-200 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1';
+    d.innerHTML = '<span class="dot w-2 h-2 rounded-full bg-stone-400"></span><span class="dot w-2 h-2 rounded-full bg-stone-400"></span><span class="dot w-2 h-2 rounded-full bg-stone-400"></span>';
+    msgs.append(d); scroll();
+    setTimeout(() => { d.remove(); cb(); }, ms || 1000);
+  }
+  const card = (html, on) => { const c = document.createElement('div'); c.innerHTML = html; if (on) c.addEventListener('click', on); return bot(c, true); };
+  const say = (t, then) => typing(() => { bot(rich(t)); (then || menu)(); });
+  const OPT = {
+    pay: ['✅ Sí, generar link de pago', () => typing(payCard)],
+    order: ['📦 Ver estado de mi pedido', orderAsk],
+    price: ['💰 Precio y envío', () => say(`**${producto}** cuesta **${precio}** y el **envío es gratis**. Llega en ${ct.envio}.`)],
+    prods: ['🛍️ Ver productos', () => typing(carousel)],
+    methods: ['💳 Formas de pago', () => typing(methods)],
+    reviews: ['⭐ Ver reseñas', () => typing(reviews)],
+    human: ['🧑‍💼 Hablar con una persona', () => typing(handoff, 1200)]
+  };
+  function chips(items) {
+    const w = document.createElement('div');
+    w.className = 'flex flex-wrap gap-2 items-start msg-in';
+    items.forEach(it => {
+      const b = document.createElement('button');
+      b.className = 'border border-p text-p rounded-full px-3.5 py-2 font-semibold bg-white hover:bg-stone-100 text-left text-[13px]';
+      b.textContent = it.label;
+      b.addEventListener('click', () => { w.remove(); if (it.id) used.add(it.id); user(it.label); it.fn(); });
+      w.append(b);
+    });
+    msgs.append(w); scroll();
+  }
+  function menu() {
+    const ids = Object.keys(OPT).filter(k => !used.has(k));
+    chips(ids.length ? ids.map(id => ({ id, label: OPT[id][0], fn: OPT[id][1] })) : [{ label: '↺ Empezar de nuevo', fn: start }]);
+  }
+  function payCard() {
+    card(`
+      <p class="mb-2">¡Listo! Apliqué tu <strong>10% de descuento</strong>. Este es tu resumen:</p>
+      <div class="border border-stone-200 rounded-xl overflow-hidden">
+        <div class="flex gap-3 p-3 items-center">
+          <img src="${esc(imgProd)}" alt="" class="w-14 h-14 rounded-lg object-cover bg-stone-200">
+          <div class="min-w-0"><p class="font-bold truncate">${esc(producto)}</p><p class="text-xs text-stone-500">1 unidad · Envío gratis</p></div>
+        </div>
+        <div class="px-3 pb-3 flex items-baseline gap-2">
+          <span class="text-stone-400 line-through text-sm">${esc(precio)}</span>
+          <span class="text-xl font-extrabold">${esc(discounted)}</span>
+          <span class="bg-p text-xs font-bold rounded-full px-2 py-0.5">-10%</span>
+        </div>
+        <button class="btn-p w-full py-3 font-bold" data-pay>Pagar ahora en 1 clic</button>
+      </div>`, e => { if (e.target.closest('[data-pay]')) { closeChat(); openCart({ n: producto, p: precio, i: imgProd }, true); } });
+    setTimeout(menu, 500);
+  }
+  function orderAsk() {
+    awaiting = 'order';
+    typing(() => { bot(rich('Con gusto 📦 Compárteme tu **número de pedido** y te muestro el estado al instante.')); chips([{ label: 'Usar #1047 (ejemplo)', fn: () => track('1047') }]); });
+  }
+  function track(n) {
+    awaiting = '';
+    typing(() => {
+      card(`<p class="mb-2">Pedido <b>#${esc(n)}</b> 🚚</p><ol class="space-y-1.5 text-sm"><li>✅ Confirmado <span class="text-stone-400">· hoy 10:12</span></li><li>✅ Preparado</li><li class="font-bold text-p">🚚 En camino · llega mañana</li><li class="text-stone-400">⏳ Entregado</li></ol><div class="h-1.5 bg-stone-200 rounded mt-3 overflow-hidden"><div class="h-full glow" style="width:66%"></div></div>`);
+      setTimeout(menu, 500);
+    });
+  }
+  function carousel() {
+    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-cover bg-stone-200"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
+      e => { const b = e.target.closest('[data-k]'); if (b) { closeChat(); openCart(P[b.dataset.k]); } });
+    setTimeout(menu, 500);
+  }
+  function methods() {
+    card('<p class="mb-2">Paga como prefieras:</p><div class="grid grid-cols-2 gap-1.5 text-xs font-semibold">' + ct.pagos.slice(0, 6).map(p => `<span class="border border-stone-200 rounded-lg px-2 py-1.5">${esc(p)}</span>`).join('') + '</div><button data-go class="btn-p w-full rounded-full py-2 mt-3 text-sm font-bold">Pagar ahora</button>',
+      e => { if (e.target.closest('[data-go]')) { closeChat(); openCart(P[0]); } });
+    setTimeout(menu, 500);
+  }
+  function reviews() {
+    card('<p class="text-amber-500 text-sm">★★★★★ <span class="text-stone-500">4.9 · +2,300 clientes</span></p><p class="mt-1 text-sm italic">“Llegó en dos días y es justo como en las fotos.”</p><button data-go class="border border-p text-p w-full rounded-full py-2 mt-3 text-sm font-bold">Ver todas las reseñas</button>',
+      e => { if (e.target.closest('[data-go]')) { closeChat(); location.hash = 'resenas'; } });
+    setTimeout(menu, 500);
+  }
+  function handoff() {
+    bot(rich('Claro, te conecto con una persona del equipo 🧑‍💼'));
+    typing(() => { card('<div class="flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold">S</span><div><p class="font-bold text-sm">Sofía se unió al chat</p><p class="text-xs text-stone-500"><span class="text-emerald-600">●</span> En línea · responde en ~2 min</p></div></div><p class="text-xs text-stone-500 mt-2">Verá todo el historial, no tendrás que repetir nada.</p>'); setTimeout(menu, 500); }, 1400);
+  }
+  function respond(t) {
+    const x = t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (awaiting === 'order' && /\d/.test(x)) return track(x.replace(/\D/g, '').slice(0, 8));
+    if (/^\d{3,}$/.test(x.trim())) return track(x.trim());
+    if (/precio|cuesta|cuanto|costo|valor/.test(x)) return OPT.price[1]();
+    if (/envio|entrega|llega|tarda|demora/.test(x)) return say(`El **envío es gratis** y llega en **${ct.envio}**. Te mando el seguimiento por WhatsApp. 🚚`);
+    if (/pago|pagar|tarjeta|oxxo|transfer|apple|google|paypal/.test(x)) return typing(methods);
+    if (/descuento|cupon|oferta|promo|rebaja/.test(x)) return typing(payCard);
+    if (/pedido|rastre|seguimiento|orden|guia/.test(x)) return orderAsk();
+    if (/humano|persona|agente|asesor|alguien/.test(x)) return typing(handoff, 1200);
+    if (/garantia|devol|cambio|reembolso/.test(x)) return say('Tienes **30 días de garantía** y devolución sin preguntas. 🛡️');
+    if (/resena|opinion|calidad|confia/.test(x)) return typing(reviews);
+    if (/producto|catalogo|recomien|mostrar|que tienen|audifon|mochila|reloj/.test(x)) return typing(carousel);
+    if (/^(hola|buenas|hey|buen dia|buenos)/.test(x)) return say(`¡Hola! 👋 ¿Te ayudo con **${producto}** o prefieres ver otras opciones?`);
+    say('Puedo ayudarte con **precio, envío, pagos, tu pedido** o recomendarte productos. Elige una opción 👇');
+  }
+  function start() {
+    msgs.innerHTML = ''; used.clear(); awaiting = '';
+    bot(rich(`¡Hola! 👋 Soy el asistente con IA de **${marca}**. Veo que estás revisando **${producto}**. Me quedan solo 3 unidades en inventario a **${precio}**. ¿Quieres que te aplique un 10% de descuento y te genere el link de pago directo por aquí?`));
+    chips(['pay', 'order', 'price', 'prods', 'methods', 'human'].map(id => ({ id, label: OPT[id][0], fn: OPT[id][1] })));
+  }
+  function ask(t) { openChat(); if (!t) return; user(t); respond(t); }
+  function openChat(auto) {
+    chat.classList.remove('hidden'); chat.classList.add('flex');
+    notif.classList.add('hidden'); bubble.classList.add('hidden');
+    if (!greeted) { greeted = true; start(); }
+    if (!auto) document.dispatchEvent(new Event('chat:open'));
+    $('#chatIn').focus({ preventScroll: true });
+  }
+  function closeChat() { chat.classList.add('hidden'); chat.classList.remove('flex'); }
+  $('#fab').addEventListener('click', () => chat.classList.contains('hidden') ? openChat() : closeChat());
+  $('#chatClose').addEventListener('click', closeChat);
+  $('#chatReset').addEventListener('click', start);
+  $('#chatForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#chatIn').value.trim();
+    if (!v) return;
+    $('#chatIn').value = ''; user(v); respond(v);
+  });
+  if (matchMedia('(min-width:768px)').matches) setTimeout(() => openChat(true), 700);
+  setTimeout(() => {
+    if (chat.classList.contains('hidden')) { notif.classList.remove('hidden'); bubble.classList.remove('hidden'); }
+  }, 3000);
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCart(); closeChat(); } });
+  function localize() {
+    document.documentElement.lang = ct.lang;
+    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    $('#payChips').innerHTML = ct.pagos.map(p => `<span class="glass rounded-full px-4 py-2">${esc(p)}</span>`).join('');
+    set('#payNote', '🔒 Pago cifrado · Compra protegida · ' + ct.fact);
+    set('#faqEnvio', ct.envioTxt + '. El envío es gratis en tu primer pedido.');
+    set('#faqPago', ct.pagoTxt + '.');
+    set('#pasoEnvio', 'Recíbelo en ' + ct.envio);
+    const st = $('#stEnvio'); st.dataset.count = ct.stat[0]; st.dataset.suf = ct.stat[1];
+    $$('[data-pl]').forEach(e => { e.textContent = ct.pago4; });
+    $$('[data-rc]').forEach((e, i) => { e.textContent = 'Compra verificada · ' + ct.rc[i]; });
+    const slug = marca.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '') || 'tutienda';
+    set('#ctDir', '📍 ' + text('dir', ct.dir));
+    set('#ctTel', '📞 ' + text('tel', ct.tel));
+    set('#ctMail', '✉️ hola@' + slug + ct.tld);
+    set('#ctHora', '🕘 ' + ct.hora);
+  }
+  localize();
+  window.BR = { marca, producto, precio, money, num: pr0 ? pr0.num : 1450, P, openCart, openChat, ct };
+})();
+</script>
+<script>
+(() => {
+  const B = window.BR, $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+  const { marca, producto, money, num } = B;
+  const views = ['tienda', 'panel', 'flujo'];
+
+  // ---------- Menú / rutas (todo en un solo archivo) ----------
+  function route() {
+    const h = location.hash.slice(1), v = views.includes(h) ? h : 'tienda';
+    views.forEach(n => $('#v-' + n).classList.toggle('on', n === v));
+    document.body.dataset.view = v;
+    $$('[data-nav]').forEach(a => a.setAttribute('aria-current', a.dataset.nav === v ? 'page' : 'false'));
+    const el = v === 'tienda' && h ? document.getElementById(h) : null;
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth' })); else scrollTo(0, 0);
+  }
+  addEventListener('hashchange', route); route();
+
+  // ---------- Panel del asistente ----------
+  const body = $('#pBody');
+  const T = { res: 'Lo que ha hecho el asistente por ' + marca + '.', conv: 'Todos los chats de WhatsApp, atendidos por el asistente o por tu equipo.', tk: 'Casos que necesitan a una persona del equipo.', kb: 'Los documentos con los que el asistente responde.' };
+  const tabs = [['res', 'Resumen'], ['conv', 'Conversaciones'], ['tk', 'Tickets y escalado'], ['kb', 'Base de conocimiento']];
+  $('#ptabs').innerHTML = tabs.map(([k, l]) => `<button class="nv" data-tab="${k}">${l}</button>`).join('');
+  const SN = { open: 'Abierta', human: 'Con persona', closed: 'Cerrada' };
+  const tg = (c, l) => `<span class="tag t-${c}">${l}</span>`;
+  let tab = 'res';
+  function setTab(k) {
+    tab = k;
+    $$('[data-tab]').forEach(b => b.setAttribute('aria-current', b.dataset.tab === k ? 'page' : 'false'));
+    $('#pSub').textContent = T[k]; $('#rg').classList.toggle('hidden', k !== 'res');
+    ({ res, conv, tk, kb })[k](true);
+  }
+  const K = [['Conversaciones atendidas', [118, 412, 1190]], ['Fuera de horario', [36, 38, 37], ' %'], ['Pedidos cerrados por el asistente', [16, 57, 163]], ['Carritos recuperados', [5, 19, 54]], ['Ventas del asistente', [16, 57, 163], 'm'], ['Pasadas a una persona', [9, 31, 88]]];
+  const HR = [9, 5, 3, 2, 2, 4, 6, 10, 18, 24, 28, 30, 26, 22, 20, 24, 27, 29, 31, 38, 46, 52, 40, 22];
+  const FN = [['Mensajes recibidos', 100], ['Recomendación enviada', 72], ['Pedido iniciado', 38], ['Pago completado', 21]];
+  function res() {
+    const r = +$('#rg').value;
+    const rows = [['Laia S.', producto, 1, 'Pagado', 'open'], ['Pau R.', B.P[2].n, .82, 'Respondió', 'human'], ['Nuria C.', producto + ' · 2 uds', 2, 'Pagado', 'open'], ['Eric T.', B.P[3].n, 1.17, 'Mensaje enviado', 'closed']];
+    body.innerHTML = `<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">${K.map(k => `<div class="card2"><b class="block text-2xl md:text-3xl font-extrabold">${k[2] === 'm' ? money(Math.round(k[1][r] * num)) : k[1][r].toLocaleString('es-ES') + (k[2] || '')}</b><span class="muted text-xs">${k[0]}</span></div>`).join('')}</div>
+    <div class="grid lg:grid-cols-[1.4fr_1fr] gap-4 mb-4">
+      <div class="card2"><h3 class="font-bold mb-3">Conversaciones por hora del día</h3><div class="flex items-end gap-1 h-40">${HR.map((v, h) => `<i class="flex-1 rounded-t ${h < 9 || h >= 21 ? 'nt' : 'dy'}" style="height:${v * 2.6}px" title="${h}h: ${v}"></i>`).join('')}</div><div class="flex justify-between muted text-[11px] mt-1"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span></div><p class="muted text-xs mt-2">En naranja: con la tienda cerrada. Aquí es donde el asistente trabaja solo.</p></div>
+      <div class="card2"><h3 class="font-bold mb-3">Del mensaje a la venta</h3>${FN.map(f => `<div class="mb-2"><div class="bg-p rounded px-3 py-1.5 text-xs whitespace-nowrap overflow-hidden" style="width:${f[1]}%">${f[0]} · ${f[1]} %</div></div>`).join('')}<p class="muted text-xs mt-3">Cifras de ejemplo, no son resultados reales.</p></div>
+    </div>
+    <div class="card2 overflow-x-auto"><h3 class="font-bold mb-3">Carritos recuperados</h3><table class="w-full text-sm min-w-[460px]"><thead class="muted text-xs text-left"><tr><th class="py-2">Cliente</th><th>Producto</th><th>Importe</th><th>Estado</th></tr></thead><tbody>${rows.map(x => `<tr class="border-t line"><td class="py-2.5">${x[0]}</td><td>${x[1]}</td><td>${money(Math.round(x[2] * num))}</td><td>${tg(x[4], x[3])}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  $('#rg').addEventListener('change', res);
+
+  let C = [
+    { n: 'Marta G.', s: 'open', t: '23:47', m: [['c', 'Hola, ¿qué es ' + marca + ' exactamente?'], ['a', 'Somos una tienda online con envío en 24–48 h. ¿Buscas algo en especial?'], ['c', 'Me interesa ' + producto], ['a', 'Hay stock y sale hoy mismo. ¿Te dejo el pedido listo con el link de pago?']] },
+    { n: 'Restaurante La Barca', s: 'human', t: '21:10', m: [['c', 'Queremos 24 unidades para el negocio, ¿hay precio por mayoreo?'], ['a', 'Es un pedido al por mayor. Lo paso a una persona del equipo para darte las condiciones.'], ['n', 'Conversación en manos del equipo']] },
+    { n: 'Jordi P.', s: 'closed', t: '18:32', m: [['c', 'Quiero ' + producto], ['a', 'Te dejo el pedido listo con el enlace de pago.'], ['c', 'Pagado, gracias'], ['a', 'Pedido #1047 confirmado. Te aviso con el seguimiento por aquí.']] },
+    { n: 'Laia S.', s: 'open', t: '19:10', m: [['a', 'Hola Laia, dejaste ' + producto + ' en tu carrito. Si lo terminas hoy, el envío corre de nuestra parte.'], ['c', 'Uy, se me olvidó. Lo termino ahora']] },
+    { n: 'Anna V.', s: 'human', t: '12:05', m: [['c', 'Mi pedido llegó con un daño'], ['a', 'Lamento lo ocurrido. Paso tu caso a una persona del equipo para solucionarlo hoy.'], ['n', 'Conversación en manos del equipo']] },
+    { n: 'David R.', s: 'closed', t: 'Ayer', m: [['c', '¿Cuánto tarda el envío?'], ['a', 'Entre 24 y 48 horas. ¿Quieres que te deje el pedido listo?'], ['c', 'Vale, gracias']] }];
+  let F = 'all', cur = 0, Q = '';
+  function conv(first) {
+    if (first) body.innerHTML = `<div class="grid md:grid-cols-[300px_1fr] gap-4"><div><div id="fl" class="flex flex-wrap gap-1.5 mb-3"></div><input id="cq" class="inp mb-3" placeholder="Buscar cliente o mensaje"><div id="ls" class="flex flex-col gap-1.5 max-h-72 md:max-h-[27rem] overflow-y-auto"></div></div><div id="dt" class="card2 !p-0 flex flex-col overflow-hidden min-h-[26rem]"></div></div>`;
+    const cnt = s => C.filter(c => c.s === s).length;
+    $('#fl').innerHTML = [['all', 'Todas'], ['open', 'Abiertas (' + cnt('open') + ')'], ['human', 'Con persona (' + cnt('human') + ')'], ['closed', 'Cerradas (' + cnt('closed') + ')']].map(f => `<button data-a="f:${f[0]}" class="nv glass ${F === f[0] ? '!bg-p' : ''} !py-1 !text-xs">${f[1]}</button>`).join('');
+    const L = C.map((c, i) => [c, i]).filter(([c]) => (F === 'all' || c.s === F) && (c.n + c.m.map(x => x[1]).join(' ')).toLowerCase().includes(Q));
+    $('#ls').innerHTML = L.map(([c, i]) => `<button data-a="c:${i}" class="text-left card2 !p-3 w-full ${i === cur ? '!border-p' : ''}"><b class="flex justify-between gap-2 text-sm">${c.n}${tg(c.s, SN[c.s])}</b><small class="muted block truncate mt-1">${c.m[c.m.length - 1][1]}</small></button>`).join('') || '<p class="muted text-sm">Sin resultados.</p>';
+    const c = C[cur], act = (s, l, cls) => `<button data-a="s:${s}" class="${cls} rounded-full px-4 py-1.5 text-xs font-bold">${l}</button>`;
+    $('#dt').innerHTML = `<div class="p-4 border-b line flex flex-wrap items-center justify-between gap-2"><div><b>${c.n}</b> ${tg(c.s, SN[c.s])}<br><small class="muted">WhatsApp · última actividad ${c.t}</small></div><div class="flex gap-2">${c.s === 'open' ? act('human', 'Tomar el control', 'btn-p') + act('closed', 'Cerrar', 'glass') : c.s === 'human' ? act('open', 'Devolver al asistente', 'glass') + act('closed', 'Cerrar', 'btn-p') : act('open', 'Reabrir', 'glass')}</div></div>
+    <div id="ms" class="flex-1 overflow-y-auto p-4 flex flex-col gap-2">${c.m.map(m => `<div class="mb m${m[0]}">${m[1]}${m[0] === 'n' ? '' : `<small class="block muted text-[11px]">${m[0] === 'c' ? c.n : m[0] === 'a' ? 'Asistente IA' : 'Tu equipo'}</small>`}</div>`).join('')}</div>
+    <div class="p-3 border-t line">${c.s === 'human' ? '<div class="flex gap-2"><input id="rp" class="inp" placeholder="Escribe como tu equipo…"><button data-a="send:" class="btn-p rounded-full px-5 text-sm font-bold">Enviar</button></div>' : `<small class="muted">${c.s === 'open' ? 'El asistente está atendiendo esta conversación.' : 'Conversación cerrada.'}</small>`}</div>`;
+    const ms = $('#ms'); ms.scrollTop = ms.scrollHeight;
+  }
+  let TK = [['Pedido al por mayor · 24 unidades', 'Restaurante La Barca', 'Alta', 0], ['Producto dañado en el envío', 'Anna V.', 'Alta', 1], ['Factura con datos de empresa', 'Jordi P.', 'Media', 0], ['Solicitud de demostración para un equipo', 'Hotel Mar', 'Media', 1], ['Cambio de dirección de envío', 'David R.', 'Baja', 2], ['Duda sobre materiales', 'Carlos M.', 'Baja', 2]];
+  const RL = ['Cuando el cliente pide hablar con una persona', 'Pedidos al por mayor o de más de 10 unidades', 'Quejas, devoluciones o producto dañado', 'Cuando el asistente no está seguro de la respuesta', 'Pagos con problemas o facturación especial'];
+  function tk(first) {
+    const CL = ['Nuevo', 'En curso', 'Resuelto'];
+    body.innerHTML = `<div class="grid md:grid-cols-3 gap-4">${CL.map((n, i) => `<div class="card2 !p-3 min-h-[12rem]"><h4 class="font-bold px-1 pb-3">${n} (${TK.filter(t => t[3] === i).length})</h4>${TK.map((t, j) => t[3] === i ? `<div class="surf border line rounded-xl p-3 mb-2 text-sm"><b>${t[0]}</b><small class="muted block my-1">${t[1]}</small>${tg(t[2] === 'Alta' ? 'alta' : 'closed', t[2])}${i < 2 ? `<button data-a="mv:${j}" class="glass rounded-full px-3 py-1 text-xs font-bold float-right">Mover →</button>` : ''}</div>` : '').join('')}</div>`).join('')}</div>
+    <div class="card2 mt-4"><h3 class="font-bold mb-2">Cuándo pasa el asistente a una persona</h3>${RL.map(r => `<label class="flex justify-between items-center py-2.5 border-b line text-sm last:border-0"><span>${r}</span><input type="checkbox" checked class="w-5 h-5" style="accent-color:var(--primary-color)"></label>`).join('')}</div>`;
+  }
+  let DC = [['Catálogo y fichas de producto', 'PDF', 'Indexado'], ['Política de envíos y devoluciones', 'Word', 'Indexado'], ['Preguntas frecuentes de clientes', 'Word', 'Indexado'], ['Guía de tallas y materiales', 'PDF', 'Indexado'], ['Relato de la marca ' + marca, 'PDF', 'Indexado']];
+  function kb() {
+    body.innerHTML = `<div class="grid md:grid-cols-[1fr_1.2fr] gap-4"><div class="card2"><h3 class="font-bold mb-3">Subir conocimiento</h3><label class="block border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer border-p"><b class="block text-lg">Arrastra o elige un archivo</b><span class="muted text-sm">PDF, Word, Excel o texto. El asistente lo aprende en minutos.</span><input type="file" id="fi" hidden></label><p class="muted text-xs mt-3">En esta demo el archivo no sale de tu navegador.</p></div>
+    <div class="card2"><h3 class="font-bold mb-3">Lo que el asistente sabe hoy</h3><table class="w-full text-sm"><tbody>${DC.map((d, i) => `<tr class="border-t line"><td class="py-2.5"><b>${d[0]}</b><br><small class="muted">${d[1]}</small></td><td>${d[2] === 'Indexado' ? tg('open', 'Indexado') : `<div class="h-1.5 rounded bg-white/10 overflow-hidden"><i class="block h-full dy" style="width:${d[2]}%"></i></div>`}</td><td class="text-right"><button data-a="rm:${i}" class="glass rounded-full px-3 py-1 text-xs font-bold">Quitar</button></td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  const send = () => { const v = $('#rp').value.trim(); if (!v) return; C[cur].m.push(['p', v]); conv(); $('#rp').focus(); };
+  body.addEventListener('click', e => {
+    const b = e.target.closest('[data-a]'); if (!b) return;
+    const [a, v] = b.dataset.a.split(':');
+    if (a === 'f') { F = v; conv(); }
+    else if (a === 'c') { cur = +v; conv(); }
+    else if (a === 's') { const c = C[cur]; if (v === 'human') { c.m.push(['n', 'Tu equipo ha tomado el control']); TK.unshift(['Conversación tomada por el equipo', c.n, 'Media', 0]); } if (v === 'open' && c.s === 'human') c.m.push(['n', 'Devuelta al asistente']); c.s = v; conv(); }
+    else if (a === 'send') send();
+    else if (a === 'mv') { TK[+v][3]++; tk(); }
+    else if (a === 'rm') { DC.splice(+v, 1); kb(); }
+  });
+  body.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'rp') send(); });
+  body.addEventListener('input', e => { if (e.target.id === 'cq') { Q = e.target.value.toLowerCase(); conv(); } });
+  body.addEventListener('change', e => {
+    if (e.target.id !== 'fi' || !e.target.files[0]) return;
+    const f = e.target.files[0], i = DC.push([f.name, (f.name.split('.').pop() || '').toUpperCase(), 0]) - 1; kb();
+    const t = setInterval(() => { if (!DC[i] || typeof DC[i][2] !== 'number') { clearInterval(t); return; } DC[i][2] += 20; if (DC[i][2] >= 100) DC[i][2] = 'Indexado'; if (tab === 'kb') kb(); }, 350);
+  });
+  $('#ptabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+  setTab('res');
+
+  // ---------- Flujo ----------
+  const N = { c: ['📱', 'Cliente', 'Escribe en WhatsApp'], a: ['💬', 'WhatsApp API', 'Cloud API de Meta'], w: ['🔗', 'Webhook', 'Recibe el mensaje'], o: ['🤖', 'Orquestador IA', 'Decide qué hacer'], s1: ['🛒', 'Tienda online', 'stock y precio'], s2: ['📚', 'Conocimiento', 'productos y políticas'], s3: ['🎧', 'Equipo', 'escala si hay duda'], s4: ['📊', 'Panel', 'registra chats y ventas'], r: ['✅', 'Respuesta + enlace de pago', 'vuelven al cliente por WhatsApp'] };
+  const nd = id => `<div class="fn2 ${['w', 'o', 's4'].includes(id) ? 'ai' : ''}" id="f-${id}" data-id="${id}"><span class="text-2xl">${N[id][0]}</span><b class="text-sm">${N[id][1]}</b><small class="muted text-xs">${N[id][2]}</small></div>`;
+  const ar = (id, t, v) => `<div class="fk" id="f-${id}"><span class="text-xs muted">${t}</span>${v ? '<span>↓</span>' : '<span class="hidden md:block">→</span><span class="md:hidden">↓</span>'}</div>`;
+  const fr = $('#flowRoot');
+  fr.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-2 items-stretch">${nd('c')}${ar('k1', 'envía')}${nd('a')}${ar('k2', 'reenvía')}${nd('w')}${ar('k3', 'entrega')}${nd('o')}</div>
+  <p class="text-center muted text-sm my-3">Para cada mensaje, el orquestador pregunta a:</p>${ar('kd', 'solicita y recibe', 1)}
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 my-2">${['s1', 's2', 's3', 's4'].map(nd).join('')}</div>${ar('kr', 'genera la respuesta', 1)}${nd('r')}`;
+  const steps = [
+    { n: ['c', 'a'], k: ['k1'], t: 'El cliente escribe en WhatsApp y el mensaje llega a la API oficial de Meta.' },
+    { n: ['a', 'w'], k: ['k2'], t: 'Meta reenvía el mensaje al webhook, la dirección segura que lo recibe.' },
+    { n: ['w', 'o'], k: ['k3'], t: 'El webhook entrega el mensaje al orquestador, el cerebro con IA.' },
+    { n: ['o', 's1', 's2'], k: ['kd'], t: 'El orquestador solicita datos: pregunta a la tienda por stock y precio, y al conocimiento por productos y políticas.' },
+    { n: ['s1', 's2', 'o'], k: ['kd'], t: 'La tienda y el conocimiento retornan lo que se pidió: hay stock y este producto encaja con lo que busca.' },
+    { n: ['o', 's3', 's4'], k: ['kd'], t: 'Si el caso es complejo, escala al equipo. Y el panel registra la conversación y la venta.' },
+    { n: ['o', 'r'], k: ['kr'], t: 'El orquestador genera la respuesta con el pedido listo y el enlace de pago.' },
+    { n: ['r', 'c'], k: [], t: 'La respuesta vuelve al cliente por WhatsApp y puede pagar en un toque.' }];
+  const info = { c: 'Cliente: cualquier persona que escribe al número de WhatsApp de ' + marca + '.', a: 'WhatsApp API: el canal oficial de Meta. Envía y recibe los mensajes con garantías.', w: 'Webhook: un punto de entrada seguro que avisa en tiempo real de cada mensaje nuevo.', o: 'Orquestador IA: entiende la pregunta, decide a quién consultar y redacta la respuesta con la voz de ' + marca + '.', s1: 'Tienda online: el orquestador solicita stock y precios, y recibe el enlace de pago.', s2: 'Conocimiento: productos, envíos y políticas cargados por ' + marca + '.', s3: 'Equipo: una persona toma el chat cuando el caso lo requiere, con todo el historial.', s4: 'Panel: chats atendidos, carritos recuperados y ventas del asistente.', r: 'Respuesta: el cliente recibe la recomendación y el enlace de pago directamente en WhatsApp.' };
+  let fcur = -1, timer = null;
+  const fclear = () => { fr.classList.remove('dim'); fr.querySelectorAll('.on').forEach(e => e.classList.remove('on')); };
+  const mark = ids => { fr.classList.add('dim'); ids.forEach(i => $('#f-' + i).classList.add('on')); };
+  function show(i) { fclear(); fcur = i; mark(steps[i].n.concat(steps[i].k)); $('#fCap').textContent = steps[i].t; $('#fCnt').textContent = 'Paso ' + (i + 1) + ' de ' + steps.length; }
+  function fstop() { if (timer) { clearInterval(timer); timer = null; } $('#fPlay').textContent = '▶ Reproducir'; }
+  $('#fPlay').addEventListener('click', () => {
+    if (timer) { fstop(); return; }
+    $('#fPlay').textContent = '⏸ Pausar'; if (fcur >= steps.length - 1) fcur = -1; show(++fcur);
+    timer = setInterval(() => { if (fcur >= steps.length - 1) { fstop(); return; } show(fcur + 1); }, 3200);
+  });
+  $('#fNext').addEventListener('click', () => { fstop(); show(Math.min(fcur + 1, steps.length - 1)); });
+  $('#fPrev').addEventListener('click', () => { fstop(); show(Math.max(fcur - 1, 0)); });
+  fr.addEventListener('click', e => { const n = e.target.closest('[data-id]'); if (!n) return; fstop(); fclear(); mark([n.dataset.id]); $('#fCap').textContent = info[n.dataset.id]; $('#fCnt').textContent = ''; });
+
+  // ---------- Extras de la tienda ----------
+  $('#grid').addEventListener('click', e => { const h = e.target.closest('[data-heart]'); if (!h) return; const on = h.getAttribute('aria-pressed') !== 'true'; h.setAttribute('aria-pressed', on); h.textContent = on ? '♥' : '♡'; });
+  $('#cform').addEventListener('submit', e => { e.preventDefault(); e.target.reset(); $('#cok').classList.remove('hidden'); });
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return; io.unobserve(en.target);
+    const el = en.target, to = +el.dataset.count, d = +(el.dataset.dec || 0), t0 = performance.now();
+    const tick = t => { const p = Math.min((t - t0) / 1200, 1); el.textContent = (to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) + (p === 1 ? (el.dataset.suf || '') : ''); if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }), { threshold: .4 });
+  $$('[data-count]').forEach(e => io.observe(e));
+  const up = $('#up'), pg = $('#pg');
+  addEventListener('scroll', () => {
+    const h = document.documentElement, far = scrollY > 600;
+    pg.style.width = (scrollY / ((h.scrollHeight - innerHeight) || 1) * 100) + '%';
+    up.classList.toggle('opacity-0', !far); up.classList.toggle('pointer-events-none', !far);
+  }, { passive: true });
+  up.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+</script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+  const q = new URLSearchParams(location.search), B = window.BR;
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const cloud = $('#tipCloud'), btn = $('#tipBtn'), els = [...$$('[data-tip]')];
+  const desk = () => matchMedia('(min-width:768px)').matches;
+  let on = q.get('consejos') !== '0', cur = '', ht, lock = 0, seenProg = false, tick = false, active = null;
+  btn.setAttribute('aria-pressed', on);
+
+  // La nube se coloca a la derecha, pegada al borde de la sección que explica
+  function place() {
+    if (!desk()) { cloud.style.left = cloud.style.top = ''; return; }
+    const w = cloud.offsetWidth, h = cloud.offsetHeight;
+    let top = 104, left = innerWidth - w - 16;
+    if (active) {
+      const r = active.getBoundingClientRect(), vt = Math.max(r.top, 110), vb = Math.min(r.bottom, innerHeight - 20);
+      top = Math.min(Math.max((vt + vb) / 2 - h / 2, 100), innerHeight - h - 20);
+      left = Math.max(16, Math.min(r.right + 24, innerWidth - w - 16));
+    }
+    cloud.style.top = top + 'px'; cloud.style.left = left + 'px';
+  }
+  function hide() { cloud.classList.add('opacity-0', 'scale-95'); if (active) active.classList.remove('tip-on'); active = null; }
+  function show(key, ico, title, desc, ms, el) {
+    if (!on || !['tienda', 'panel'].includes(document.body.dataset.view) || key === cur) return;
+    cur = key; lock = Date.now() + 2600; setTimeout(scan, 2700);
+    if (active) active.classList.remove('tip-on');
+    active = el || null; if (el) el.classList.add('tip-on');
+    cloud.classList.toggle('free', !el);
+    $('#tipE').textContent = ico; $('#tipT').textContent = title; $('#tipD').textContent = desc;
+    place(); cloud.classList.remove('opacity-0', 'scale-95'); clearTimeout(ht); ht = setTimeout(hide, ms || 6000);
+  }
+  function scan() {
+    tick = false;
+    if (document.body.dataset.view !== 'tienda') return;
+    if (Date.now() < lock) return;
+    if (scrollY > 120 && !seenProg) { seenProg = true; show('prog', '📈', 'Barra de progreso', 'Muestra cuánto falta y guía la lectura', 4200); return; }
+    const y = innerHeight * .45;
+    const el = els.find(e => { const r = e.getBoundingClientRect(); return r.top <= y && r.bottom >= y; });
+    if (!el) { cur = ''; return; }
+    const [t, d] = el.dataset.tip.split('|'), [ico, ...w] = t.split(' ');
+    show(el.id || t, ico, w.join(' '), d, 6000, el);
+  }
+  addEventListener('scroll', () => { if (active) place(); if (!tick) { tick = true; requestAnimationFrame(scan); } }, { passive: true });
+  addEventListener('resize', () => { if (active) place(); });
+  // Consejos del panel (una nubecita por pestaña)
+  const PT = {
+    res: ['📈', 'Resumen', 'Ves cuánto vende y ahorra el asistente'],
+    conv: ['💬', 'Conversaciones', 'Toma el control de un chat cuando quieras'],
+    tk: ['🎫', 'Tickets y escalado', 'Lo delicado pasa a tu equipo sin perderse'],
+    kb: ['📚', 'Base de conocimiento', 'Sube documentos y el asistente aprende']
+  };
+  const panelTip = (k, ms) => { const t = PT[k]; if (t) show('panel-' + k, t[0], t[1], t[2], ms || 5200, $('#pBody')); };
+  const curTab = () => { const b = $('[data-tab][aria-current="page"]'); return b ? b.dataset.tab : 'res'; };
+  $('#ptabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTimeout(() => panelTip(b.dataset.tab), 60); });
+  addEventListener('hashchange', () => {
+    hide(); cur = '';
+    if (document.body.dataset.view === 'panel') setTimeout(() => panelTip(curTab(), 5600), 500);
+  });
+  $('#q').addEventListener('focus', () => show('search', '🔎', 'Buscador inteligente', 'Encuentra rápido y vende más', 4200));
+  document.addEventListener('chat:open', () => show('chat', '💬', 'Chat con IA 24/7', 'Responde al instante y cierra ventas', 4500));
+  btn.addEventListener('click', () => { on = !on; btn.setAttribute('aria-pressed', on); if (!on) hide(); else { cur = ''; show('on', '💡', 'Consejos activados', 'Te diré por qué cada sección vende', 3500); } });
+  setTimeout(() => {
+    if (document.body.dataset.view === 'panel') panelTip(curTab(), 5600);
+    else show('intro', '💡', 'Consejos activos', 'Te diré por qué cada sección vende', 5200);
+  }, 1600);
+  if (matchMedia('(max-width:767px)').matches) setTimeout(() => document.body.dataset.view === 'tienda' && show('sticky', '📱', 'Barra fija en móvil', 'Comprar siempre a un toque', 4200), 8500);
+
+  // Aparición suave de las secciones
+  const rv = [...$$('#v-tienda > section')];
+  rv.forEach(e => e.classList.add('rv'));
+  const rio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); rio.unobserve(en.target); } }), { threshold: .08 });
+  rv.forEach(e => rio.observe(e));
+
+  // Foco de luz en tarjetas
+  document.addEventListener('pointermove', e => {
+    const c = e.target.closest && e.target.closest('.card,.card2');
+    if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }
+  }, { passive: true });
+
+  // Cupón de bienvenida (demo)
+  $('#cpForm').addEventListener('submit', e => { e.preventDefault(); e.target.classList.add('hidden'); $('#cpOk').classList.remove('hidden'); });
+  $('#cpCopy').addEventListener('click', e => { if (navigator.clipboard) navigator.clipboard.writeText('BIENVENIDO10'); e.target.textContent = '¡Copiado!'; });
+
+  // Avisos de compras recientes (prueba social)
+  const toast = $('#toast'), W = B.ct.clientes, TM = ['hace 2 min', 'hace 5 min', 'hace 9 min']; let wi = 0;
+  function popToast() {
+    if (document.body.dataset.view !== 'tienda' || document.hidden) return;
+    toast.innerHTML = `🛍️ <b>${W[wi % W.length]}</b> compró <b>${esc(B.P[wi % B.P.length].n)}</b><br><span class="muted">${TM[wi % TM.length]}</span>`; wi++;
+    toast.classList.remove('opacity-0', 'translate-x-4'); setTimeout(() => toast.classList.add('opacity-0', 'translate-x-4'), 4800);
+  }
+  setTimeout(() => { popToast(); setInterval(popToast, 17000); }, 10000);
+})();
+</script>
+<script>
+(() => {
+  let t = 600; const cd = document.getElementById('cd');
+  setInterval(() => { t = t > 0 ? t - 1 : 599; cd.textContent = String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0'); }, 1000);
+
+  const tl = document.getElementById('tilt');
+  if (tl && matchMedia('(hover:hover)').matches) {
+    const w = tl.parentElement;
+    w.addEventListener('pointermove', e => {
+      const r = w.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      tl.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+    });
+    w.addEventListener('pointerleave', () => { tl.style.transform = ''; });
+  }
+
+  // Panel de personalización: aparece al abrir la plantilla sin parámetros (o con ?editor=1)
+  const q = new URLSearchParams(location.search);
+  if ((q.get('marca') || DEFAULTS.cliente) && q.get('editor') !== '1') return;
+  const ed = document.getElementById('ed'), form = document.getElementById('edForm');
+  ed.classList.remove('hidden');
+  const inp = 'mt-1 w-full rounded-lg border border-stone-300 px-3 py-2';
+  const fld = (k, l, p) => `<label class="block"><span class="font-semibold">${l}</span><input name="${k}" placeholder="${p}" class="${inp}"></label>`;
+  const col = (k, l) => `<label class="block"><span class="font-semibold">${l}</span><span class="mt-1 flex items-center gap-2"><input type="color" data-sw="${k}" aria-label="Elegir color" class="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-stone-300 bg-white p-1"><input name="${k}" data-hex placeholder="#E11D48" maxlength="9" autocomplete="off" spellcheck="false" class="${inp} !mt-0 font-mono uppercase"></span></label>`;
+  form.innerHTML = fld('marca', 'Nombre de la tienda', 'Moda MX') + fld('producto', 'Producto estrella', 'Sneakers Urban Pro') + fld('precio', 'Precio (solo número)', '1450') +
+    `<label class="block"><span class="font-semibold">Moneda</span><select name="moneda" class="${inp}"><option value="MXN">México · peso (MXN)</option><option value="COP">Colombia · peso (COP)</option><option value="USD">Estados Unidos · dólar (USD)</option><option value="EUR">España · euro (EUR)</option></select></label>` +
+    col('color', 'Color de la marca') + col('btn', 'Color de los botones') + col('fondo', 'Color de fondo') + fld('promo', 'Texto de la barra superior', 'Por defecto según el país') + fld('dir', 'Dirección (opcional)', 'Por defecto según el país') + fld('tel', 'Teléfono (opcional)', 'Por defecto según el país') + fld('logo', 'URL del logo (opcional)', 'https://…') + fld('img_prod', 'URL de la foto del producto', 'https://…') +
+    `<div class="grid grid-cols-2 gap-2 pt-1"><button type="submit" class="rounded-full bg-black text-white py-2.5 font-bold">Aplicar</button><button type="button" id="edCopy" class="rounded-full border border-stone-300 py-2.5 font-bold">Copiar enlace</button><button type="button" id="edDl" class="col-span-2 rounded-full border border-stone-300 py-2.5 font-bold">⬇ Descargar versión del cliente</button></div>`;
+  const cs = getComputedStyle(document.documentElement);
+  ['marca', 'producto', 'precio', 'moneda', 'promo', 'dir', 'tel', 'logo', 'img_prod'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
+  form.elements.color.value = cs.getPropertyValue('--primary-color').trim();
+  form.elements.btn.value = cs.getPropertyValue('--btn-color').trim();
+  form.elements.fondo.value = cs.getPropertyValue('--bg').trim();
+  const hx = v => { v = v.trim().replace(/^#/, ''); if (/^[0-9a-f]{3}$/i.test(v)) v = [...v].map(c => c + c).join(''); return /^[0-9a-f]{6}$/i.test(v) ? '#' + v.toLowerCase() : ''; };
+  form.querySelectorAll('[data-hex]').forEach(t => {
+    const sw = form.querySelector(`[data-sw="${t.name}"]`);
+    const sync = () => { const h = hx(t.value); if (h) sw.value = h; t.classList.toggle('!border-red-400', !!t.value.trim() && !h); };
+    t.addEventListener('input', sync);
+    t.addEventListener('paste', () => setTimeout(() => { const h = hx(t.value); if (h) { t.value = h.toUpperCase(); sw.value = h; } }));
+    sw.addEventListener('input', () => { t.value = sw.value.toUpperCase(); });
+    t.value = t.value.toUpperCase(); sync();
+  });
+  const base = location.href.split('#')[0].split('?')[0];
+  const val = el => el.dataset.hex !== undefined ? hx(el.value).slice(1).toUpperCase() : el.value.trim();
+  const build = editor => {
+    const p = new URLSearchParams();
+    [...form.elements].forEach(el => { if (el.name && val(el)) p.set(el.name, val(el)); });
+    if (editor) p.set('editor', '1');
+    return base + '?' + p;
+  };
+  document.getElementById('edBtn').addEventListener('click', () => form.classList.toggle('hidden'));
+  form.addEventListener('submit', e => { e.preventDefault(); location.href = build(true); });
+  document.getElementById('edCopy').addEventListener('click', e => {
+    const url = build(false), b = e.target;
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { b.textContent = '¡Copiado!'; }).catch(() => prompt('Copia este enlace:', url));
+  });
+  document.getElementById('edDl').addEventListener('click', () => {
+    const cfg = { cliente: true };
+    [...form.elements].forEach(el => { if (el.name) cfg[el.name] = val(el); });
+    fetch(base).then(r => r.text()).then(h => {
+      h = h.replace(/const DEFAULTS = \{[^\n]*\};/, () => 'const DEFAULTS = ' + JSON.stringify(cfg).replace(/</g, '\\u003c') + ';');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([h], { type: 'text/html' })); a.download = 'index.html'; a.click();
+    }).catch(() => alert('Esta función necesita la plantilla publicada (por ejemplo en Netlify), no abierta desde tu computadora.'));
+  });
+})();
+</script>
+</body>
+</html>
