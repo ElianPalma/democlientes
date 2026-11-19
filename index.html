@@ -10,17 +10,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-.md\:bottom-6 {
-    bottom: 2rem !important;
-}
 :root{--primary-color:#0F766E;--on-primary:#ffffff;--btn-color:#0F766E;--on-btn:#ffffff;--bg:#09090b;--fg:#fafafa}
 html{scroll-behavior:smooth}
 body{font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg)}
 .muted{color:color-mix(in srgb,var(--fg) 62%,var(--bg))}
 .surf{background:color-mix(in srgb,var(--fg) 6%,var(--bg))}
 .line{border-color:color-mix(in srgb,var(--fg) 14%,var(--bg))}
-.hdr{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid color-mix(in srgb,var(--fg) 12%,transparent)}
-.glass{background:color-mix(in srgb,var(--fg) 8%,transparent);border:1px solid color-mix(in srgb,var(--fg) 15%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.hdr{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb,var(--fg) 12%,transparent)}
+.glass{background:color-mix(in srgb,var(--fg) 8%,transparent);border:1px solid color-mix(in srgb,var(--fg) 15%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .card2{position:relative;border:1px solid transparent;background:linear-gradient(color-mix(in srgb,var(--fg) 6%,var(--bg)),color-mix(in srgb,var(--fg) 6%,var(--bg))) padding-box,linear-gradient(145deg,color-mix(in srgb,var(--fg) 24%,transparent),color-mix(in srgb,var(--fg) 4%,transparent) 42%,color-mix(in srgb,var(--primary-color) 38%,transparent)) border-box;border-radius:1.25rem;padding:1.25rem}
 .inp{width:100%;background:color-mix(in srgb,var(--fg) 7%,var(--bg));border:1px solid color-mix(in srgb,var(--fg) 16%,var(--bg));border-radius:.75rem;padding:.6rem .9rem;font-size:.875rem;color:var(--fg)}
 .inp::placeholder{color:color-mix(in srgb,var(--fg) 45%,var(--bg))}
@@ -31,7 +28,7 @@ body{font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;background
 .btn-p{position:relative;overflow:hidden;background:var(--btn-color);color:var(--on-btn);box-shadow:0 12px 40px -10px var(--btn-color);transition:filter .15s,transform .15s}
 .btn-p:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .btn-p:active{transform:scale(.98)}
-.grad-text{background:linear-gradient(100deg,var(--fg) 15%,color-mix(in srgb,var(--primary-color) 70%,var(--fg)) 45%,var(--fg) 80%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 9s ease-in-out infinite}
+.grad-text{background:linear-gradient(100deg,var(--fg) 15%,color-mix(in srgb,var(--primary-color) 70%,var(--fg)) 45%,var(--fg) 80%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
 @keyframes sh{50%{background-position:100% 0}}
 .card{position:relative;transition:transform .25s,box-shadow .25s,border-color .25s}
 .card:hover{transform:translateY(-6px);border-color:var(--primary-color);box-shadow:0 24px 60px -24px var(--primary-color)}
@@ -64,39 +61,56 @@ details>summary{cursor:pointer;list-style:none}details>summary::-webkit-details-
 details[open] .pl{transform:rotate(45deg)}
 .dot{animation:blink 1s infinite both}.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
-.cloud{display:flex;align-items:center;gap:.65rem;background:#fff;color:#1c1917;border-radius:1.6rem;padding:.65rem 1.15rem;box-shadow:0 16px 44px -10px rgba(0,0,0,.5);max-width:min(92vw,25rem)}
-.cloud::before,.cloud::after{display:none;content:''}
-@media (min-width:768px){.cloud:not(.free)::before{display:block;position:absolute;left:-8px;top:50%;width:16px;height:16px;background:#fff;transform:translateY(-50%) rotate(45deg);border-radius:3px}}
+.cloud{position:fixed;z-index:55;display:flex;align-items:flex-start;gap:.5rem;width:12.5rem;background:#fff;color:#1c1917;border-radius:1.5rem;padding:.7rem 1rem .75rem;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28))}
+.cloud .ct{display:block;line-height:1.2}.cloud b{display:block;font-size:.78rem;color:var(--primary-color)}.cloud .ct span{font-size:.7rem;color:#78716c}.cloud #tipE{font-size:1.05rem;line-height:1}
+.cb{position:absolute;background:#fff;border-radius:50%}.cb1{width:2.1rem;height:2.1rem;top:-.8rem;left:1rem}.cb2{width:2.6rem;height:2.6rem;top:-1.15rem;left:3.5rem}.cb3{width:1.9rem;height:1.9rem;top:-.65rem;right:1.1rem}
+.cloud::before,.cloud::after{content:'';position:absolute;background:#fff;border-radius:50%}.cloud::before{width:1.5rem;height:1.5rem;left:-.5rem;bottom:.55rem}.cloud::after{width:1.8rem;height:1.8rem;right:-.55rem;bottom:.35rem}
+@media (max-width:767px){.cloud{width:min(14rem,62vw)}}
 #tipBtn[aria-pressed="false"]{opacity:.45}
 .flash{animation:fh 1.8s ease-out}
 @keyframes fh{0%,60%{box-shadow:0 0 0 4px var(--primary-color),0 0 44px var(--primary-color)}100%{box-shadow:0 0 0 0 transparent}}
 .msg-in{animation:pop .25s ease-out}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}}
-@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
-body::before{content:'';position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:radial-gradient(38% 34% at 12% 8%,color-mix(in srgb,var(--primary-color) 30%,transparent),transparent 70%),radial-gradient(34% 30% at 88% 18%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 45%,#7c3aed) 26%,transparent),transparent 70%),radial-gradient(40% 36% at 70% 92%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 40%,#06b6d4) 22%,transparent),transparent 70%);animation:drift 32s ease-in-out infinite alternate}
-@keyframes drift{to{transform:translate3d(4%,3%,0) scale(1.08) rotate(3deg)}}
-body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(38% 34% at 12% 8%,color-mix(in srgb,var(--primary-color) 28%,transparent),transparent 70%),radial-gradient(34% 30% at 88% 18%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 45%,#7c3aed) 24%,transparent),transparent 70%),radial-gradient(40% 36% at 70% 92%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 40%,#06b6d4) 20%,transparent),transparent 70%)}
 .hdr::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--primary-color),transparent);opacity:.7}
 #sticky::after{display:none}
-.card::before,.card2::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--primary-color) 20%,transparent),transparent 65%)}
-.card:hover::before,.card2:hover::before{opacity:1}
 .btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
 .btn-p:hover::after{transform:translateX(120%)}
-#tilt::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--a),transparent 55%,var(--primary-color) 78%,#fff 86%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite;pointer-events:none}
-@keyframes spin{to{--a:360deg}}
+#tilt::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:conic-gradient(from 200deg,transparent 55%,var(--primary-color) 78%,#fff 86%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 .gridbg{background-image:linear-gradient(color-mix(in srgb,var(--fg) 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--fg) 7%,transparent) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 50% 35%,#000,transparent)}
-.marq-t{animation:mq 30s linear infinite}
+.marq-t{animation:mq 30s linear infinite;will-change:transform}
 @keyframes mq{to{transform:translateX(-50%)}}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
-.tip-on{outline:2px solid color-mix(in srgb,var(--primary-color) 60%,transparent);outline-offset:10px;border-radius:1.75rem;box-shadow:0 0 70px -24px var(--primary-color)}
-@media (max-width:767px){.tip-on{outline-offset:-3px}}
+.halo{background:radial-gradient(closest-side,color-mix(in srgb,var(--primary-color) 70%,transparent),transparent)}
+html{overflow-x:clip}
+:root{--nb:60px}
+body{padding-bottom:calc(var(--nb) + 6.5rem)}
+#sticky{left:.75rem;right:.75rem;bottom:calc(var(--nb) + .75rem + env(safe-area-inset-bottom,0px));border:1px solid color-mix(in srgb,var(--fg) 14%,transparent);border-radius:1rem}
+#fab{bottom:calc(var(--nb) + 6.25rem)}
+#bubble{bottom:calc(var(--nb) + 10rem)}
+#chat{left:.75rem;right:.75rem;width:auto;bottom:calc(var(--nb) + .75rem);height:min(34rem,calc(100dvh - var(--nb) - 5.5rem))}
+#ed{bottom:calc(var(--nb) + 6.25rem)}
+#up{bottom:calc(var(--nb) + 10rem)}
+@media (min-width:768px){
+body{padding-bottom:var(--nb)}
+#fab{bottom:calc(var(--nb) + .75rem)}
+#bubble{bottom:calc(var(--nb) + 5rem)}
+#chat{left:auto;right:1rem;width:22rem;bottom:calc(var(--nb) + 5rem);height:min(34rem,calc(100vh - var(--nb) - 8rem))}
+#ed{bottom:calc(var(--nb) + .75rem)}
+#up{bottom:calc(var(--nb) + 4.5rem)}
+}
+@media (max-width:767px){
+.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--fg) 12%,var(--bg))}
+input,select,textarea{font-size:16px!important}
+.float{animation:none}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
-<body class="pb-20 md:pb-0 overflow-x-hidden" data-view="tienda">
+<body class="overflow-x-hidden" data-view="tienda">
 <div id="pg" class="fixed top-0 left-0 h-[3px] w-0 bg-p z-[80]"></div>
-<div id="tipCloud" class="cloud fixed z-[55] left-1/2 -translate-x-1/2 bottom-[5.5rem] md:translate-x-0 md:bottom-auto md:w-[15.5rem] md:origin-left opacity-0 scale-95 transition duration-300 pointer-events-none" role="status" aria-live="polite"><span id="tipE" class="text-xl">💡</span><span class="leading-tight"><b id="tipT" class="block text-sm" style="color:var(--primary-color)"></b><span id="tipD" class="text-xs text-stone-500"></span></span></div>
-<div id="toast" class="fixed right-4 top-[7.5rem] md:top-24 z-[50] glass rounded-2xl px-4 py-3 text-xs max-w-[16rem] opacity-0 translate-x-4 transition-all duration-500 pointer-events-none" aria-hidden="true"></div>
+<div id="tipCloud" class="cloud opacity-0 scale-95 transition duration-300 pointer-events-none" role="status" aria-live="polite"><i class="cb cb1"></i><i class="cb cb2"></i><i class="cb cb3"></i><span id="tipE">💡</span><span class="ct"><b id="tipT"></b><span id="tipD"></span></span></div>
+<div id="toast" class="max-md:hidden fixed right-4 top-[7.5rem] md:top-24 z-[50] glass rounded-2xl px-4 py-3 text-xs max-w-[16rem] opacity-0 translate-x-4 transition-all duration-500 pointer-events-none" aria-hidden="true"></div>
 <div id="topbar" class="bg-p text-center text-sm font-semibold py-2 px-4">🚚 Envío gratis en tu primer pedido · Recíbelo en 24–48 h</div>
 
 <header class="hdr sticky top-0 z-30">
@@ -127,8 +141,8 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
 <main id="v-tienda" class="view on">
   <section data-tip="🎯 Hero claro|Producto, precio y botón visibles" class="relative isolate max-w-6xl mx-auto px-4 pt-10 pb-14 md:pt-20 md:pb-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
     <div class="gridbg pointer-events-none absolute -z-10 inset-0"></div>
-    <div class="glow pointer-events-none absolute -z-10 -top-20 right-0 w-[30rem] h-[30rem] rounded-full blur-[130px] opacity-35"></div>
-    <div class="glow pointer-events-none absolute -z-10 bottom-0 -left-10 w-72 h-72 rounded-full blur-[120px] opacity-20"></div>
+    <div class="halo pointer-events-none absolute -z-10 -top-20 right-0 w-[30rem] h-[30rem] rounded-full opacity-35"></div>
+    <div class="halo pointer-events-none absolute -z-10 bottom-0 -left-10 w-72 h-72 rounded-full opacity-20"></div>
     <div class="order-2 md:order-1">
       <span class="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold">
         <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full glow opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 glow"></span></span>
@@ -154,7 +168,7 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
       </div>
     </div>
     <div class="order-1 md:order-2 relative">
-      <div class="glow absolute inset-8 rounded-[3rem] blur-3xl opacity-45"></div>
+      <div class="halo absolute inset-8 rounded-[3rem] opacity-45"></div>
       <div id="tilt" class="glass relative rounded-[2rem] p-3 will-change-transform transition-transform duration-150"><img data-img-prod alt="" class="w-full aspect-square object-cover rounded-[1.5rem] bg-zinc-800" fetchpriority="high"></div>
       <div class="glass float absolute -left-2 top-10 md:-left-8 rounded-2xl px-4 py-3 text-sm"><p class="font-extrabold">⭐ 4.9 / 5</p><p class="text-xs muted">+2,300 reseñas</p></div>
       <div class="glass float absolute -right-2 bottom-10 md:-right-6 rounded-2xl px-4 py-3 text-sm" style="animation-delay:-2.5s"><p class="font-extrabold">🔥 47 vendidos hoy</p><p class="text-xs muted">Envío gratis incluido</p></div>
@@ -203,7 +217,7 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
 
   <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="max-w-6xl mx-auto px-4 pb-16">
     <div class="card2 !p-6 md:!p-10 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center relative overflow-hidden isolate">
-      <div class="glow absolute -z-10 -right-16 -top-16 w-72 h-72 rounded-full blur-[110px] opacity-30"></div>
+      <div class="halo absolute -z-10 -right-16 -top-16 w-72 h-72 rounded-full opacity-30"></div>
       <div><h2 class="text-3xl font-extrabold tracking-tight">Mira cómo funciona por dentro</h2><p class="muted mt-3 max-w-lg">El asistente de IA no solo conversa: registra cada chat, recupera carritos y pasa los casos difíciles a tu equipo. Explora el panel y el flujo de esta demo.</p></div>
       <div class="flex flex-col gap-3"><a href="#panel" class="btn-p rounded-full px-6 py-3.5 font-bold text-center">Ver el panel del asistente →</a><a href="#flujo" class="glass rounded-full px-6 py-3.5 font-bold text-center">Ver cómo está conectado el flujo →</a></div>
     </div>
@@ -211,7 +225,7 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
 
   <section id="cupon" data-tip="🎁 Cupón de bienvenida|Captura correos y recupera visitas" class="max-w-4xl mx-auto px-4 pb-16 scroll-mt-28">
     <div class="card2 !p-8 md:!p-10 text-center relative overflow-hidden isolate">
-      <div class="glow absolute -z-10 left-1/2 -translate-x-1/2 -top-24 w-80 h-80 rounded-full blur-[110px] opacity-30"></div>
+      <div class="halo absolute -z-10 left-1/2 -translate-x-1/2 -top-24 w-80 h-80 rounded-full opacity-30"></div>
       <h2 class="text-3xl font-extrabold tracking-tight">Llévate 10% en tu primer pedido</h2>
       <p class="muted mt-2 text-sm">Déjanos tu correo y te enviamos el cupón al instante.</p>
       <form id="cpForm" class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"><input type="email" required placeholder="tucorreo@ejemplo.com" class="inp flex-1" aria-label="Correo"><button class="btn-p rounded-full px-6 py-3 font-bold whitespace-nowrap">Quiero mi cupón</button></form>
@@ -272,9 +286,9 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
   <p class="text-center text-xs muted pb-6 pt-2">© <span data-marca></span> · Vista de demostración</p>
 </footer>
 
-<button id="up" class="fixed left-4 bottom-[9.5rem] md:bottom-20 z-30 w-11 h-11 rounded-full glass opacity-0 pointer-events-none transition-opacity font-bold" aria-label="Ir arriba">↑</button>
+<button id="up" class="fixed left-4 z-30 w-11 h-11 rounded-full glass opacity-0 pointer-events-none transition-opacity font-bold" aria-label="Ir arriba">↑</button>
 
-<div id="sticky" class="md:hidden fixed bottom-0 inset-x-0 z-30 hdr !border-b-0 border-t line p-3 flex items-center gap-3">
+<div id="sticky" class="md:hidden fixed z-30 hdr p-3 flex items-center gap-3">
   <img data-img-prod alt="" class="w-11 h-11 rounded-lg object-cover bg-zinc-800">
   <div class="min-w-0 flex-1 leading-tight">
     <p class="text-sm font-bold truncate" data-producto></p>
@@ -283,19 +297,19 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
   <button data-buy class="btn-p rounded-full px-5 py-2.5 font-bold text-sm">Comprar</button>
 </div>
 
-<div id="ed" class="hidden fixed left-4 bottom-24 md:bottom-6 z-[44] flex flex-col-reverse items-start">
+<div id="ed" class="hidden fixed left-4 z-[44] flex flex-col-reverse items-start">
   <button id="edBtn" class="bg-white rounded-full shadow-xl px-4 py-2.5 text-sm font-bold">⚙️ Personalizar demo</button>
   <form id="edForm" class="hidden mb-2 w-72 max-h-[70vh] overflow-y-auto bg-white rounded-2xl shadow-2xl p-4 space-y-2.5 text-sm"></form>
 </div>
 
 <!-- Slide cart -->
 <div id="overlay" class="hidden fixed inset-0 z-[60] bg-black/50"></div>
-<aside id="cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[70] translate-x-full transition-transform duration-300 flex flex-col" aria-hidden="true" aria-label="Checkout exprés">
+<aside id="cart" class="fixed top-0 bottom-0 right-0 w-full max-w-md bg-white z-[70] translate-x-full transition-transform duration-300 flex flex-col" aria-hidden="true" aria-label="Checkout exprés">
   <div class="flex items-center justify-between px-5 h-16 border-b border-stone-200">
     <h2 class="font-extrabold text-lg">Checkout exprés</h2>
     <button id="cartClose" class="p-2 rounded-full hover:bg-stone-100" aria-label="Cerrar">✕</button>
   </div>
-  <form id="checkout" class="flex-1 overflow-y-auto px-5 py-5 space-y-5">
+  <form id="checkout" class="flex-1 overflow-y-auto px-5 py-5 space-y-5" style="padding-bottom:calc(var(--nb) + 1.25rem)">
     <div class="flex gap-3 items-center">
       <img id="cImg" alt="" class="w-16 h-16 rounded-xl object-cover bg-stone-200">
       <div class="flex-1 min-w-0"><p id="cName" class="font-bold truncate"></p><p class="text-sm text-stone-500">Cantidad: 1</p></div>
@@ -332,13 +346,13 @@ body::after{content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opa
 </aside>
 
 <!-- Chat IA -->
-<button id="fab" class="fixed right-4 bottom-24 md:bottom-6 z-[45] w-14 h-14 rounded-full bg-p shadow-xl grid place-items-center" aria-label="Abrir asistente de IA">
+<button id="fab" class="fixed right-4 z-[45] w-14 h-14 rounded-full bg-p shadow-xl grid place-items-center" aria-label="Abrir asistente de IA">
   <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
   <span id="notif" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[11px] font-bold grid place-items-center animate-bounce">1</span>
 </button>
-<div id="bubble" class="hidden fixed right-4 bottom-40 md:bottom-24 z-[45] bg-white border border-stone-200 shadow-lg rounded-2xl rounded-br-sm px-4 py-2 text-sm font-semibold max-w-[220px]">💬 Tengo una oferta para ti</div>
+<div id="bubble" class="hidden fixed right-4 z-[45] bg-white border border-stone-200 shadow-lg rounded-2xl rounded-br-sm px-4 py-2 text-sm font-semibold max-w-[220px]">💬 Tengo una oferta para ti</div>
 
-<section id="chat" class="hidden fixed right-4 bottom-24 md:bottom-24 z-[46] w-[22rem] max-w-[calc(100vw-2rem)] h-[34rem] max-h-[75vh] flex-col bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden" aria-label="Asistente de IA">
+<section id="chat" class="hidden fixed z-[46] flex-col bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden" aria-label="Asistente de IA">
   <div class="bg-p px-4 py-3 flex items-center gap-3">
     <div class="w-9 h-9 rounded-full bg-white/25 grid place-items-center font-extrabold" id="avatar">IA</div>
     <div class="flex-1 leading-tight"><p class="font-bold text-sm">Asistente de <span data-marca></span></p><p class="text-xs opacity-90">● En línea</p></div>
@@ -380,8 +394,10 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     EUR: { lang: 'es-ES', pais: 'España', dir: 'Calle Gran Vía 28, 28013 Madrid', tel: '+34 91 123 45 67', tld: '.es', hora: 'Lun a Sáb · 9:00–19:00 (hora peninsular)', envio: '24–72 h', envioTxt: 'Entre 24 y 72 horas en España peninsular', stat: [48, ' h'], pago4: 'Bizum / SEPA', pagos: ['💳 Visa', '💳 Mastercard', 'Apple Pay', 'G Pay', 'Bizum', '🏦 SEPA', 'PayPal'], pagoTxt: 'Tarjeta, Apple Pay, Google Pay, Bizum y transferencia SEPA', fact: 'Factura con IVA incluido', rc: ['Madrid', 'Barcelona', 'Valencia'], clientes: ['Carlos · Madrid', 'Lucía · Barcelona', 'Pablo · Valencia', 'Marta · Sevilla', 'Javier · Bilbao'], promo: '🚚 Envío gratis en España peninsular en tu primer pedido · Recíbelo en 24–72 h' }
   }[cc];
   const ct = CT;
+  const NF = {};
   function money(n) {
-    return new Intl.NumberFormat(loc, { style: 'currency', currency: cc, maximumFractionDigits: cc === 'MXN' || cc === 'COP' ? 0 : 2, minimumFractionDigits: n % 1 ? 2 : 0 }).format(n) + (cc === 'EUR' ? '' : ' ' + cc);
+    const f = n % 1 ? 2 : 0;
+    return (NF[f] = NF[f] || new Intl.NumberFormat(loc, { style: 'currency', currency: cc, maximumFractionDigits: cc === 'MXN' || cc === 'COP' ? 0 : 2, minimumFractionDigits: f })).format(n) + (cc === 'EUR' ? '' : ' ' + cc);
   }
   const PR = { MXN: [890, 1190, 1690], COP: [199000, 269000, 379000], USD: [49, 65, 92], EUR: [45, 59, 85] };
   const pr0 = parsePrice(text('precio', D.precio));
@@ -397,6 +413,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   root.setProperty('--on-primary', ink(color));
   root.setProperty('--btn-color', '#' + btn);
   root.setProperty('--on-btn', ink(btn));
+  if (q.get('badge') === '0') root.setProperty('--nb', '0px');
   const promo = text('promo', D.promo || ct.promo);
   if (promo) $('#topbar').textContent = promo;
 
@@ -890,22 +907,21 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
 
   // La nube se coloca a la derecha, pegada al borde de la sección que explica
   function place() {
-    if (!desk()) { cloud.style.left = cloud.style.top = ''; return; }
-    const w = cloud.offsetWidth, h = cloud.offsetHeight;
-    let top = 104, left = innerWidth - w - 16;
-    if (active) {
-      const r = active.getBoundingClientRect(), vt = Math.max(r.top, 110), vb = Math.min(r.bottom, innerHeight - 20);
-      top = Math.min(Math.max((vt + vb) / 2 - h / 2, 100), innerHeight - h - 20);
-      left = Math.max(16, Math.min(r.right + 24, innerWidth - w - 16));
-    }
-    cloud.style.top = top + 'px'; cloud.style.left = left + 'px';
+    const hb = $('header').getBoundingClientRect().bottom;
+    const nb = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nb')) || 0;
+    if (!desk()) { cloud.style.top = (hb + 8) + 'px'; cloud.style.left = 'auto'; cloud.style.right = '.75rem'; return; }
+    const w = cloud.offsetWidth, h = cloud.offsetHeight, chat = $('#chat');
+    const rightEdge = innerWidth - (chat.classList.contains('hidden') ? 16 : chat.offsetWidth + 32);
+    let top = hb + 24;
+    if (active) { const r = active.getBoundingClientRect(), vt = Math.max(r.top, hb + 16), vb = Math.min(r.bottom, innerHeight - 20); top = (vt + vb) / 2 - h / 2; }
+    top = Math.min(Math.max(top, hb + 20), innerHeight - h - nb - 24);
+    cloud.style.right = 'auto'; cloud.style.left = Math.max(16, rightEdge - w) + 'px'; cloud.style.top = top + 'px';
   }
-  function hide() { cloud.classList.add('opacity-0', 'scale-95'); if (active) active.classList.remove('tip-on'); active = null; }
+  function hide() { cloud.classList.add('opacity-0', 'scale-95'); active = null; }
   function show(key, ico, title, desc, ms, el) {
     if (!on || !['tienda', 'panel'].includes(document.body.dataset.view) || key === cur) return;
     cur = key; lock = Date.now() + 2600; setTimeout(scan, 2700);
-    if (active) active.classList.remove('tip-on');
-    active = el || null; if (el) el.classList.add('tip-on');
+    active = el || null;
     cloud.classList.toggle('free', !el);
     $('#tipE').textContent = ico; $('#tipT').textContent = title; $('#tipD').textContent = desc;
     place(); cloud.classList.remove('opacity-0', 'scale-95'); clearTimeout(ht); ht = setTimeout(hide, ms || 6000);
@@ -951,12 +967,6 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   rv.forEach(e => e.classList.add('rv'));
   const rio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); rio.unobserve(en.target); } }), { threshold: .08 });
   rv.forEach(e => rio.observe(e));
-
-  // Foco de luz en tarjetas
-  document.addEventListener('pointermove', e => {
-    const c = e.target.closest && e.target.closest('.card,.card2');
-    if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }
-  }, { passive: true });
 
   // Cupón de bienvenida (demo)
   $('#cpForm').addEventListener('submit', e => { e.preventDefault(); e.target.classList.add('hidden'); $('#cpOk').classList.remove('hidden'); });
