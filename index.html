@@ -91,6 +91,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
 .halo{background:radial-gradient(closest-side,color-mix(in srgb,var(--primary-color) 70%,transparent),transparent)}
 html{overflow-x:clip}
+.pimg{background:color-mix(in srgb,var(--fg) 5%,var(--bg))}
 :root{--nb:60px}
 body{padding-bottom:calc(var(--nb) + 6.5rem)}
 #sticky{left:.75rem;right:.75rem;bottom:calc(var(--nb) + .75rem + env(safe-area-inset-bottom,0px));border:1px solid color-mix(in srgb,var(--fg) 14%,transparent);border-radius:1rem}
@@ -177,7 +178,7 @@ input,select,textarea{font-size:16px!important}
     </div>
     <div class="order-1 md:order-2 relative">
       <div class="halo absolute inset-8 rounded-[3rem] opacity-45"></div>
-      <div id="tilt" class="glass relative rounded-[2rem] p-3 will-change-transform transition-transform duration-150"><img data-img-prod alt="" class="w-full aspect-square object-cover rounded-[1.5rem] bg-zinc-800" fetchpriority="high"></div>
+      <div id="tilt" class="glass relative rounded-[2rem] p-3 will-change-transform transition-transform duration-150"><img data-img-prod alt="" class="pimg w-full aspect-square object-contain rounded-[1.5rem]" fetchpriority="high"></div>
       <div class="glass float absolute -left-2 top-10 md:-left-8 rounded-2xl px-4 py-3 text-sm"><p class="font-extrabold">⭐ 4.9 / 5</p><p class="text-xs muted">+2,300 reseñas</p></div>
       <div class="glass float absolute -right-2 bottom-10 md:-right-6 rounded-2xl px-4 py-3 text-sm" style="animation-delay:-2.5s"><p class="font-extrabold">🔥 47 vendidos hoy</p><p class="text-xs muted">Envío gratis incluido</p></div>
     </div>
@@ -297,7 +298,7 @@ input,select,textarea{font-size:16px!important}
 <button id="up" class="fixed left-4 z-30 w-11 h-11 rounded-full glass opacity-0 pointer-events-none transition-opacity font-bold" aria-label="Ir arriba">↑</button>
 
 <div id="sticky" class="md:hidden fixed z-30 hdr p-3 flex items-center gap-3">
-  <img data-img-prod alt="" class="w-11 h-11 rounded-lg object-cover bg-zinc-800">
+  <img data-img-prod alt="" class="pimg w-11 h-11 rounded-lg object-contain">
   <div class="min-w-0 flex-1 leading-tight">
     <p class="text-sm font-bold truncate" data-producto></p>
     <p class="text-sm muted" data-precio></p>
@@ -319,7 +320,7 @@ input,select,textarea{font-size:16px!important}
   </div>
   <form id="checkout" class="flex-1 overflow-y-auto px-5 py-5 space-y-5" style="padding-bottom:calc(var(--nb) + 1.25rem)">
     <div class="flex gap-3 items-center">
-      <img id="cImg" alt="" class="w-16 h-16 rounded-xl object-cover bg-stone-200">
+      <img id="cImg" alt="" class="w-16 h-16 rounded-xl object-contain bg-stone-100">
       <div class="flex-1 min-w-0"><p id="cName" class="font-bold truncate"></p><p class="text-sm text-stone-500">Cantidad: 1</p></div>
       <p id="cPrice" class="font-bold"></p>
     </div>
@@ -480,7 +481,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   $('#grid').innerHTML = P.map((x, k) => `
     <article data-card="${k}" class="card surf border ${k ? 'line' : 'border-p'} rounded-3xl overflow-hidden flex flex-col">
       <div class="relative overflow-hidden">
-        <img src="${esc(x.i)}" alt="${esc(x.n)}" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-500 hover:scale-105 bg-zinc-800">
+        <img src="${esc(x.i)}" alt="${esc(x.n)}" loading="lazy" class="pimg w-full aspect-square object-contain p-2 transition-transform duration-500 hover:scale-105">
         ${x.tag ? `<span class="absolute top-3 left-3 bg-p text-xs font-bold rounded-full px-3 py-1">${x.tag}</span>` : ''}
         <button type="button" data-heart aria-pressed="false" aria-label="Guardar en favoritos" class="heart absolute top-3 right-3 w-9 h-9 rounded-full glass text-lg">♡</button>
       </div>
@@ -526,7 +527,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
       h += `<li class="px-4 py-2 flex flex-wrap gap-1.5">${CH.map(t =>  `<button type="button" data-t="${t}" class="px-3 py-1 rounded-full bg-stone-100 text-xs font-semibold hover:bg-stone-200">🔥 ${t}</button>`).join('')}</li>`;
       if (recent.length) h += '<li class="px-4 pt-1 pb-1 text-[11px] text-stone-400 font-semibold">Recientes</li>' + recent.map(t => `<li><button type="button" data-t="${esc(t)}" class="w-full text-left px-4 py-1.5 hover:bg-stone-100 text-stone-600">🕘 ${esc(t)}</button></li>`).join('');
     }
-    h += hits.length ? hits.map(([x, k]) => `<li><button type="button" data-i data-k="${k}" class="w-full flex items-center gap-3 text-left px-4 py-2 hover:bg-stone-100"><img src="${esc(x.i)}" alt="" class="w-10 h-10 rounded-lg object-cover bg-stone-200"><span class="flex-1 min-w-0"><span class="block font-semibold truncate">${hl(x.n, raw)}</span><span class="block text-xs text-stone-500">${esc(x.p)} · ${CATx[k]}</span></span><span data-q="${k}" role="button" title="Comprar en 1 clic" class="px-2.5 py-1 rounded-full bg-p text-xs font-bold">⚡</span></button></li>`).join('')
+    h += hits.length ? hits.map(([x, k]) => `<li><button type="button" data-i data-k="${k}" class="w-full flex items-center gap-3 text-left px-4 py-2 hover:bg-stone-100"><img src="${esc(x.i)}" alt="" class="w-10 h-10 rounded-lg object-contain bg-stone-100"><span class="flex-1 min-w-0"><span class="block font-semibold truncate">${hl(x.n, raw)}</span><span class="block text-xs text-stone-500">${esc(x.p)} · ${CATx[k]}</span></span><span data-q="${k}" role="button" title="Comprar en 1 clic" class="px-2.5 py-1 rounded-full bg-p text-xs font-bold">⚡</span></button></li>`).join('')
       : `<li class="px-4 py-3 text-stone-500">Sin resultados para «${esc(raw)}». Prueba con «${esc(CH[0])}»${CH[1] && CH[1] !== 'oferta' ? ' o «' + esc(CH[1]) + '»' : ''}.</li>`;
     if (v) h += `<li><button type="button" data-i data-ai class="w-full text-left px-4 py-2.5 border-t border-stone-100 hover:bg-stone-100 font-semibold">🤖 Preguntar al asistente: <span class="text-p">«${esc(raw)}»</span></button></li>`;
     sug.innerHTML = h; sug.classList.remove('hidden');
@@ -687,7 +688,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     });
   }
   function carousel() {
-    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => [x, k]).filter(([x], i, a) => a.findIndex(o => o[0].n === x.n) === i).map(([x, k]) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-cover bg-stone-200"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
+    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => [x, k]).filter(([x], i, a) => a.findIndex(o => o[0].n === x.n) === i).map(([x, k]) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-contain bg-stone-100"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
       e => { const b = e.target.closest('[data-k]'); if (b) { closeChat(); openCart(P[b.dataset.k]); } });
     setTimeout(menu, 500);
   }
