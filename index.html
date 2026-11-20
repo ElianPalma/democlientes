@@ -81,6 +81,9 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .hdr-c .nv[aria-current="page"]{background:color-mix(in srgb,var(--menu-fg) 22%,transparent);color:var(--menu-fg)}
 .hdr-c .inp{background:color-mix(in srgb,var(--menu-fg) 12%,var(--menu-bg));border-color:color-mix(in srgb,var(--menu-fg) 28%,var(--menu-bg));color:var(--menu-fg)}
 .hdr-c .inp::placeholder{color:color-mix(in srgb,var(--menu-fg) 65%,var(--menu-bg))}
+.lang-btn{border:1px solid color-mix(in srgb,var(--fg) 18%,transparent)}
+.hdr-c .lang-btn{border-color:color-mix(in srgb,var(--menu-fg) 30%,transparent)}
+body[data-lang="en"] .demo-only{display:none!important}
 .hdr-c .muted{color:color-mix(in srgb,var(--menu-fg) 70%,var(--menu-bg))}
 .btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
 .btn-p:hover::after{transform:translateX(120%)}
@@ -130,10 +133,11 @@ input,select,textarea{font-size:16px!important}
     </a>
     <nav class="order-4 md:order-2 w-full md:w-auto flex gap-1 overflow-x-auto -mx-1 px-1" aria-label="Principal">
       <a href="#" class="nv" data-nav="tienda">Tienda</a>
-      <a href="#panel" class="nv" data-nav="panel">Panel del asistente</a>
-      <a href="#flujo" class="nv" data-nav="flujo">Cómo funciona</a>
+      <a href="#panel" class="nv demo-only" data-nav="panel">Panel del asistente</a>
+      <a href="#flujo" class="nv demo-only" data-nav="flujo">Cómo funciona</a>
     </nav>
     <button id="tipBtn" aria-pressed="true" class="order-2 md:order-4 ml-auto shrink-0 w-10 h-10 rounded-full grid place-items-center hover:bg-white/10" title="Consejos de conversión" aria-label="Activar o desactivar consejos de conversión">💡</button>
+    <button id="langBtn" type="button" data-notr class="lang-btn order-2 md:order-4 shrink-0 h-10 px-2.5 rounded-full flex items-center gap-1.5 text-xs font-bold hover:bg-white/10"></button>
     <button id="cartBtn" class="order-2 md:order-4 relative shrink-0 p-2 rounded-full hover:bg-white/10" aria-label="Abrir carrito">
       <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
       <span id="cartCount" class="hidden absolute -top-0.5 -right-0.5 bg-p text-[11px] font-bold w-5 h-5 rounded-full grid place-items-center">1</span>
@@ -224,7 +228,7 @@ input,select,textarea{font-size:16px!important}
     </div>
   </section>
 
-  <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="max-w-6xl mx-auto px-4 pb-16">
+  <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="demo-only max-w-6xl mx-auto px-4 pb-16">
     <div class="card2 !p-6 md:!p-10 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center relative overflow-hidden isolate">
       <div class="halo absolute -z-10 -right-16 -top-16 w-72 h-72 rounded-full opacity-30"></div>
       <div><h2 class="text-3xl font-extrabold tracking-tight">Mira cómo funciona por dentro</h2><p class="muted mt-3 max-w-lg">El asistente de IA no solo conversa: registra cada chat, recupera carritos y pasa los casos difíciles a tu equipo. Explora el panel y el flujo de esta demo.</p></div>
@@ -289,7 +293,7 @@ input,select,textarea{font-size:16px!important}
   <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
     <div><p class="text-lg font-extrabold" data-marca></p><p class="muted mt-2 max-w-xs">Tecnología, diseño y atención con IA para que comprar sea simple.</p></div>
     <div><p class="font-bold mb-3">Explora</p><ul class="space-y-2 muted"><li><a href="#productos" class="hover:underline">Productos</a></li><li><a href="#resenas" class="hover:underline">Reseñas</a></li><li><a href="#faq" class="hover:underline">Preguntas frecuentes</a></li><li><a href="#contacto" class="hover:underline">Contacto</a></li></ul></div>
-    <div><p class="font-bold mb-3">La demo</p><ul class="space-y-2 muted"><li><a href="#panel" class="hover:underline">Panel del asistente</a></li><li><a href="#flujo" class="hover:underline">Cómo funciona</a></li></ul></div>
+    <div class="demo-only"><p class="font-bold mb-3">La demo</p><ul class="space-y-2 muted"><li><a href="#panel" class="hover:underline">Panel del asistente</a></li><li><a href="#flujo" class="hover:underline">Cómo funciona</a></li></ul></div>
   </div>
   <p aria-hidden="true" class="grad-text select-none text-center font-extrabold leading-[.85] tracking-tighter opacity-25 mt-12 text-[14vw] md:text-[11rem] whitespace-nowrap overflow-hidden" data-marca></p>
   <p class="text-center text-xs muted pb-6 pt-2">© <span data-marca></span> · Vista de demostración</p>
@@ -377,7 +381,7 @@ input,select,textarea{font-size:16px!important}
 
 <script>
 // ✏️ VALORES POR DEFECTO: edita esta línea para dejar una versión fija para un cliente (los parámetros de la URL los sobrescriben)
-const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',menu:'',menutxt:'',p2n:'',p2p:'',p2i:'',p3n:'',p3p:'',p3i:'',cliente:false};
+const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',menu:'',menutxt:'',lang:'',p2n:'',p2p:'',p2i:'',p3n:'',p3p:'',p3i:'',cliente:false};
 </script>
 <script>
 (() => {
@@ -390,6 +394,11 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
 
   // ---------- Parámetros de URL ----------
   const D = DEFAULTS;
+  // Idioma: ?lang=en|es  >  elección guardada del visitante  >  DEFAULTS.lang  >  español
+  let LANG = q.get('lang');
+  if (!['es', 'en'].includes(LANG)) { try { LANG = localStorage.getItem('lang'); } catch (e) { LANG = null; } }
+  if (!['es', 'en'].includes(LANG)) LANG = D.lang === 'en' ? 'en' : 'es';
+  const EN = () => LANG === 'en', L = (es, en) => EN() ? en : es;
   const marca = text('marca', D.marca).replace(/\*/g, '');
   const producto = text('producto', D.producto).replace(/\*/g, '');
   const imgProd = link('img_prod', D.img_prod || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80');
@@ -403,6 +412,13 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     EUR: { lang: 'es-ES', pais: 'España', dir: 'Calle Gran Vía 28, 28013 Madrid', tel: '+34 91 123 45 67', tld: '.es', hora: 'Lun a Sáb · 9:00–19:00 (hora peninsular)', envio: '24–72 h', envioTxt: 'Entre 24 y 72 horas en España peninsular', stat: [48, ' h'], pago4: 'Bizum / SEPA', pagos: ['💳 Visa', '💳 Mastercard', 'Apple Pay', 'G Pay', 'Bizum', '🏦 SEPA', 'PayPal'], pagoTxt: 'Tarjeta, Apple Pay, Google Pay, Bizum y transferencia SEPA', fact: 'Factura con IVA incluido', rc: ['Madrid', 'Barcelona', 'Valencia'], clientes: ['Carlos · Madrid', 'Lucía · Barcelona', 'Pablo · Valencia', 'Marta · Sevilla', 'Javier · Bilbao'], promo: '🚚 Envío gratis en España peninsular en tu primer pedido · Recíbelo en 24–72 h' }
   }[cc];
   const ct = CT;
+  const CTEN = {
+    MXN: { envio: '24–48 h', envioTxt: 'Between 24 and 48 hours anywhere in Mexico', pagoTxt: 'Card, Apple Pay, Google Pay, OXXO and SPEI bank transfer', fact: 'Invoicing (CFDI) available', hora: 'Mon–Sat · 9:00–19:00 (Mexico City time)', promo: '🚚 Free shipping across Mexico on your first order · Get it in 24–48 h', pago4: 'OXXO / SPEI' },
+    COP: { envio: '24–72 h', envioTxt: 'Between 24 and 72 hours in major cities across Colombia', pagoTxt: 'Card, Google Pay, PSE, Nequi and Efecty', fact: 'Electronic invoice available', hora: 'Mon–Sat · 9:00–19:00 (Bogotá time)', promo: '🚚 Free shipping across Colombia on your first order · Get it in 24–72 h', pago4: 'PSE / Nequi' },
+    USD: { envio: '2–4 business days', envioTxt: 'Between 2 and 4 business days anywhere in the United States', pagoTxt: 'Card, Apple Pay, Google Pay, PayPal and Zelle', fact: 'Receipt by email included', hora: 'Mon–Sat · 9:00–19:00 (Eastern time)', promo: '🚚 Free shipping across the U.S. on your first order · Get it in 2–4 business days', pago4: 'PayPal / Zelle' },
+    EUR: { envio: '24–72 h', envioTxt: 'Between 24 and 72 hours in mainland Spain', pagoTxt: 'Card, Apple Pay, Google Pay, Bizum and SEPA transfer', fact: 'Invoice with VAT included', hora: 'Mon–Sat · 9:00–19:00 (mainland Spain time)', promo: '🚚 Free shipping in mainland Spain on your first order · Get it in 24–72 h', pago4: 'Bizum / SEPA' }
+  }[cc];
+  const cx = k => EN() ? CTEN[k] : ct[k];
   const NF = {};
   function money(n) {
     const f = n % 1 ? 2 : 0;
@@ -430,10 +446,10 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     $('header.hdr').classList.add('hdr-c');
   }
   if (q.get('badge') === '0') root.setProperty('--nb', '0px');
-  const promo = text('promo', D.promo || ct.promo);
-  if (promo) $('#topbar').textContent = promo;
+  const customPromo = text('promo', D.promo || '');
+  $('#topbar').textContent = customPromo || ct.promo;
 
-  document.title = marca + ' | Tienda oficial';
+  document.title = marca + L(' | Tienda oficial', ' | Official store');
   $$('[data-marca]').forEach(e => e.textContent = marca);
   $$('[data-producto]').forEach(e => e.textContent = producto);
   $$('[data-precio]').forEach(e => e.textContent = precio);
@@ -487,7 +503,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
       </div>
       <div class="p-4 flex flex-col flex-1">
         <p class="text-xs text-amber-400">★★★★★ <span class="muted">${['4.9', '4.8', '4.7', '4.9'][k]} (${[312, 184, 226, 97][k]})</span></p>
-        <h3 class="font-bold text-sm md:text-base leading-snug mt-1">${esc(x.n)}</h3>
+        <h3 data-notr class="font-bold text-sm md:text-base leading-snug mt-1">${esc(x.n)}</h3>
         <p class="text-lg font-extrabold mt-1">${esc(x.p)}</p>
         <button data-item="${k}" class="btn-p mt-4 rounded-full py-3 text-sm font-bold w-full">Comprar en 1 clic</button>
       </div>
@@ -634,10 +650,19 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   }
   const card = (html, on) => { const c = document.createElement('div'); c.innerHTML = html; if (on) c.addEventListener('click', on); return bot(c, true); };
   const say = (t, then) => typing(() => { bot(rich(t)); (then || menu)(); });
+  const OL = {
+    pay: ['✅ Sí, generar link de pago', '✅ Yes, generate the payment link'],
+    order: ['📦 Ver estado de mi pedido', '📦 Check my order status'],
+    price: ['💰 Precio y envío', '💰 Price & shipping'],
+    prods: ['🛍️ Ver productos', '🛍️ See products'],
+    methods: ['💳 Formas de pago', '💳 Payment methods'],
+    reviews: ['⭐ Ver reseñas', '⭐ See reviews'],
+    human: ['🧑‍💼 Hablar con una persona', '🧑‍💼 Talk to a person']
+  };
   const OPT = {
     pay: ['✅ Sí, generar link de pago', () => typing(payCard)],
     order: ['📦 Ver estado de mi pedido', orderAsk],
-    price: ['💰 Precio y envío', () => say(`**${producto}** cuesta **${precio}** y el **envío es gratis**. Llega en ${ct.envio}.`)],
+    price: ['💰 Precio y envío', () => say(L(`**${producto}** cuesta **${precio}** y el **envío es gratis**. Llega en ${ct.envio}.`, `**${producto}** costs **${precio}** and **shipping is free**. It arrives in ${cx('envio')}.`))],
     prods: ['🛍️ Ver productos', () => typing(carousel)],
     methods: ['💳 Formas de pago', () => typing(methods)],
     reviews: ['⭐ Ver reseñas', () => typing(reviews)],
@@ -657,75 +682,75 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   }
   function menu() {
     const ids = Object.keys(OPT).filter(k => !used.has(k));
-    chips(ids.length ? ids.map(id => ({ id, label: OPT[id][0], fn: OPT[id][1] })) : [{ label: '↺ Empezar de nuevo', fn: start }]);
+    chips(ids.length ? ids.map(id => ({ id, label: OL[id][EN() ? 1 : 0], fn: OPT[id][1] })) : [{ label: L('↺ Empezar de nuevo', '↺ Start over'), fn: start }]);
   }
   function payCard() {
     card(`
-      <p class="mb-2">¡Listo! Apliqué tu <strong>10% de descuento</strong>. Este es tu resumen:</p>
+      <p class="mb-2">${L('¡Listo! Apliqué tu <strong>10% de descuento</strong>. Este es tu resumen:', 'Done! I applied your <strong>10% discount</strong>. Here is your summary:')}</p>
       <div class="border border-stone-200 rounded-xl overflow-hidden">
         <div class="flex gap-3 p-3 items-center">
           <img src="${esc(imgProd)}" alt="" class="w-14 h-14 rounded-lg object-cover bg-stone-200">
-          <div class="min-w-0"><p class="font-bold truncate">${esc(producto)}</p><p class="text-xs text-stone-500">1 unidad · Envío gratis</p></div>
+          <div class="min-w-0"><p class="font-bold truncate">${esc(producto)}</p><p class="text-xs text-stone-500">${L('1 unidad · Envío gratis', '1 unit · Free shipping')}</p></div>
         </div>
         <div class="px-3 pb-3 flex items-baseline gap-2">
           <span class="text-stone-400 line-through text-sm">${esc(precio)}</span>
           <span class="text-xl font-extrabold">${esc(discounted)}</span>
           <span class="bg-p text-xs font-bold rounded-full px-2 py-0.5">-10%</span>
         </div>
-        <button class="btn-p w-full py-3 font-bold" data-pay>Pagar ahora en 1 clic</button>
+        <button class="btn-p w-full py-3 font-bold" data-pay>${L('Pagar ahora en 1 clic', 'Pay now in 1 click')}</button>
       </div>`, e => { if (e.target.closest('[data-pay]')) { closeChat(); openCart({ n: producto, p: precio, i: imgProd }, true); } });
     setTimeout(menu, 500);
   }
   function orderAsk() {
     awaiting = 'order';
-    typing(() => { bot(rich('Con gusto 📦 Compárteme tu **número de pedido** y te muestro el estado al instante.')); chips([{ label: 'Usar #1047 (ejemplo)', fn: () => track('1047') }]); });
+    typing(() => { bot(rich(L('Con gusto 📦 Compárteme tu **número de pedido** y te muestro el estado al instante.', 'Happy to help 📦 Share your **order number** and I’ll show you its status right away.'))); chips([{ label: L('Usar #1047 (ejemplo)', 'Use #1047 (example)'), fn: () => track('1047') }]); });
   }
   function track(n) {
     awaiting = '';
     typing(() => {
-      card(`<p class="mb-2">Pedido <b>#${esc(n)}</b> 🚚</p><ol class="space-y-1.5 text-sm"><li>✅ Confirmado <span class="text-stone-400">· hoy 10:12</span></li><li>✅ Preparado</li><li class="font-bold text-p">🚚 En camino · llega mañana</li><li class="text-stone-400">⏳ Entregado</li></ol><div class="h-1.5 bg-stone-200 rounded mt-3 overflow-hidden"><div class="h-full glow" style="width:66%"></div></div>`);
+      card(`<p class="mb-2">${L('Pedido', 'Order')} <b>#${esc(n)}</b> 🚚</p><ol class="space-y-1.5 text-sm"><li>✅ ${L('Confirmado', 'Confirmed')} <span class="text-stone-400">· ${L('hoy', 'today')} 10:12</span></li><li>✅ ${L('Preparado', 'Prepared')}</li><li class="font-bold text-p">🚚 ${L('En camino · llega mañana', 'On its way · arrives tomorrow')}</li><li class="text-stone-400">⏳ ${L('Entregado', 'Delivered')}</li></ol><div class="h-1.5 bg-stone-200 rounded mt-3 overflow-hidden"><div class="h-full glow" style="width:66%"></div></div>`);
       setTimeout(menu, 500);
     });
   }
   function carousel() {
-    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => [x, k]).filter(([x], i, a) => a.findIndex(o => o[0].n === x.n) === i).map(([x, k]) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-contain bg-stone-100"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
+    card('<p class="mb-2">' + L('Lo más pedido ahora 👇', 'Most popular right now 👇') + '</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => [x, k]).filter(([x], i, a) => a.findIndex(o => o[0].n === x.n) === i).map(([x, k]) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-contain bg-stone-100"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">${L('Agregar', 'Add')}</button></div></div>`).join('') + '</div>',
       e => { const b = e.target.closest('[data-k]'); if (b) { closeChat(); openCart(P[b.dataset.k]); } });
     setTimeout(menu, 500);
   }
   function methods() {
-    card('<p class="mb-2">Paga como prefieras:</p><div class="grid grid-cols-2 gap-1.5 text-xs font-semibold">' + ct.pagos.slice(0, 6).map(p => `<span class="border border-stone-200 rounded-lg px-2 py-1.5">${esc(p)}</span>`).join('') + '</div><button data-go class="btn-p w-full rounded-full py-2 mt-3 text-sm font-bold">Pagar ahora</button>',
+    card('<p class="mb-2">' + L('Paga como prefieras:', 'Pay your way:') + '</p><div class="grid grid-cols-2 gap-1.5 text-xs font-semibold">' + ct.pagos.slice(0, 6).map(p => `<span class="border border-stone-200 rounded-lg px-2 py-1.5">${esc(p)}</span>`).join('') + '</div><button data-go class="btn-p w-full rounded-full py-2 mt-3 text-sm font-bold">' + L('Pagar ahora', 'Pay now') + '</button>',
       e => { if (e.target.closest('[data-go]')) { closeChat(); openCart(P[0]); } });
     setTimeout(menu, 500);
   }
   function reviews() {
-    card('<p class="text-amber-500 text-sm">★★★★★ <span class="text-stone-500">4.9 · +2,300 clientes</span></p><p class="mt-1 text-sm italic">“Llegó en dos días y es justo como en las fotos.”</p><button data-go class="border border-p text-p w-full rounded-full py-2 mt-3 text-sm font-bold">Ver todas las reseñas</button>',
+    card('<p class="text-amber-500 text-sm">★★★★★ <span class="text-stone-500">' + L('4.9 · +2,300 clientes', '4.9 · 2,300+ customers') + '</span></p><p class="mt-1 text-sm italic">' + L('“Llegó en dos días y es justo como en las fotos.”', '“It arrived in two days and looks just like the photos.”') + '</p><button data-go class="border border-p text-p w-full rounded-full py-2 mt-3 text-sm font-bold">' + L('Ver todas las reseñas', 'See all reviews') + '</button>',
       e => { if (e.target.closest('[data-go]')) { closeChat(); location.hash = 'resenas'; } });
     setTimeout(menu, 500);
   }
   function handoff() {
-    bot(rich('Claro, te conecto con una persona del equipo 🧑‍💼'));
-    typing(() => { card('<div class="flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold">S</span><div><p class="font-bold text-sm">Sofía se unió al chat</p><p class="text-xs text-stone-500"><span class="text-emerald-600">●</span> En línea · responde en ~2 min</p></div></div><p class="text-xs text-stone-500 mt-2">Verá todo el historial, no tendrás que repetir nada.</p>'); setTimeout(menu, 500); }, 1400);
+    bot(rich(L('Claro, te conecto con una persona del equipo 🧑‍💼', 'Sure, I’ll connect you with someone from the team 🧑‍💼')));
+    typing(() => { card('<div class="flex items-center gap-3"><span class="w-10 h-10 rounded-full bg-p grid place-items-center font-extrabold">S</span><div><p class="font-bold text-sm">' + L('Sofía se unió al chat', 'Sofía joined the chat') + '</p><p class="text-xs text-stone-500"><span class="text-emerald-600">●</span> ' + L('En línea · responde en ~2 min', 'Online · replies in ~2 min') + '</p></div></div><p class="text-xs text-stone-500 mt-2">' + L('Verá todo el historial, no tendrás que repetir nada.', 'They will see the whole history, so you won’t have to repeat anything.') + '</p>'); setTimeout(menu, 500); }, 1400);
   }
   function respond(t) {
     const x = t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     if (awaiting === 'order' && /\d/.test(x)) return track(x.replace(/\D/g, '').slice(0, 8));
     if (/^\d{3,}$/.test(x.trim())) return track(x.trim());
-    if (/precio|cuesta|cuanto|costo|valor/.test(x)) return OPT.price[1]();
-    if (/envio|entrega|llega|tarda|demora/.test(x)) return say(`El **envío es gratis** y llega en **${ct.envio}**. Te mando el seguimiento por WhatsApp. 🚚`);
-    if (/pago|pagar|tarjeta|oxxo|transfer|apple|google|paypal/.test(x)) return typing(methods);
-    if (/descuento|cupon|oferta|promo|rebaja/.test(x)) return typing(payCard);
-    if (/pedido|rastre|seguimiento|orden|guia/.test(x)) return orderAsk();
-    if (/humano|persona|agente|asesor|alguien/.test(x)) return typing(handoff, 1200);
-    if (/garantia|devol|cambio|reembolso/.test(x)) return say('Tienes **30 días de garantía** y devolución sin preguntas. 🛡️');
-    if (/resena|opinion|calidad|confia/.test(x)) return typing(reviews);
-    if (/producto|catalogo|recomien|mostrar|que tienen|audifon|mochila|reloj/.test(x) || (brandMode && own.some(o => norm(o.n).split(/\s+/).some(w => w.length > 3 && x.includes(w))))) return typing(carousel);
-    if (/^(hola|buenas|hey|buen dia|buenos)/.test(x)) return say(`¡Hola! 👋 ¿Te ayudo con **${producto}** o prefieres ver otras opciones?`);
-    say('Puedo ayudarte con **precio, envío, pagos, tu pedido** o recomendarte productos. Elige una opción 👇');
+    if (/precio|cuesta|cuanto|costo|valor|price|cost|how much/.test(x)) return OPT.price[1]();
+    if (/envio|entrega|llega|tarda|demora|ship|deliver|arrive|how long/.test(x)) return say(L(`El **envío es gratis** y llega en **${ct.envio}**. Te mando el seguimiento por WhatsApp. 🚚`, `**Shipping is free** and it arrives in **${cx('envio')}**. I’ll send you tracking on WhatsApp. 🚚`));
+    if (/pago|pagar|tarjeta|oxxo|transfer|apple|google|paypal|pay|card|zelle/.test(x)) return typing(methods);
+    if (/descuento|cupon|oferta|promo|rebaja|discount|coupon|offer|deal/.test(x)) return typing(payCard);
+    if (/pedido|rastre|seguimiento|orden|guia|order|track|status/.test(x)) return orderAsk();
+    if (/humano|persona|agente|asesor|alguien|human|person|agent|someone|representative/.test(x)) return typing(handoff, 1200);
+    if (/garantia|devol|cambio|reembolso|guarantee|warranty|return|refund|exchange/.test(x)) return say(L('Tienes **30 días de garantía** y devolución sin preguntas. 🛡️', 'You get a **30-day guarantee** and no-questions-asked returns. 🛡️'));
+    if (/resena|opinion|calidad|confia|review|quality|trust/.test(x)) return typing(reviews);
+    if (/producto|catalogo|recomien|mostrar|que tienen|audifon|mochila|reloj|product|catalog|recommend|show me|what do you have/.test(x) || (brandMode && own.some(o => norm(o.n).split(/\s+/).some(w => w.length > 3 && x.includes(w))))) return typing(carousel);
+    if (/^(hola|buenas|hey|buen dia|buenos|hi|hello|good (morning|afternoon|evening))/.test(x)) return say(L(`¡Hola! 👋 ¿Te ayudo con **${producto}** o prefieres ver otras opciones?`, `Hi! 👋 Can I help you with **${producto}** or would you rather see other options?`));
+    say(L('Puedo ayudarte con **precio, envío, pagos, tu pedido** o recomendarte productos. Elige una opción 👇', 'I can help with **price, shipping, payments, your order** or recommend products. Pick an option 👇'));
   }
   function start() {
     msgs.innerHTML = ''; used.clear(); awaiting = '';
-    bot(rich(`¡Hola! 👋 Soy el asistente con IA de **${marca}**. Veo que estás revisando **${producto}**. Me quedan solo 3 unidades en inventario a **${precio}**. ¿Quieres que te aplique un 10% de descuento y te genere el link de pago directo por aquí?`));
-    chips(['pay', 'order', 'price', 'prods', 'methods', 'human'].map(id => ({ id, label: OPT[id][0], fn: OPT[id][1] })));
+    bot(rich(L(`¡Hola! 👋 Soy el asistente con IA de **${marca}**. Veo que estás revisando **${producto}**. Me quedan solo 3 unidades en inventario a **${precio}**. ¿Quieres que te aplique un 10% de descuento y te genere el link de pago directo por aquí?`, `Hi! 👋 I’m the AI assistant for **${marca}**. I see you’re looking at **${producto}**. I only have 3 units left in stock at **${precio}**. Want me to apply a 10% discount and generate a direct payment link right here?`)));
+    chips(['pay', 'order', 'price', 'prods', 'methods', 'human'].map(id => ({ id, label: OL[id][EN() ? 1 : 0], fn: OPT[id][1] })));
   }
   function ask(t) { openChat(); if (!t) return; user(t); respond(t); }
   function openChat(auto) {
@@ -752,23 +777,154 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCart(); closeChat(); } });
   function localize() {
-    document.documentElement.lang = ct.lang;
+    document.documentElement.lang = EN() ? 'en' : ct.lang;
+    document.title = marca + L(' | Tienda oficial', ' | Official store');
     const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    if (!customPromo) set('#topbar', cx('promo'));
     $('#payChips').innerHTML = ct.pagos.map(p => `<span class="glass rounded-full px-4 py-2">${esc(p)}</span>`).join('');
-    set('#payNote', '🔒 Pago cifrado · Compra protegida · ' + ct.fact);
-    set('#faqEnvio', ct.envioTxt + '. El envío es gratis en tu primer pedido.');
-    set('#faqPago', ct.pagoTxt + '.');
-    set('#pasoEnvio', 'Recíbelo en ' + ct.envio);
+    set('#payNote', L('🔒 Pago cifrado · Compra protegida · ', '🔒 Encrypted payment · Buyer protection · ') + cx('fact'));
+    set('#faqEnvio', cx('envioTxt') + L('. El envío es gratis en tu primer pedido.', '. Shipping is free on your first order.'));
+    set('#faqPago', cx('pagoTxt') + '.');
+    set('#pasoEnvio', L('Recíbelo en ', 'Get it in ') + cx('envio'));
     const st = $('#stEnvio'); st.dataset.count = ct.stat[0]; st.dataset.suf = ct.stat[1];
-    $$('[data-pl]').forEach(e => { e.textContent = ct.pago4; });
+    $$('[data-pl]').forEach(e => { e.textContent = cx('pago4'); });
     $$('[data-rc]').forEach((e, i) => { e.textContent = 'Compra verificada · ' + ct.rc[i]; });
     const slug = marca.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '') || 'tutienda';
     set('#ctDir', '📍 ' + text('dir', ct.dir));
     set('#ctTel', '📞 ' + text('tel', ct.tel));
     set('#ctMail', '✉️ hola@' + slug + ct.tld);
-    set('#ctHora', '🕘 ' + ct.hora);
+    set('#ctHora', '🕘 ' + cx('hora'));
   }
   localize();
+
+  // ---------- Traductor ES ⇄ EN ----------
+  const DICT = {
+    'Tienda': 'Shop', 'Inicio': 'Home', 'Principal': 'Main', 'Abrir carrito': 'Open cart',
+    'Activar o desactivar consejos de conversión': 'Turn conversion tips on or off', 'Consejos de conversión': 'Conversion tips',
+    'Buscar con IA…': 'Search with AI…', 'Buscar productos': 'Search products',
+    'Pocas unidades en': 'Few units left at', 'Lo más pedido de': 'Most popular at',
+    '. Lo eliges, pagas en un paso y te lo enviamos hoy mismo.': '. Pick it, pay in one step and we ship it today.',
+    '-10% hoy': '-10% today', '🔥 Quedan solo 3 unidades': '🔥 Only 3 units left', 'La oferta termina en': 'Offer ends in',
+    '⚡ Compra en 1 Clic': '⚡ Buy in 1 Click', 'Ver más productos': 'See more products',
+    '4.9 · +2,300 clientes felices': '4.9 · 2,300+ happy customers', '+2,300 reseñas': '2,300+ reviews',
+    '🔥 47 vendidos hoy': '🔥 47 sold today', 'Envío gratis incluido': 'Free shipping included',
+    '✦ Envío gratis': '✦ Free shipping', '✦ Pago en 1 clic': '✦ 1-click checkout', '✦ Asistente con IA 24/7': '✦ 24/7 AI assistant',
+    '✦ 30 días de garantía': '✦ 30-day guarantee', '✦ Compra protegida': '✦ Buyer protection', '✦ Soporte por WhatsApp': '✦ WhatsApp support',
+    'clientes felices': 'happy customers', 'valoración promedio': 'average rating', 'entrega promedio': 'average delivery', 'de garantía': 'guarantee',
+    'Los más vendidos': 'Best sellers', 'Pago en 1 paso · Envío gratis': '1-step checkout · Free shipping',
+    'Más vendido': 'Best seller', 'Destacado': 'Featured', 'Comprar en 1 clic': 'Buy in 1 click', 'Guardar en favoritos': 'Save to favorites',
+    'Paga como prefieras': 'Pay your way', 'Comprar es así de fácil': 'Buying is this easy',
+    'Elige tu producto': 'Choose your product', 'Busca con IA o explora lo más vendido.': 'Search with AI or browse our best sellers.',
+    'Paga en 1 clic': 'Pay in 1 click', 'Elige tu método favorito y paga sin crear cuenta.': 'Pick your favorite method and pay without creating an account.',
+    'Seguimiento por WhatsApp hasta tu puerta.': 'WhatsApp tracking all the way to your door.',
+    'Lo que dicen los clientes': 'What customers say', '4.9 de 5 · reseñas de ejemplo': '4.9 out of 5 · sample reviews',
+    'Llegó en dos días y es justo como en las fotos. La compra en un paso fue facilísima.': 'It arrived in two days and looks just like the photos. Buying in one step was super easy.',
+    'El asistente por chat me resolvió todo al instante y me dio un descuento. Volveré a comprar.': 'The chat assistant solved everything instantly and gave me a discount. I’ll buy again.',
+    'Muy buena calidad. Pagué con transferencia y me confirmaron el pedido en minutos.': 'Very good quality. I paid by bank transfer and they confirmed my order within minutes.',
+    'Compra verificada': 'Verified purchase',
+    'Llévate 10% en tu primer pedido': 'Get 10% off your first order', 'Déjanos tu correo y te enviamos el cupón al instante.': 'Leave us your email and we’ll send you the coupon instantly.',
+    'tucorreo@ejemplo.com': 'youremail@example.com', 'Correo': 'Email', 'Quiero mi cupón': 'I want my coupon',
+    '¡Listo! Usa este código al pagar (demo):': 'Done! Use this code at checkout (demo):', 'Copiar': 'Copy', '¡Copiado!': 'Copied!',
+    'Preguntas frecuentes': 'Frequently asked questions', '¿Cuánto tarda el envío?': 'How long does shipping take?',
+    '¿Qué métodos de pago aceptan?': 'Which payment methods do you accept?', '¿Puedo devolver mi compra?': 'Can I return my purchase?',
+    'Sí, tienes 30 días de garantía y devolución sin preguntas.': 'Yes, you have a 30-day guarantee and no-questions-asked returns.',
+    '¿El asistente de IA puede generarme el link de pago?': 'Can the AI assistant generate my payment link?',
+    'Sí. Escríbele por el chat y te genera el pedido con el pago listo en un clic.': 'Yes. Message it in the chat and it creates your order with payment ready in one click.',
+    'Hablemos': 'Let’s talk', '¿Dudas sobre un pedido o quieres una cotización? Escríbenos y te respondemos hoy.': 'Questions about an order or want a quote? Write to us and we’ll reply today.',
+    'Tu nombre': 'Your name', 'Tu correo': 'Your email', '¿En qué podemos ayudarte?': 'How can we help?', 'Enviar mensaje': 'Send message',
+    '✓ ¡Mensaje enviado! (formulario de demostración)': '✓ Message sent! (demo form)',
+    'Tecnología, diseño y atención con IA para que comprar sea simple.': 'Technology, design and AI-powered support to make buying simple.',
+    'Explora': 'Explore', 'Productos': 'Products', 'Reseñas': 'Reviews', 'Contacto': 'Contact', '· Vista de demostración': '· Demo preview',
+    'Ir arriba': 'Back to top', 'Comprar': 'Buy', 'Checkout exprés': 'Express checkout', 'Cerrar': 'Close', 'Cantidad: 1': 'Quantity: 1',
+    'Correo electrónico': 'Email address', 'WhatsApp (para tu guía de envío)': 'WhatsApp (for your shipping updates)',
+    'Método de pago': 'Payment method', 'Tarjeta': 'Card', 'Descuento 10%': '10% discount', 'Envío': 'Shipping', 'Gratis': 'Free',
+    '🔒 Pago cifrado. Esto es una demostración: no se realiza ningún cobro.': '🔒 Encrypted payment. This is a demo: no charge is made.',
+    '¡Pedido confirmado!': 'Order confirmed!', 'Así de rápido es el checkout de tu tienda: un solo paso, sin registros.': 'That’s how fast your store’s checkout is: a single step, no sign-up.',
+    'Seguir comprando': 'Keep shopping', 'Abrir asistente de IA': 'Open AI assistant', '💬 Tengo una oferta para ti': '💬 I have an offer for you',
+    'Asistente de IA': 'AI assistant', 'Asistente de': 'Assistant for', '● En línea': '● Online', 'Reiniciar chat': 'Restart chat', 'Cerrar chat': 'Close chat',
+    'Escribe un mensaje…': 'Type a message…', 'Mensaje': 'Message', 'Enviar': 'Send', 'compró': 'bought',
+    '🤖 Búsqueda inteligente': '🤖 Smart search', 'Recientes': 'Recent', '🤖 Preguntar al asistente:': '🤖 Ask the assistant:',
+    '🎯 Hero claro|Producto, precio y botón visibles': '🎯 Clear hero|Product, price and button in plain sight',
+    '📊 Prueba social|Números reales dan credibilidad': '📊 Social proof|Real numbers build credibility',
+    '🛍️ Compra en 1 clic|Menos pasos, más ventas': '🛍️ 1-click buying|Fewer steps, more sales',
+    '💳 Pagos visibles|Quitan dudas al pagar': '💳 Visible payments|They remove doubts at checkout',
+    '🧭 Proceso claro|Saber qué sigue baja el miedo': '🧭 Clear process|Knowing what’s next lowers fear',
+    '⭐ Reseñas|Opiniones reales = confianza': '⭐ Reviews|Real opinions = trust',
+    '🎁 Cupón de bienvenida|Captura correos y recupera visitas': '🎁 Welcome coupon|Captures emails and wins visitors back',
+    '❓ Preguntas frecuentes|Resuelven dudas antes de que frenen': '❓ FAQ|Answers doubts before they stall a sale',
+    '✉️ Contacto real|Un humano detrás da confianza': '✉️ Real contact|A human behind it builds trust',
+    '🔒 Pie de confianza|Marca y soporte siempre a la vista': '🔒 Trust footer|Brand and support always in view',
+    'Barra de progreso': 'Progress bar', 'Muestra cuánto falta y guía la lectura': 'Shows how much is left and guides reading',
+    'Buscador inteligente': 'Smart search', 'Encuentra rápido y vende más': 'Find fast, sell more',
+    'Chat con IA 24/7': '24/7 AI chat', 'Responde al instante y cierra ventas': 'Answers instantly and closes sales',
+    'Consejos activados': 'Tips on', 'Te diré por qué cada sección vende': 'I’ll tell you why each section sells', 'Consejos activos': 'Tips active',
+    'Barra fija en móvil': 'Sticky bar on mobile', 'Comprar siempre a un toque': 'Buying is always one tap away'
+  };
+  const CATEN = { 'Más vendido': 'Best seller', 'Destacado': 'Featured', 'Mochilas': 'Backpacks', 'Audio': 'Audio', 'Accesorios': 'Accessories' };
+  const RULES = [
+    [/^hace (\d+) min$/, (m, n) => n + ' min ago'],
+    [/^Pagar (.+)$/, (m, t) => 'Pay ' + t],
+    [/^Compra verificada · (.+)$/, (m, c) => 'Verified purchase · ' + c],
+    [/^(\d+) días$/, (m, n) => n + ' days'],
+    [/^(.*) · (Más vendido|Destacado|Mochilas|Audio|Accesorios)$/, (m, a, c) => a + ' · ' + CATEN[c]],
+    [/^Sin resultados para (.*)\. Prueba con (.*)\.$/, (m, a, b) => 'No results for ' + a + '. Try ' + b.replace(' o ', ' or ') + '.'],
+    [/^Prueba: (.*)$/, (m, a) => 'Try: ' + a]
+  ];
+  const SKIP = 'script,style,textarea,#msgs,#ed,#v-panel,#v-flujo,[data-marca],[data-producto],[data-precio],[data-notr],#cName';
+  const ATTRS = ['placeholder', 'aria-label', 'title', 'data-tip'];
+  const trT = v => {
+    const m = v.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2];
+    if (!core) return v;
+    let out = Object.prototype.hasOwnProperty.call(DICT, core) ? DICT[core] : undefined;
+    if (out === undefined) for (const [re, fn] of RULES) { const r = core.match(re); if (r) { out = fn(...r); break; } }
+    return out === undefined ? v : m[1] + out + m[3];
+  };
+  let tN = [], tA = [], obs = null;
+  const tNode = n => { const pe = n.parentElement; if (!pe || pe.closest(SKIP)) return; const v = n.nodeValue; if (!v || !v.trim()) return; const o = trT(v); if (o !== v) { tN.push({ n, es: v, en: o }); n.nodeValue = o; } };
+  const tEl = el => { if (el.closest(SKIP)) return; ATTRS.forEach(a => { const v = el.getAttribute(a); if (!v) return; const o = trT(v); if (o !== v) { tA.push({ el, a, es: v, en: o }); el.setAttribute(a, o); } }); };
+  const tTree = root => {
+    if (root.nodeType === 3) return tNode(root);
+    if (root.nodeType !== 1 || root.closest(SKIP)) return;
+    tEl(root); root.querySelectorAll('*').forEach(tEl);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); const list = []; while (w.nextNode()) list.push(w.currentNode); list.forEach(tNode);
+  };
+  const untranslate = () => {
+    tN.forEach(t => { if (t.n.nodeValue === t.en) t.n.nodeValue = t.es; });
+    tA.forEach(t => { if (t.el.getAttribute(t.a) === t.en) t.el.setAttribute(t.a, t.es); });
+    tN = []; tA = [];
+  };
+  const watch = () => obs && obs.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+  obs = new MutationObserver(recs => {
+    if (!EN()) return;
+    obs.disconnect();
+    recs.forEach(r => { if (r.type === 'childList') r.addedNodes.forEach(tTree); else if (r.type === 'characterData') tNode(r.target); else if (r.type === 'attributes') tEl(r.target); });
+    if (tN.length > 3000) tN = tN.filter(t => t.n.isConnected);
+    if (tA.length > 1500) tA = tA.filter(t => t.el.isConnected);
+    watch();
+  });
+  const FLAG = {
+    en: '<svg viewBox="0 0 24 16" width="24" height="16" class="rounded-[3px]" aria-hidden="true"><rect width="24" height="16" fill="#fff"/><g fill="#B22234"><rect width="24" height="1.23"/><rect y="2.46" width="24" height="1.23"/><rect y="4.92" width="24" height="1.23"/><rect y="7.38" width="24" height="1.23"/><rect y="9.85" width="24" height="1.23"/><rect y="12.31" width="24" height="1.23"/><rect y="14.77" width="24" height="1.23"/></g><rect width="10.5" height="8.6" fill="#3C3B6E"/></svg>',
+    es: '<svg viewBox="0 0 24 16" width="24" height="16" class="rounded-[3px]" aria-hidden="true"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg>'
+  };
+  const paintLang = () => {
+    const b = $('#langBtn'), lbl = EN() ? 'Cambiar a español' : 'Switch to English';
+    b.innerHTML = (EN() ? FLAG.es : FLAG.en) + '<span>' + (EN() ? 'ES' : 'EN') + '</span>';
+    b.setAttribute('aria-label', lbl); b.title = lbl;
+    document.body.dataset.lang = LANG;
+  };
+  function setLang(l) {
+    if (l === LANG) return;
+    obs.disconnect(); untranslate();
+    LANG = l; try { localStorage.setItem('lang', l); } catch (e) {}
+    localize(); paintLang();
+    if (EN()) tTree(document.body);
+    watch();
+    if (greeted) start();
+  }
+  $('#langBtn').addEventListener('click', () => setLang(EN() ? 'es' : 'en'));
+  paintLang();
+  if (EN()) tTree(document.body);
+  watch();
   window.BR = { marca, producto, precio, money, num: pr0 ? pr0.num : 1450, P, openCart, openChat, ct };
 })();
 </script>
@@ -1033,12 +1189,12 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   const fld = (k, l, p) => `<label class="block"><span class="font-semibold">${l}</span><input name="${k}" placeholder="${p}" class="${inp}"></label>`;
   const col = (k, l, ph) => `<label class="block"><span class="font-semibold">${l}</span><span class="mt-1 flex items-center gap-2"><input type="color" data-sw="${k}" aria-label="Elegir color" class="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-stone-300 bg-white p-1"><input name="${k}" data-hex placeholder="${ph || '#E11D48'}" maxlength="9" autocomplete="off" spellcheck="false" class="${inp} !mt-0 font-mono uppercase"></span></label>`;
   form.innerHTML = fld('marca', 'Nombre de la tienda', 'Moda MX') + fld('producto', 'Producto estrella', 'Sneakers Urban Pro') + fld('precio', 'Precio (solo número)', '1450') +
-    `<label class="block"><span class="font-semibold">Moneda</span><select name="moneda" class="${inp}"><option value="MXN">México · peso (MXN)</option><option value="COP">Colombia · peso (COP)</option><option value="USD">Estados Unidos · dólar (USD)</option><option value="EUR">España · euro (EUR)</option></select></label>` +
+    `<label class="block"><span class="font-semibold">Moneda</span><select name="moneda" class="${inp}"><option value="MXN">México · peso (MXN)</option><option value="COP">Colombia · peso (COP)</option><option value="USD">Estados Unidos · dólar (USD)</option><option value="EUR">España · euro (EUR)</option></select></label><label class="block"><span class="font-semibold">Idioma inicial</span><select name="lang" class="${inp}"><option value="">Español</option><option value="en">English</option></select></label>` +
     col('color', 'Color de la marca') + col('btn', 'Color de los botones') + col('fondo', 'Color de fondo') + col('menu', 'Color del menú (fondo)', 'Igual que el fondo') + col('menutxt', 'Color del logo, enlaces e iconos del menú', 'Automático') + fld('promo', 'Texto de la barra superior', 'Por defecto según el país') + fld('dir', 'Dirección (opcional)', 'Por defecto según el país') + fld('tel', 'Teléfono (opcional)', 'Por defecto según el país') + fld('logo', 'URL del logo (opcional)', 'https://…') + fld('img_prod', 'URL de la foto del producto', 'https://…') +
     `<p class="text-xs text-stone-500 pt-1">Productos extra (opcional). Si añades alguno, la tienda solo mostrará productos de la marca y los repetirá para completar la cuadrícula.</p>` + fld('p2n', 'Producto 2 · nombre', 'Camiseta Urban') + fld('p2p', 'Producto 2 · precio', '990') + fld('p2i', 'Producto 2 · URL de la foto', 'https://…') + fld('p3n', 'Producto 3 · nombre', 'Gorra Classic') + fld('p3p', 'Producto 3 · precio', '590') + fld('p3i', 'Producto 3 · URL de la foto', 'https://…') +
     `<div class="grid grid-cols-2 gap-2 pt-1"><button type="submit" class="rounded-full bg-black text-white py-2.5 font-bold">Aplicar</button><button type="button" id="edCopy" class="rounded-full border border-stone-300 py-2.5 font-bold">Copiar enlace</button><button type="button" id="edDl" class="col-span-2 rounded-full border border-stone-300 py-2.5 font-bold">⬇ Descargar versión del cliente</button></div>`;
   const cs = getComputedStyle(document.documentElement);
-  ['marca', 'producto', 'precio', 'moneda', 'promo', 'dir', 'tel', 'logo', 'img_prod', 'p2n', 'p2p', 'p2i', 'p3n', 'p3p', 'p3i'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
+  ['marca', 'producto', 'precio', 'moneda', 'lang', 'promo', 'dir', 'tel', 'logo', 'img_prod', 'p2n', 'p2p', 'p2i', 'p3n', 'p3p', 'p3i'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
   form.elements.color.value = cs.getPropertyValue('--primary-color').trim();
   form.elements.btn.value = cs.getPropertyValue('--btn-color').trim();
   form.elements.fondo.value = cs.getPropertyValue('--bg').trim();
