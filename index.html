@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
 <title>Tienda online</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -378,6 +379,19 @@ input,select,textarea{font-size:16px!important}
   </form>
 </section>
 
+<script>
+// Imágenes de otras webs: algunas tiendas bloquean las fotos si la petición viene de otro dominio (protección anti-hotlink).
+// 1) No se envía el referrer (meta de arriba). 2) Si aun así una foto falla, se reintenta una sola vez a través de un proxy de imágenes.
+document.addEventListener('error', e => {
+  const i = e.target;
+  if (!(i instanceof HTMLImageElement) || i.dataset.px) return;
+  const u = i.currentSrc || i.src;
+  if (!/^https?:\/\//i.test(u) || /^https?:\/\/(wsrv\.nl|images\.unsplash\.com)\//i.test(u)) return;
+  i.dataset.px = '1';
+  i.referrerPolicy = 'no-referrer';
+  i.src = 'https://wsrv.nl/?url=' + encodeURIComponent(u.replace(/^https?:\/\//i, ''));
+}, true);
+</script>
 <script>
 // ✏️ VALORES POR DEFECTO: edita esta línea para dejar una versión fija para un cliente (los parámetros de la URL los sobrescriben)
 const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',menu:'',menutxt:'',lang:'',p2n:'',p2p:'',p2i:'',p3n:'',p3p:'',p3i:'',cliente:false};
