@@ -75,6 +75,13 @@ details[open] .pl{transform:rotate(45deg)}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(38% 34% at 12% 8%,color-mix(in srgb,var(--primary-color) 28%,transparent),transparent 70%),radial-gradient(34% 30% at 88% 18%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 45%,#7c3aed) 24%,transparent),transparent 70%),radial-gradient(40% 36% at 70% 92%,color-mix(in srgb,color-mix(in srgb,var(--primary-color) 40%,#06b6d4) 20%,transparent),transparent 70%)}
 .hdr::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--primary-color),transparent);opacity:.7}
 #sticky::after{display:none}
+.hdr-c{background:var(--menu-bg)!important;color:var(--menu-fg);border-bottom:1px solid color-mix(in srgb,var(--menu-fg) 18%,transparent)}
+.hdr-c::after{display:none}
+.hdr-c .nv:hover,.hdr-c button:hover{background:color-mix(in srgb,var(--menu-fg) 14%,transparent)}
+.hdr-c .nv[aria-current="page"]{background:color-mix(in srgb,var(--menu-fg) 22%,transparent);color:var(--menu-fg)}
+.hdr-c .inp{background:color-mix(in srgb,var(--menu-fg) 12%,var(--menu-bg));border-color:color-mix(in srgb,var(--menu-fg) 28%,var(--menu-bg));color:var(--menu-fg)}
+.hdr-c .inp::placeholder{color:color-mix(in srgb,var(--menu-fg) 65%,var(--menu-bg))}
+.hdr-c .muted{color:color-mix(in srgb,var(--menu-fg) 70%,var(--menu-bg))}
 .btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
 .btn-p:hover::after{transform:translateX(120%)}
 #tilt::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;background:conic-gradient(from 200deg,transparent 55%,var(--primary-color) 78%,#fff 86%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
@@ -369,7 +376,7 @@ input,select,textarea{font-size:16px!important}
 
 <script>
 // ✏️ VALORES POR DEFECTO: edita esta línea para dejar una versión fija para un cliente (los parámetros de la URL los sobrescriben)
-const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',cliente:false};
+const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',menu:'',menutxt:'',p2n:'',p2p:'',p2i:'',p3n:'',p3p:'',p3i:'',cliente:false};
 </script>
 <script>
 (() => {
@@ -414,6 +421,13 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   root.setProperty('--on-primary', ink(color));
   root.setProperty('--btn-color', '#' + btn);
   root.setProperty('--on-btn', ink(btn));
+  // Menú con color propio (fondo + texto/logo/iconos); si no se indica el texto, se elige blanco u oscuro automáticamente
+  const menuBg = hex(q.get('menu') || D.menu, ''), menuTx = hex(q.get('menutxt') || D.menutxt, '');
+  if (menuBg || menuTx) {
+    const mb = menuBg || bg, mt = menuTx || ink(mb).slice(1);
+    root.setProperty('--menu-bg', '#' + mb); root.setProperty('--menu-fg', '#' + mt);
+    $('header.hdr').classList.add('hdr-c');
+  }
   if (q.get('badge') === '0') root.setProperty('--nb', '0px');
   const promo = text('promo', D.promo || ct.promo);
   if (promo) $('#topbar').textContent = promo;
@@ -448,7 +462,16 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   const discounted = pp ? fmt(pp, pp.num * 0.9) : precio;
 
   // ---------- Cuadrícula de productos ----------
-  const P = [
+  // Productos propios de la marca (producto estrella + hasta 2 más). Si hay alguno extra, la cuadrícula
+  // muestra SOLO productos de la marca y los repite para completar las 4 tarjetas.
+  const extra = [2, 3].map(n => {
+    const nm = text('p' + n + 'n', D['p' + n + 'n'] || '').replace(/\*/g, '');
+    if (!nm) return null;
+    const pr = text('p' + n + 'p', D['p' + n + 'p'] || ''), pq = pr && parsePrice(pr);
+    return { n: nm, p: pq ? money(pq.num) : (pr || precio), i: link('p' + n + 'i', D['p' + n + 'i'] || imgProd) };
+  }).filter(Boolean);
+  const own = [{ n: producto, p: precio, i: imgProd }, ...extra], brandMode = extra.length > 0;
+  const P = brandMode ? [0, 1, 2, 3].map(k => ({ ...own[k % own.length], tag: k === 0 ? 'Más vendido' : '' })) : [
     { n: producto, p: precio, i: imgProd, tag: 'Más vendido' },
     { n: 'Mochila Daily Carry', p: money(PR[cc][0]), i: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80' },
     { n: 'Audífonos Wave', p: money(PR[cc][1]), i: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80' },
@@ -477,7 +500,9 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const KW = ['oferta destacado mas vendido top estrella nuevo', 'mochila bolso bolsa maleta laptop viaje escuela trabajo', 'audifonos audio musica auriculares sonido bluetooth headphones', 'reloj watch hora smartwatch pulsera accesorio'];
   const CAT = ['Más vendido', 'Mochilas', 'Audio', 'Accesorios'];
-  P.forEach((x, k) => { x.kw = norm(x.n + ' ' + KW[k]); });
+  const CATx = brandMode ? ['Más vendido', 'Destacado', 'Destacado', 'Destacado'] : CAT;
+  const CH = brandMode ? [...new Set(own.map(o => o.n.toLowerCase().slice(0, 22)))].concat('oferta') : ['audífonos', 'mochila', 'reloj', 'oferta'];
+  P.forEach((x, k) => { x.kw = norm(x.n + ' ' + (brandMode ? KW[0] : KW[k])); });
   const lev = (a, b) => { const d = Array.from({ length: a.length + 1 }, (_, i) => [i]); for (let j = 1; j <= b.length; j++) d[0][j] = j; for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[a.length][b.length]; };
   function score(x, v) {
     const toks = v.split(/\s+/).filter(Boolean), words = x.kw.split(/\s+/); let s = 0;
@@ -495,14 +520,14 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   const paint = items => items.forEach((b, i) => b.classList.toggle('bg-stone-100', i === act));
   function suggest() {
     const raw = qi.value.trim(), v = norm(raw); act = -1;
-    const hits = P.map((x, k) => [x, k, v ? score(x, v) : 1]).filter(h => h[2] > 0).sort((a, b) => b[2] - a[2]);
+    const hits = P.map((x, k) => [x, k, v ? score(x, v) : 1]).filter(h => h[2] > 0).sort((a, b) => b[2] - a[2]).filter((h, i, a) => a.findIndex(o => o[0].n === h[0].n) === i);
     let h = '<li class="px-4 pt-2.5 pb-1 text-[11px] text-stone-400 font-semibold">🤖 Búsqueda inteligente</li>';
     if (!v) {
-      h += `<li class="px-4 py-2 flex flex-wrap gap-1.5">${['audífonos', 'mochila', 'reloj', 'oferta'].map(t => `<button type="button" data-t="${t}" class="px-3 py-1 rounded-full bg-stone-100 text-xs font-semibold hover:bg-stone-200">🔥 ${t}</button>`).join('')}</li>`;
+      h += `<li class="px-4 py-2 flex flex-wrap gap-1.5">${CH.map(t =>  `<button type="button" data-t="${t}" class="px-3 py-1 rounded-full bg-stone-100 text-xs font-semibold hover:bg-stone-200">🔥 ${t}</button>`).join('')}</li>`;
       if (recent.length) h += '<li class="px-4 pt-1 pb-1 text-[11px] text-stone-400 font-semibold">Recientes</li>' + recent.map(t => `<li><button type="button" data-t="${esc(t)}" class="w-full text-left px-4 py-1.5 hover:bg-stone-100 text-stone-600">🕘 ${esc(t)}</button></li>`).join('');
     }
-    h += hits.length ? hits.map(([x, k]) => `<li><button type="button" data-i data-k="${k}" class="w-full flex items-center gap-3 text-left px-4 py-2 hover:bg-stone-100"><img src="${esc(x.i)}" alt="" class="w-10 h-10 rounded-lg object-cover bg-stone-200"><span class="flex-1 min-w-0"><span class="block font-semibold truncate">${hl(x.n, raw)}</span><span class="block text-xs text-stone-500">${esc(x.p)} · ${CAT[k]}</span></span><span data-q="${k}" role="button" title="Comprar en 1 clic" class="px-2.5 py-1 rounded-full bg-p text-xs font-bold">⚡</span></button></li>`).join('')
-      : `<li class="px-4 py-3 text-stone-500">Sin resultados para «${esc(raw)}». Prueba con «audífonos» o «mochila».</li>`;
+    h += hits.length ? hits.map(([x, k]) => `<li><button type="button" data-i data-k="${k}" class="w-full flex items-center gap-3 text-left px-4 py-2 hover:bg-stone-100"><img src="${esc(x.i)}" alt="" class="w-10 h-10 rounded-lg object-cover bg-stone-200"><span class="flex-1 min-w-0"><span class="block font-semibold truncate">${hl(x.n, raw)}</span><span class="block text-xs text-stone-500">${esc(x.p)} · ${CATx[k]}</span></span><span data-q="${k}" role="button" title="Comprar en 1 clic" class="px-2.5 py-1 rounded-full bg-p text-xs font-bold">⚡</span></button></li>`).join('')
+      : `<li class="px-4 py-3 text-stone-500">Sin resultados para «${esc(raw)}». Prueba con «${esc(CH[0])}»${CH[1] && CH[1] !== 'oferta' ? ' o «' + esc(CH[1]) + '»' : ''}.</li>`;
     if (v) h += `<li><button type="button" data-i data-ai class="w-full text-left px-4 py-2.5 border-t border-stone-100 hover:bg-stone-100 font-semibold">🤖 Preguntar al asistente: <span class="text-p">«${esc(raw)}»</span></button></li>`;
     sug.innerHTML = h; sug.classList.remove('hidden');
   }
@@ -531,7 +556,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     if (raw && !recent.includes(raw)) recent = [raw, ...recent].slice(0, 3);
     qi.value = P[k].n; sug.classList.add('hidden'); go(k);
   });
-  const PH = ['Buscar con IA…', 'Prueba: «audífonos»', 'Prueba: «mochila para laptop»', 'Prueba: «reloj»']; let pi = 0;
+  const PH = brandMode ? ['Buscar con IA…', 'Prueba: «' + CH[0] + '»', 'Prueba: «oferta»'] : ['Buscar con IA…', 'Prueba: «audífonos»', 'Prueba: «mochila para laptop»', 'Prueba: «reloj»']; let pi = 0;
   setInterval(() => { if (document.activeElement !== qi && !qi.value) qi.placeholder = PH[pi = (pi + 1) % PH.length]; }, 3000);
   document.addEventListener('keydown', e => { if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); qi.focus(); } });
   document.addEventListener('click', e => { if (!e.target.closest('#q, #sug')) sug.classList.add('hidden'); });
@@ -662,7 +687,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     });
   }
   function carousel() {
-    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-cover bg-stone-200"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
+    card('<p class="mb-2">Lo más pedido ahora 👇</p><div class="flex gap-2 overflow-x-auto pb-1 snap-x">' + P.map((x, k) => [x, k]).filter(([x], i, a) => a.findIndex(o => o[0].n === x.n) === i).map(([x, k]) => `<div class="snap-start shrink-0 w-32 border border-stone-200 rounded-xl overflow-hidden bg-white"><img src="${esc(x.i)}" alt="" class="w-full h-24 object-cover bg-stone-200"><div class="p-2"><p class="text-xs font-bold truncate">${esc(x.n)}</p><p class="text-xs text-stone-500">${esc(x.p)}</p><button data-k="${k}" class="btn-p w-full rounded-full text-xs font-bold py-1.5 mt-1.5">Agregar</button></div></div>`).join('') + '</div>',
       e => { const b = e.target.closest('[data-k]'); if (b) { closeChat(); openCart(P[b.dataset.k]); } });
     setTimeout(menu, 500);
   }
@@ -692,7 +717,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     if (/humano|persona|agente|asesor|alguien/.test(x)) return typing(handoff, 1200);
     if (/garantia|devol|cambio|reembolso/.test(x)) return say('Tienes **30 días de garantía** y devolución sin preguntas. 🛡️');
     if (/resena|opinion|calidad|confia/.test(x)) return typing(reviews);
-    if (/producto|catalogo|recomien|mostrar|que tienen|audifon|mochila|reloj/.test(x)) return typing(carousel);
+    if (/producto|catalogo|recomien|mostrar|que tienen|audifon|mochila|reloj/.test(x) || (brandMode && own.some(o => norm(o.n).split(/\s+/).some(w => w.length > 3 && x.includes(w))))) return typing(carousel);
     if (/^(hola|buenas|hey|buen dia|buenos)/.test(x)) return say(`¡Hola! 👋 ¿Te ayudo con **${producto}** o prefieres ver otras opciones?`);
     say('Puedo ayudarte con **precio, envío, pagos, tu pedido** o recomendarte productos. Elige una opción 👇');
   }
@@ -1005,16 +1030,18 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   ed.classList.remove('hidden');
   const inp = 'mt-1 w-full rounded-lg border border-stone-300 px-3 py-2';
   const fld = (k, l, p) => `<label class="block"><span class="font-semibold">${l}</span><input name="${k}" placeholder="${p}" class="${inp}"></label>`;
-  const col = (k, l) => `<label class="block"><span class="font-semibold">${l}</span><span class="mt-1 flex items-center gap-2"><input type="color" data-sw="${k}" aria-label="Elegir color" class="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-stone-300 bg-white p-1"><input name="${k}" data-hex placeholder="#E11D48" maxlength="9" autocomplete="off" spellcheck="false" class="${inp} !mt-0 font-mono uppercase"></span></label>`;
+  const col = (k, l, ph) => `<label class="block"><span class="font-semibold">${l}</span><span class="mt-1 flex items-center gap-2"><input type="color" data-sw="${k}" aria-label="Elegir color" class="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-stone-300 bg-white p-1"><input name="${k}" data-hex placeholder="${ph || '#E11D48'}" maxlength="9" autocomplete="off" spellcheck="false" class="${inp} !mt-0 font-mono uppercase"></span></label>`;
   form.innerHTML = fld('marca', 'Nombre de la tienda', 'Moda MX') + fld('producto', 'Producto estrella', 'Sneakers Urban Pro') + fld('precio', 'Precio (solo número)', '1450') +
     `<label class="block"><span class="font-semibold">Moneda</span><select name="moneda" class="${inp}"><option value="MXN">México · peso (MXN)</option><option value="COP">Colombia · peso (COP)</option><option value="USD">Estados Unidos · dólar (USD)</option><option value="EUR">España · euro (EUR)</option></select></label>` +
-    col('color', 'Color de la marca') + col('btn', 'Color de los botones') + col('fondo', 'Color de fondo') + fld('promo', 'Texto de la barra superior', 'Por defecto según el país') + fld('dir', 'Dirección (opcional)', 'Por defecto según el país') + fld('tel', 'Teléfono (opcional)', 'Por defecto según el país') + fld('logo', 'URL del logo (opcional)', 'https://…') + fld('img_prod', 'URL de la foto del producto', 'https://…') +
+    col('color', 'Color de la marca') + col('btn', 'Color de los botones') + col('fondo', 'Color de fondo') + col('menu', 'Color del menú (fondo)', 'Igual que el fondo') + col('menutxt', 'Color del logo, enlaces e iconos del menú', 'Automático') + fld('promo', 'Texto de la barra superior', 'Por defecto según el país') + fld('dir', 'Dirección (opcional)', 'Por defecto según el país') + fld('tel', 'Teléfono (opcional)', 'Por defecto según el país') + fld('logo', 'URL del logo (opcional)', 'https://…') + fld('img_prod', 'URL de la foto del producto', 'https://…') +
+    `<p class="text-xs text-stone-500 pt-1">Productos extra (opcional). Si añades alguno, la tienda solo mostrará productos de la marca y los repetirá para completar la cuadrícula.</p>` + fld('p2n', 'Producto 2 · nombre', 'Camiseta Urban') + fld('p2p', 'Producto 2 · precio', '990') + fld('p2i', 'Producto 2 · URL de la foto', 'https://…') + fld('p3n', 'Producto 3 · nombre', 'Gorra Classic') + fld('p3p', 'Producto 3 · precio', '590') + fld('p3i', 'Producto 3 · URL de la foto', 'https://…') +
     `<div class="grid grid-cols-2 gap-2 pt-1"><button type="submit" class="rounded-full bg-black text-white py-2.5 font-bold">Aplicar</button><button type="button" id="edCopy" class="rounded-full border border-stone-300 py-2.5 font-bold">Copiar enlace</button><button type="button" id="edDl" class="col-span-2 rounded-full border border-stone-300 py-2.5 font-bold">⬇ Descargar versión del cliente</button></div>`;
   const cs = getComputedStyle(document.documentElement);
-  ['marca', 'producto', 'precio', 'moneda', 'promo', 'dir', 'tel', 'logo', 'img_prod'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
+  ['marca', 'producto', 'precio', 'moneda', 'promo', 'dir', 'tel', 'logo', 'img_prod', 'p2n', 'p2p', 'p2i', 'p3n', 'p3p', 'p3i'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
   form.elements.color.value = cs.getPropertyValue('--primary-color').trim();
   form.elements.btn.value = cs.getPropertyValue('--btn-color').trim();
   form.elements.fondo.value = cs.getPropertyValue('--bg').trim();
+  ['menu', 'menutxt'].forEach(k => { const v = (q.get(k) || DEFAULTS[k] || '').replace('#', ''); form.elements[k].value = v ? '#' + v : ''; });
   const hx = v => { v = v.trim().replace(/^#/, ''); if (/^[0-9a-f]{3}$/i.test(v)) v = [...v].map(c => c + c).join(''); return /^[0-9a-f]{6}$/i.test(v) ? '#' + v.toLowerCase() : ''; };
   form.querySelectorAll('[data-hex]').forEach(t => {
     const sw = form.querySelector(`[data-sw="${t.name}"]`);
