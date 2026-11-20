@@ -83,7 +83,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .hdr-c .inp::placeholder{color:color-mix(in srgb,var(--menu-fg) 65%,var(--menu-bg))}
 .lang-btn{border:1px solid color-mix(in srgb,var(--fg) 18%,transparent)}
 .hdr-c .lang-btn{border-color:color-mix(in srgb,var(--menu-fg) 30%,transparent)}
-body[data-lang="en"] .demo-only{display:none!important}
 .hdr-c .muted{color:color-mix(in srgb,var(--menu-fg) 70%,var(--menu-bg))}
 .btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
 .btn-p:hover::after{transform:translateX(120%)}
@@ -133,8 +132,8 @@ input,select,textarea{font-size:16px!important}
     </a>
     <nav class="order-4 md:order-2 w-full md:w-auto flex gap-1 overflow-x-auto -mx-1 px-1" aria-label="Principal">
       <a href="#" class="nv" data-nav="tienda">Tienda</a>
-      <a href="#panel" class="nv demo-only" data-nav="panel">Panel del asistente</a>
-      <a href="#flujo" class="nv demo-only" data-nav="flujo">Cómo funciona</a>
+      <a href="#panel" class="nv" data-nav="panel">Panel del asistente</a>
+      <a href="#flujo" class="nv" data-nav="flujo">Cómo funciona</a>
     </nav>
     <button id="tipBtn" aria-pressed="true" class="order-2 md:order-4 ml-auto shrink-0 w-10 h-10 rounded-full grid place-items-center hover:bg-white/10" title="Consejos de conversión" aria-label="Activar o desactivar consejos de conversión">💡</button>
     <button id="langBtn" type="button" data-notr class="lang-btn order-2 md:order-4 shrink-0 h-10 px-2.5 rounded-full flex items-center gap-1.5 text-xs font-bold hover:bg-white/10"></button>
@@ -228,7 +227,7 @@ input,select,textarea{font-size:16px!important}
     </div>
   </section>
 
-  <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="demo-only max-w-6xl mx-auto px-4 pb-16">
+  <section data-tip="🤖 Asistente con IA|Atiende y vende 24/7" class="max-w-6xl mx-auto px-4 pb-16">
     <div class="card2 !p-6 md:!p-10 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center relative overflow-hidden isolate">
       <div class="halo absolute -z-10 -right-16 -top-16 w-72 h-72 rounded-full opacity-30"></div>
       <div><h2 class="text-3xl font-extrabold tracking-tight">Mira cómo funciona por dentro</h2><p class="muted mt-3 max-w-lg">El asistente de IA no solo conversa: registra cada chat, recupera carritos y pasa los casos difíciles a tu equipo. Explora el panel y el flujo de esta demo.</p></div>
@@ -293,7 +292,7 @@ input,select,textarea{font-size:16px!important}
   <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
     <div><p class="text-lg font-extrabold" data-marca></p><p class="muted mt-2 max-w-xs">Tecnología, diseño y atención con IA para que comprar sea simple.</p></div>
     <div><p class="font-bold mb-3">Explora</p><ul class="space-y-2 muted"><li><a href="#productos" class="hover:underline">Productos</a></li><li><a href="#resenas" class="hover:underline">Reseñas</a></li><li><a href="#faq" class="hover:underline">Preguntas frecuentes</a></li><li><a href="#contacto" class="hover:underline">Contacto</a></li></ul></div>
-    <div class="demo-only"><p class="font-bold mb-3">La demo</p><ul class="space-y-2 muted"><li><a href="#panel" class="hover:underline">Panel del asistente</a></li><li><a href="#flujo" class="hover:underline">Cómo funciona</a></li></ul></div>
+    <div><p class="font-bold mb-3">La demo</p><ul class="space-y-2 muted"><li><a href="#panel" class="hover:underline">Panel del asistente</a></li><li><a href="#flujo" class="hover:underline">Cómo funciona</a></li></ul></div>
   </div>
   <p aria-hidden="true" class="grad-text select-none text-center font-extrabold leading-[.85] tracking-tighter opacity-25 mt-12 text-[14vw] md:text-[11rem] whitespace-nowrap overflow-hidden" data-marca></p>
   <p class="text-center text-xs muted pb-6 pt-2">© <span data-marca></span> · Vista de demostración</p>
@@ -870,7 +869,100 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     [/^Sin resultados para (.*)\. Prueba con (.*)\.$/, (m, a, b) => 'No results for ' + a + '. Try ' + b.replace(' o ', ' or ') + '.'],
     [/^Prueba: (.*)$/, (m, a) => 'Try: ' + a]
   ];
-  const SKIP = 'script,style,textarea,#msgs,#ed,#v-panel,#v-flujo,[data-marca],[data-producto],[data-precio],[data-notr],#cName';
+  Object.assign(DICT, {
+    'Panel del asistente': 'Assistant panel', 'Cómo funciona': 'How it works', 'La demo': 'The demo',
+    'Mira cómo funciona por dentro': 'See how it works inside',
+    'El asistente de IA no solo conversa: registra cada chat, recupera carritos y pasa los casos difíciles a tu equipo. Explora el panel y el flujo de esta demo.': 'The AI assistant doesn’t just chat: it logs every chat, recovers carts and hands tough cases to your team. Explore the panel and flow of this demo.',
+    'Ver el panel del asistente →': 'See the assistant panel →', 'Ver cómo está conectado el flujo →': 'See how the flow is connected →',
+    'Panel del asistente IA': 'AI assistant panel', 'Datos ficticios de ejemplo': 'Sample demo data',
+    'Últimos 7 días': 'Last 7 days', 'Últimos 30 días': 'Last 30 days', 'Últimos 90 días': 'Last 90 days',
+    'Resumen': 'Summary', 'Conversaciones': 'Conversations', 'Tickets y escalado': 'Tickets & escalation', 'Base de conocimiento': 'Knowledge base',
+    'Todos los chats de WhatsApp, atendidos por el asistente o por tu equipo.': 'All WhatsApp chats, handled by the assistant or your team.',
+    'Casos que necesitan a una persona del equipo.': 'Cases that need a team member.', 'Los documentos con los que el asistente responde.': 'The documents the assistant answers from.',
+    'Conversaciones atendidas': 'Conversations handled', 'Fuera de horario': 'Outside business hours', 'Pedidos cerrados por el asistente': 'Orders closed by the assistant',
+    'Carritos recuperados': 'Carts recovered', 'Ventas del asistente': 'Assistant sales', 'Pasadas a una persona': 'Handed to a person',
+    'Conversaciones por hora del día': 'Conversations by hour of day', '00h': '12am', '06h': '6am', '12h': '12pm', '18h': '6pm', '23h': '11pm',
+    'En naranja: con la tienda cerrada. Aquí es donde el asistente trabaja solo.': 'In orange: store closed. This is where the assistant works on its own.',
+    'Del mensaje a la venta': 'From message to sale', 'Cifras de ejemplo, no son resultados reales.': 'Sample figures, not real results.',
+    'Cliente': 'Customer', 'Producto': 'Product', 'Importe': 'Amount', 'Estado': 'Status', 'Pagado': 'Paid', 'Respondió': 'Replied', 'Mensaje enviado': 'Message sent',
+    'Abierta': 'Open', 'Con persona': 'With a person', 'Cerrada': 'Closed', 'Todas': 'All', 'Ayer': 'Yesterday',
+    'Buscar cliente o mensaje': 'Search customer or message', 'Sin resultados.': 'No results.',
+    'Tomar el control': 'Take over', 'Devolver al asistente': 'Return to assistant', 'Reabrir': 'Reopen',
+    'Asistente IA': 'AI assistant', 'Tu equipo': 'Your team', 'Escribe como tu equipo…': 'Write as your team…',
+    'El asistente está atendiendo esta conversación.': 'The assistant is handling this conversation.', 'Conversación cerrada.': 'Conversation closed.',
+    'Restaurante La Barca': 'La Barca Restaurant',
+    'Somos una tienda online con envío en 24–48 h. ¿Buscas algo en especial?': 'We’re an online store with delivery in 24–48 h. Looking for anything in particular?',
+    'Hay stock y sale hoy mismo. ¿Te dejo el pedido listo con el link de pago?': 'It’s in stock and ships today. Shall I get your order ready with the payment link?',
+    'Queremos 24 unidades para el negocio, ¿hay precio por mayoreo?': 'We want 24 units for our business. Is there wholesale pricing?',
+    'Es un pedido al por mayor. Lo paso a una persona del equipo para darte las condiciones.': 'This is a wholesale order. I’ll pass it to someone on the team to give you the terms.',
+    'Conversación en manos del equipo': 'Conversation handed to the team', 'Te dejo el pedido listo con el enlace de pago.': 'I’ll get your order ready with the payment link.',
+    'Pagado, gracias': 'Paid, thank you', 'Pedido #1047 confirmado. Te aviso con el seguimiento por aquí.': 'Order #1047 confirmed. I’ll send you the tracking right here.',
+    'Uy, se me olvidó. Lo termino ahora': 'Oops, I forgot. I’ll finish it now', 'Mi pedido llegó con un daño': 'My order arrived damaged',
+    'Lamento lo ocurrido. Paso tu caso a una persona del equipo para solucionarlo hoy.': 'I’m sorry about that. I’m passing your case to a team member to fix it today.',
+    'Entre 24 y 48 horas. ¿Quieres que te deje el pedido listo?': 'Between 24 and 48 hours. Want me to get your order ready?', 'Vale, gracias': 'Okay, thanks',
+    'Tu equipo ha tomado el control': 'Your team has taken over', 'Devuelta al asistente': 'Returned to the assistant', 'Conversación tomada por el equipo': 'Conversation taken over by the team',
+    'Pedido al por mayor · 24 unidades': 'Wholesale order · 24 units', 'Producto dañado en el envío': 'Product damaged in shipping', 'Factura con datos de empresa': 'Invoice with company details',
+    'Solicitud de demostración para un equipo': 'Demo request for a team', 'Cambio de dirección de envío': 'Shipping address change', 'Duda sobre materiales': 'Question about materials',
+    'Alta': 'High', 'Media': 'Medium', 'Baja': 'Low', 'Mover →': 'Move →', 'Cuándo pasa el asistente a una persona': 'When the assistant hands off to a person',
+    'Cuando el cliente pide hablar con una persona': 'When the customer asks to talk to a person', 'Pedidos al por mayor o de más de 10 unidades': 'Wholesale orders or orders of more than 10 units',
+    'Quejas, devoluciones o producto dañado': 'Complaints, returns or damaged products', 'Cuando el asistente no está seguro de la respuesta': 'When the assistant isn’t sure of the answer',
+    'Pagos con problemas o facturación especial': 'Payment problems or special invoicing',
+    'Subir conocimiento': 'Upload knowledge', 'Arrastra o elige un archivo': 'Drag or choose a file', 'PDF, Word, Excel o texto. El asistente lo aprende en minutos.': 'PDF, Word, Excel or text. The assistant learns it in minutes.',
+    'En esta demo el archivo no sale de tu navegador.': 'In this demo the file never leaves your browser.', 'Lo que el asistente sabe hoy': 'What the assistant knows today',
+    'Catálogo y fichas de producto': 'Catalog and product sheets', 'Política de envíos y devoluciones': 'Shipping and returns policy', 'Preguntas frecuentes de clientes': 'Customer FAQs',
+    'Guía de tallas y materiales': 'Size and materials guide', 'Indexado': 'Indexed', 'Quitar': 'Remove',
+    'Ves cuánto vende y ahorra el asistente': 'See how much the assistant sells and saves', 'Toma el control de un chat cuando quieras': 'Take over a chat whenever you want',
+    'Lo delicado pasa a tu equipo sin perderse': 'Delicate cases go to your team without getting lost', 'Sube documentos y el asistente aprende': 'Upload documents and the assistant learns',
+    'Cómo está conectado el asistente': 'How the assistant is connected',
+    'Pulsa Reproducir para ver el recorrido de un mensaje, o toca cualquier caja para saber qué hace.': 'Press Play to follow a message’s journey, or tap any box to learn what it does.',
+    'Pulsa Reproducir, o toca cualquier caja para ver qué hace.': 'Press Play, or tap any box to see what it does.',
+    '▶ Reproducir': '▶ Play', '⏸ Pausar': '⏸ Pause', 'Paso anterior': 'Previous step', 'Paso siguiente': 'Next step',
+    'Escribe en WhatsApp': 'Writes on WhatsApp', 'Cloud API de Meta': 'Meta Cloud API', 'Recibe el mensaje': 'Receives the message', 'Orquestador IA': 'AI orchestrator', 'Decide qué hacer': 'Decides what to do',
+    'Tienda online': 'Online store', 'stock y precio': 'stock and price', 'Conocimiento': 'Knowledge', 'productos y políticas': 'products and policies', 'Equipo': 'Team', 'escala si hay duda': 'escalates when in doubt',
+    'registra chats y ventas': 'logs chats and sales', 'Respuesta + enlace de pago': 'Reply + payment link', 'vuelven al cliente por WhatsApp': 'go back to the customer via WhatsApp',
+    'envía': 'sends', 'reenvía': 'forwards', 'entrega': 'delivers', 'solicita y recibe': 'requests and receives', 'genera la respuesta': 'generates the reply',
+    'Para cada mensaje, el orquestador pregunta a:': 'For each message, the orchestrator asks:',
+    'El cliente escribe en WhatsApp y el mensaje llega a la API oficial de Meta.': 'The customer writes on WhatsApp and the message reaches Meta’s official API.',
+    'Meta reenvía el mensaje al webhook, la dirección segura que lo recibe.': 'Meta forwards the message to the webhook, the secure address that receives it.',
+    'El webhook entrega el mensaje al orquestador, el cerebro con IA.': 'The webhook hands the message to the orchestrator, the AI brain.',
+    'El orquestador solicita datos: pregunta a la tienda por stock y precio, y al conocimiento por productos y políticas.': 'The orchestrator requests data: it asks the store for stock and price, and the knowledge base for products and policies.',
+    'La tienda y el conocimiento retornan lo que se pidió: hay stock y este producto encaja con lo que busca.': 'The store and the knowledge base return what was asked: it’s in stock and this product fits what the customer is looking for.',
+    'Si el caso es complejo, escala al equipo. Y el panel registra la conversación y la venta.': 'If the case is complex, it escalates to the team. And the panel logs the conversation and the sale.',
+    'El orquestador genera la respuesta con el pedido listo y el enlace de pago.': 'The orchestrator generates the reply with the order ready and the payment link.',
+    'La respuesta vuelve al cliente por WhatsApp y puede pagar en un toque.': 'The reply goes back to the customer on WhatsApp and they can pay in one tap.',
+    'WhatsApp API: el canal oficial de Meta. Envía y recibe los mensajes con garantías.': 'WhatsApp API: Meta’s official channel. It sends and receives messages reliably.',
+    'Webhook: un punto de entrada seguro que avisa en tiempo real de cada mensaje nuevo.': 'Webhook: a secure entry point that notifies you in real time of every new message.',
+    'Tienda online: el orquestador solicita stock y precios, y recibe el enlace de pago.': 'Online store: the orchestrator requests stock and prices, and receives the payment link.',
+    'Equipo: una persona toma el chat cuando el caso lo requiere, con todo el historial.': 'Team: a person takes over the chat when the case requires it, with the full history.',
+    'Panel: chats atendidos, carritos recuperados y ventas del asistente.': 'Panel: chats handled, carts recovered and assistant sales.',
+    'Respuesta: el cliente recibe la recomendación y el enlace de pago directamente en WhatsApp.': 'Reply: the customer receives the recommendation and payment link directly on WhatsApp.'
+  });
+  // Textos del panel y del flujo que incluyen el nombre de la marca o del producto
+  Object.assign(DICT, {
+    ['Lo que ha hecho el asistente por ' + marca + '.']: 'What the assistant has done for ' + marca + '.',
+    ['Hola, ¿qué es ' + marca + ' exactamente?']: 'Hi, what exactly is ' + marca + '?',
+    ['Me interesa ' + producto]: 'I’m interested in ' + producto,
+    ['Quiero ' + producto]: 'I want ' + producto,
+    [producto + ' · 2 uds']: producto + ' · 2 units',
+    ['Hola Laia, dejaste ' + producto + ' en tu carrito. Si lo terminas hoy, el envío corre de nuestra parte.']: 'Hi Laia, you left ' + producto + ' in your cart. If you finish today, shipping is on us.',
+    ['Relato de la marca ' + marca]: 'Story of the ' + marca + ' brand',
+    ['Cliente: cualquier persona que escribe al número de WhatsApp de ' + marca + '.']: 'Customer: anyone who writes to ' + marca + '’s WhatsApp number.',
+    ['Orquestador IA: entiende la pregunta, decide a quién consultar y redacta la respuesta con la voz de ' + marca + '.']: 'AI orchestrator: understands the question, decides who to consult and writes the reply in ' + marca + '’s voice.',
+    ['Conocimiento: productos, envíos y políticas cargados por ' + marca + '.']: 'Knowledge: products, shipping and policies uploaded by ' + marca + '.'
+  });
+  const PN = { 'Mensajes recibidos': 'Messages received', 'Recomendación enviada': 'Recommendation sent', 'Pedido iniciado': 'Order started', 'Pago completado': 'Payment completed' };
+  RULES.unshift(
+    [/^(Mensajes recibidos|Recomendación enviada|Pedido iniciado|Pago completado) · (\d+) %$/, (m, a, n) => PN[a] + ' · ' + n + '%'],
+    [/^(\d+) %$/, (m, n) => n + '%'],
+    [/^(\d{4,})$/, (m, n) => (+n).toLocaleString('en-US')],
+    [/^Abiertas \((\d+)\)$/, (m, n) => 'Open (' + n + ')'],
+    [/^Con persona \((\d+)\)$/, (m, n) => 'With a person (' + n + ')'],
+    [/^Cerradas \((\d+)\)$/, (m, n) => 'Closed (' + n + ')'],
+    [/^(Nuevo|En curso|Resuelto) \((\d+)\)$/, (m, a, n) => ({ 'Nuevo': 'New', 'En curso': 'In progress', 'Resuelto': 'Resolved' })[a] + ' (' + n + ')'],
+    [/^WhatsApp · última actividad (.+)$/, (m, t) => 'WhatsApp · last activity ' + t],
+    [/^Paso (\d+) de (\d+)$/, (m, a, b) => 'Step ' + a + ' of ' + b]
+  );
+  const SKIP = 'script,style,textarea,#msgs,#ed,[data-marca],[data-producto],[data-precio],[data-notr],#cName';
   const ATTRS = ['placeholder', 'aria-label', 'title', 'data-tip'];
   const trT = v => {
     const m = v.match(/^(\s*)([\s\S]*?)(\s*)$/), core = m[2];
