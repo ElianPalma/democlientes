@@ -116,19 +116,32 @@ body{padding-bottom:var(--nb)}
 input,select,textarea{font-size:16px!important}
 .float{animation:none}
 }
+/* Logo más grande y menú fijo que se compacta al hacer scroll */
+:root{--logo-h:3rem}
+@media (min-width:768px){:root{--logo-h:3.5rem}}
+#logo{height:var(--logo-h);width:auto;max-width:min(14rem,44vw);transition:height .25s ease}
+@media (min-width:768px){#logo{max-width:15rem}}
+.hdr{transition:box-shadow .25s ease,margin-bottom .25s ease}
+.hdr .hbar{transition:padding .25s ease}
+.hdr.compact .hbar{padding-top:.4rem;padding-bottom:.4rem}
+.hdr.compact #logo{height:calc(var(--logo-h)*.7)}
+.hdr.compact #brandText{font-size:1.05rem}
+.hdr.compact{margin-bottom:var(--hd,0px);box-shadow:0 8px 24px -16px rgba(0,0,0,.4)}
+.hdr.nomove,.hdr.nomove *{transition:none!important}
+@media (max-width:767px){.hdr.compact .sw{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
-<body class="overflow-x-hidden" data-view="tienda">
+<body data-view="tienda">
 <div id="pg" class="fixed top-0 left-0 h-[3px] w-0 bg-p z-[80]"></div>
 <div id="tipCloud" class="cloud opacity-0 scale-95 transition duration-300 pointer-events-none" role="status" aria-live="polite"><span class="th"><span id="tipE">💡</span><b id="tipT"></b></span><span id="tipD"></span></div>
 <div id="toast" class="max-md:hidden fixed right-4 top-[7.5rem] md:top-24 z-[50] glass rounded-2xl px-4 py-3 text-xs max-w-[16rem] opacity-0 translate-x-4 transition-all duration-500 pointer-events-none" aria-hidden="true"></div>
 <div id="topbar" class="bg-p text-center text-sm font-semibold py-2 px-4">🚚 Envío gratis en tu primer pedido · Recíbelo en 24–48 h</div>
 
 <header class="hdr sticky top-0 z-30">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap md:flex-nowrap items-center gap-x-3 gap-y-2 md:gap-5">
+  <div class="hbar max-w-6xl mx-auto px-4 py-3 flex flex-wrap md:flex-nowrap items-center gap-x-3 gap-y-2 md:gap-5">
     <a href="#" class="order-1 shrink-0 flex items-center" aria-label="Inicio">
-      <img id="logo" class="hidden h-9 max-w-[140px] object-contain" alt="">
+      <img id="logo" class="hidden object-contain" alt="">
       <span id="brandText" class="text-xl font-extrabold tracking-tight" data-marca></span>
     </a>
     <nav class="order-4 md:order-2 w-full md:w-auto flex gap-1 overflow-x-auto -mx-1 px-1" aria-label="Principal">
@@ -142,7 +155,7 @@ input,select,textarea{font-size:16px!important}
       <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
       <span id="cartCount" class="hidden absolute -top-0.5 -right-0.5 bg-p text-[11px] font-bold w-5 h-5 rounded-full grid place-items-center">1</span>
     </button>
-    <div class="order-3 relative w-full md:w-auto md:flex-1 md:max-w-sm">
+    <div class="sw order-3 relative w-full md:w-auto md:flex-1 md:max-w-sm">
       <input id="q" type="search" autocomplete="off" placeholder="Buscar con IA…" aria-label="Buscar productos" class="inp !rounded-full pl-10">
       <svg class="absolute left-3.5 top-2.5 w-4 h-4 muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <ul id="sug" class="hidden absolute left-0 right-0 top-11 bg-white text-stone-800 rounded-xl shadow-2xl overflow-hidden text-sm"></ul>
@@ -1337,6 +1350,29 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
       a.href = URL.createObjectURL(new Blob([h], { type: 'text/html' })); a.download = 'index.html'; a.click();
     }).catch(() => alert('Esta función necesita la plantilla publicada (por ejemplo en Netlify), no abierta desde tu computadora.'));
   });
+})();
+</script>
+<script>
+(() => {
+  const hdr = document.querySelector('header.hdr'); if (!hdr) return;
+  let tick = false;
+  // Mide cuánto se encoge el menú para compensarlo y que el contenido no salte al compactarse
+  function measure() {
+    const was = hdr.classList.contains('compact');
+    hdr.classList.add('nomove'); hdr.classList.remove('compact'); hdr.style.setProperty('--hd', '0px');
+    const h0 = hdr.offsetHeight; hdr.classList.add('compact');
+    const h1 = hdr.offsetHeight;
+    hdr.style.setProperty('--hd', Math.max(0, h0 - h1) + 'px');
+    if (!was) hdr.classList.remove('compact');
+    void hdr.offsetHeight; hdr.classList.remove('nomove');
+  }
+  const apply = () => { tick = false; hdr.classList.toggle('compact', scrollY > 80); };
+  addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(apply); } }, { passive: true });
+  addEventListener('resize', measure);
+  addEventListener('load', measure);
+  const lg = document.getElementById('logo'); if (lg) lg.addEventListener('load', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  measure(); apply();
 })();
 </script>
 </body>
