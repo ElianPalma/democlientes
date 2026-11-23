@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<title>Tienda online</title>
+<title>Tienda online con asistente de IA · Demo</title>
+<meta name="description" content="Tienda online con compra en 1 clic, asistente de IA 24/7 y panel de ventas. Mira la demo.">
+<!-- Vista previa al compartir por LinkedIn, WhatsApp, Telegram, X, etc. Estas etiquetas deben ir fijas en el HTML porque esas apps no ejecutan JavaScript.
+     La imagen debe ser una dirección absoluta (https://...). Si cambias de dominio, actualiza og:url y og:image. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tienda online con asistente de IA">
+<meta property="og:title" content="Tienda online con asistente de IA · Demo">
+<meta property="og:description" content="Compra en 1 clic, chat con IA 24/7 y un panel para ver cuánto vende tu asistente.">
+<meta property="og:url" content="https://demoelianpalma.netlify.app/">
+<meta property="og:image" content="https://demoelianpalma.netlify.app/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tienda online con asistente de IA">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tienda online con asistente de IA · Demo">
+<meta name="twitter:description" content="Compra en 1 clic, chat con IA 24/7 y un panel para ver cuánto vende tu asistente.">
+<meta name="twitter:image" content="https://demoelianpalma.netlify.app/og-preview.jpg">
+<meta name="theme-color" content="#0a0d12">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1344,8 +1363,20 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   document.getElementById('edDl').addEventListener('click', () => {
     const cfg = { cliente: true };
     [...form.elements].forEach(el => { if (el.name) cfg[el.name] = val(el); });
+    const site = (prompt('¿Cuál será la dirección final de esta versión? Se usa para la vista previa al compartir (por ejemplo https://thephone.netlify.app)', location.origin) || location.origin).trim().replace(/\/+$/, '');
     fetch(base).then(r => r.text()).then(h => {
       h = h.replace(/const DEFAULTS = \{[^\n]*\};/, () => 'const DEFAULTS = ' + JSON.stringify(cfg).replace(/</g, '\\u003c') + ';');
+      // Vista previa al compartir: las apps no ejecutan JavaScript, así que se escribe fija en el HTML
+      const at = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const mk = cfg.marca || 'Tu Tienda', pd = cfg.producto || '';
+      const title = pd ? mk + ' | ' + pd : mk + ' | Tienda online';
+      const desc = (pd ? pd + ' en ' : '') + mk + '. Compra en 1 clic, pago seguro y asistente con IA 24/7.';
+      const img = /^https:\/\//i.test(cfg.img_prod || '') ? cfg.img_prod : site + '/og-preview.jpg';
+      const meta = (k, v) => { h = h.replace(new RegExp('(<meta (?:property|name)="' + k + '" content=")[^"]*(")'), (m, a, b) => a + at(v) + b); };
+      h = h.replace(/<title>[^<]*<\/title>/, () => '<title>' + at(title) + '</title>');
+      meta('description', desc); meta('og:site_name', mk); meta('og:title', title); meta('og:description', desc);
+      meta('og:url', site + '/'); meta('og:image', img); meta('og:image:alt', title);
+      meta('twitter:title', title); meta('twitter:description', desc); meta('twitter:image', img);
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([h], { type: 'text/html' })); a.download = 'index.html'; a.click();
     }).catch(() => alert('Esta función necesita la plantilla publicada (por ejemplo en Netlify), no abierta desde tu computadora.'));
