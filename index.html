@@ -25,6 +25,74 @@
 <meta name="twitter:description" content="Compra en 1 clic, chat con IA 24/7 y un panel para ver cuánto vende tu asistente.">
 <meta name="twitter:image" content="https://demoelianpalma.netlify.app/og-preview.jpg">
 <meta name="theme-color" content="#0a0d12">
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     ① SUPABASE · PEGA AQUÍ TUS DATOS  (Project URL y clave pública)
+     · La clave publishable / anon es PÚBLICA por diseño. La seguridad real vive en el SQL (RLS + PIN en el servidor).
+     · ⚠️ NO pegues aquí tu PIN, ni una clave "secret" / "service_role".
+     ══════════════════════════════════════════════════════════════════════════════ -->
+<script>
+const SUPABASE_URL      = 'https://lbivbdtivdldzssiavly.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_RLHM7DaRERuVLwq8_r3yHA_GT2n2XVu';   // sb_publishable_...  (o la clave "anon" antigua, que empieza por eyJ)
+const LINK_STYLE        = 'path';   // 'path' → https://tusitio.netlify.app/tomoka   ·   'query' → https://tusitio.netlify.app/?c=tomoka
+const NO_CONTAR_MIS_VISITAS = true; // true = no suma visita en el navegador donde ya guardaste con tu PIN
+</script>
+<script>
+// ② CARGA DE LA CONFIGURACIÓN DESDE SUPABASE (fetch nativo, sin librerías).
+//    Prioridad:  parámetros explícitos de la URL  >  datos de Supabase  >  DEFAULTS
+(() => {
+  const RESERVED = ['c', 'editor', 'slug', 'pin', 'cliente'];   // nunca se inyectan desde Supabase
+  const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,47}$/;
+  const url = new URLSearchParams(location.search);
+  const S = window.__SB = {
+    slug: '', fromPath: false, found: false, cfg: null,
+    q: url,                                               // = parámetros "efectivos" que lee toda la plantilla
+    ready: null,                                          // promesa: solo existe si hay slug
+    root: location.href.split('#')[0].split('?')[0],
+    pinKey: 'demo_admin_pin',
+    ok: !/TU-PROYECTO|TU_CLAVE/.test(SUPABASE_URL + SUPABASE_ANON_KEY)
+  };
+  // RPC de Supabase con fetch. La clave nueva (sb_publishable_) va SOLO en "apikey"; la anon antigua (JWT) va en ambos.
+  S.rpc = (fn, args, opt) => {
+    const h = { apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' };
+    if (SUPABASE_ANON_KEY.startsWith('eyJ')) h.Authorization = 'Bearer ' + SUPABASE_ANON_KEY;
+    return fetch(SUPABASE_URL.replace(/\/+$/, '') + '/rest/v1/rpc/' + fn, Object.assign({ method: 'POST', headers: h, body: JSON.stringify(args) }, opt))
+      .then(r => r.ok ? r.json().catch(() => null) : Promise.reject(new Error('HTTP ' + r.status)));
+  };
+  // Mezcla: Supabase como base y encima los parámetros explícitos de la URL
+  S.merge = cfg => {
+    const m = new URLSearchParams();
+    if (cfg) Object.keys(cfg).forEach(k => {
+      const v = cfg[k];
+      if (!RESERVED.includes(k) && v != null && typeof v !== 'object' && String(v).trim() !== '') m.set(k, String(v));
+    });
+    url.forEach((v, k) => { if (v !== '') m.set(k, v); });
+    return m;
+  };
+  try {
+    // slug:  ?c=tomoka   >   /tomoka
+    let slug = (url.get('c') || '').trim().toLowerCase();
+    if (!SLUG_RE.test(slug)) slug = '';
+    if (!slug) {
+      let seg = ''; try { seg = decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, '').toLowerCase(); } catch (e) {}
+      if (SLUG_RE.test(seg) && seg !== 'index') { slug = seg; S.fromPath = true; S.root = location.origin + '/'; }
+    }
+    S.slug = slug;
+    if (!slug) return;                                    // sin slug: la plantilla funciona exactamente igual que antes
+    if (!S.ok) console.warn('[demo] Pega SUPABASE_URL y SUPABASE_ANON_KEY en el index.html para usar enlaces cortos.');
+    const d = document.documentElement;
+    d.classList.add('cfg-loading');                       // oculta la página hasta tener la config
+    setTimeout(() => d.classList.remove('cfg-loading'), 6000);   // seguro: nunca deja la pantalla en blanco
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 4000);
+    S.ready = (S.ok ? S.rpc('get_demo', { p_slug: slug }, { signal: ctl.signal }) : Promise.resolve(null))
+      .catch(e => { console.warn('[demo] No se pudo leer la configuración:', e && e.message); return null; })
+      .then(cfg => {
+        clearTimeout(to);
+        if (cfg && typeof cfg === 'object' && !Array.isArray(cfg)) { S.cfg = cfg; S.found = true; }
+        S.q = S.merge(S.cfg);                             // si el slug no existe → solo URL + DEFAULTS (sin romper nada)
+      });
+  } catch (e) { console.warn('[demo]', e); }
+})();
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +100,8 @@
 <style>
 :root{--primary-color:#0F766E;--on-primary:#ffffff;--btn-color:#0F766E;--on-btn:#ffffff;--bg:#09090b;--fg:#fafafa}
 html{scroll-behavior:smooth}
+/* Enlace corto: la página se mantiene oculta hasta tener la configuración de Supabase (sin parpadeo) */
+html.cfg-loading{background:#0a0d12}html.cfg-loading body{visibility:hidden}
 body{font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg)}
 .muted{color:color-mix(in srgb,var(--fg) 62%,var(--bg))}
 .surf{background:color-mix(in srgb,var(--fg) 6%,var(--bg))}
@@ -428,12 +498,12 @@ document.addEventListener('error', e => {
 // ✏️ VALORES POR DEFECTO: edita esta línea para dejar una versión fija para un cliente (los parámetros de la URL los sobrescriben)
 const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',moneda:'MXN',fondo:'09090b',color:'0F766E',btn:'',promo:'',logo:'',img_prod:'',menu:'',menutxt:'',lang:'',p2n:'',p2p:'',p2i:'',p3n:'',p3p:'',p3i:'',cliente:false};
 </script>
-<script>
+<script type="text/plain" data-run>
 (() => {
   const $ = s => document.querySelector(s);
   const $$ = s => document.querySelectorAll(s);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const q = new URLSearchParams(location.search);
+  const q = window.__SB.q;   // parámetros de la URL + datos de Supabase (la URL manda)
   const text = (k, d) => (q.get(k) || '').trim().slice(0, 120) || d;
   const link = (k, d) => { const v = (q.get(k) || '').trim(); return /^https?:\/\//i.test(v) ? v : d; };
 
@@ -1066,7 +1136,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   window.BR = { marca, producto, precio, money, num: pr0 ? pr0.num : 1450, P, openCart, openChat, ct };
 })();
 </script>
-<script>
+<script type="text/plain" data-run>
 (() => {
   const B = window.BR, $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
   const { marca, producto, money, num } = B;
@@ -1216,10 +1286,10 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   up.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 </script>
-<script>
+<script type="text/plain" data-run>
 (() => {
   const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
-  const q = new URLSearchParams(location.search), B = window.BR;
+  const q = window.__SB.q, B = window.BR;
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const cloud = $('#tipCloud'), btn = $('#tipBtn'), els = [...$$('[data-tip]')];
   const desk = () => matchMedia('(min-width:768px)').matches;
@@ -1303,7 +1373,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   setTimeout(() => { popToast(); setInterval(popToast, 17000); }, 10000);
 })();
 </script>
-<script>
+<script type="text/plain" data-run>
 (() => {
   let t = 600; const cd = document.getElementById('cd');
   setInterval(() => { t = t > 0 ? t - 1 : 599; cd.textContent = String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0'); }, 1000);
@@ -1318,9 +1388,10 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     w.addEventListener('pointerleave', () => { tl.style.transform = ''; });
   }
 
-  // Panel de personalización: aparece al abrir la plantilla sin parámetros (o con ?editor=1)
-  const q = new URLSearchParams(location.search);
-  if ((q.get('marca') || DEFAULTS.cliente) && q.get('editor') !== '1') return;
+  // Panel de personalización: aparece al abrir la plantilla sin parámetros (o con ?editor=1).
+  // Nunca aparece en un enlace corto de cliente (?c=slug o /slug) a menos que añadas &editor=1.
+  const S = window.__SB, q = S.q;
+  if (q.get('editor') !== '1' && (S.slug || q.get('marca') || DEFAULTS.cliente)) return;
   const ed = document.getElementById('ed'), form = document.getElementById('edForm');
   ed.classList.remove('hidden');
   const inp = 'mt-1 w-full rounded-lg border border-stone-300 px-3 py-2';
@@ -1330,13 +1401,29 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     `<label class="block"><span class="font-semibold">Moneda</span><select name="moneda" class="${inp}"><option value="MXN">México · peso (MXN)</option><option value="COP">Colombia · peso (COP)</option><option value="USD">Estados Unidos · dólar (USD)</option><option value="EUR">España · euro (EUR)</option></select></label><label class="block"><span class="font-semibold">Idioma inicial</span><select name="lang" class="${inp}"><option value="">Español</option><option value="en">English</option></select></label>` +
     col('color', 'Color de la marca') + col('btn', 'Color de los botones') + col('fondo', 'Color de fondo') + col('menu', 'Color del menú (fondo)', 'Igual que el fondo') + col('menutxt', 'Color del logo, enlaces e iconos del menú', 'Automático') + fld('promo', 'Texto de la barra superior', 'Por defecto según el país') + fld('dir', 'Dirección (opcional)', 'Por defecto según el país') + fld('tel', 'Teléfono (opcional)', 'Por defecto según el país') + fld('logo', 'URL del logo (opcional)', 'https://…') + fld('img_prod', 'URL de la foto del producto', 'https://…') +
     `<p class="text-xs text-stone-500 pt-1">Productos extra (opcional). Si añades alguno, la tienda solo mostrará productos de la marca y los repetirá para completar la cuadrícula.</p>` + fld('p2n', 'Producto 2 · nombre', 'Camiseta Urban') + fld('p2p', 'Producto 2 · precio', '990') + fld('p2i', 'Producto 2 · URL de la foto', 'https://…') + fld('p3n', 'Producto 3 · nombre', 'Gorra Classic') + fld('p3p', 'Producto 3 · precio', '590') + fld('p3i', 'Producto 3 · URL de la foto', 'https://…') +
-    `<div class="grid grid-cols-2 gap-2 pt-1"><button type="submit" class="rounded-full bg-black text-white py-2.5 font-bold">Aplicar</button><button type="button" id="edCopy" class="rounded-full border border-stone-300 py-2.5 font-bold">Copiar enlace</button><button type="button" id="edDl" class="col-span-2 rounded-full border border-stone-300 py-2.5 font-bold">⬇ Descargar versión del cliente</button></div>`;
+    `<p class="text-xs font-bold text-stone-500 uppercase tracking-wide pt-2 mt-1 border-t border-stone-200">Enlace corto (Supabase)</p>` +
+    fld('slug', 'Slug del enlace', 'tomoka') +
+    `<label class="block"><span class="font-semibold">Clave de administrador (PIN)</span><input type="password" name="pin" placeholder="Tu PIN" autocomplete="new-password" class="${inp}"></label>` +
+    `<p id="edMsg" role="status" class="text-xs min-h-[1rem] break-words"></p>` +
+    `<div class="grid grid-cols-2 gap-2 pt-1"><button type="button" id="edSave" class="col-span-2 rounded-full bg-emerald-600 text-white py-2.5 font-bold disabled:opacity-60">💾 Guardar y copiar enlace corto</button><button type="submit" class="rounded-full bg-black text-white py-2.5 font-bold">Aplicar</button><button type="button" id="edCopy" class="rounded-full border border-stone-300 py-2.5 font-bold">Copiar enlace</button><button type="button" id="edDl" class="col-span-2 rounded-full border border-stone-300 py-2.5 font-bold">⬇ Descargar versión del cliente</button></div>`;
   const cs = getComputedStyle(document.documentElement);
   ['marca', 'producto', 'precio', 'moneda', 'lang', 'promo', 'dir', 'tel', 'logo', 'img_prod', 'p2n', 'p2p', 'p2i', 'p3n', 'p3p', 'p3i'].forEach(k => { form.elements[k].value = q.get(k) || DEFAULTS[k] || ''; });
   form.elements.color.value = cs.getPropertyValue('--primary-color').trim();
   form.elements.btn.value = cs.getPropertyValue('--btn-color').trim();
   form.elements.fondo.value = cs.getPropertyValue('--bg').trim();
   ['menu', 'menutxt'].forEach(k => { const v = (q.get(k) || DEFAULTS[k] || '').replace('#', ''); form.elements[k].value = v ? '#' + v : ''; });
+  // ── Enlace corto: slug (se autocompleta desde el nombre, editable) y PIN (guardado en este navegador) ──
+  const META = ['slug', 'pin'];                       // campos que NO forman parte de la configuración de la tienda
+  const slugify = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48);
+  const slugOk = v => /^[a-z0-9][a-z0-9-]{0,47}$/.test(v) && !['index', 'netlify', 'editor', 'og-preview', 'admin'].includes(v);
+  const sl = form.elements.slug, pn = form.elements.pin, msg = document.getElementById('edMsg');
+  sl.value = S.slug || q.get('slug') || (q.get('marca') ? slugify(q.get('marca')) : '');
+  let slTouched = !!(S.slug || q.get('slug'));        // si ya viene un slug, no se pisa al escribir el nombre
+  try { pn.value = localStorage.getItem(S.pinKey) || ''; } catch (e) {}
+  form.elements.marca.addEventListener('input', () => { if (!slTouched) sl.value = slugify(form.elements.marca.value); });
+  sl.addEventListener('input', () => { sl.value = sl.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''); slTouched = !!sl.value; });
+  const say = (t, ok) => { msg.textContent = t; msg.className = 'text-xs min-h-[1rem] break-words ' + (ok ? 'text-emerald-700' : 'text-red-600'); };
+  const shortLink = s => LINK_STYLE === 'query' ? S.root + '?c=' + s : location.origin + '/' + s;
   const hx = v => { v = v.trim().replace(/^#/, ''); if (/^[0-9a-f]{3}$/i.test(v)) v = [...v].map(c => c + c).join(''); return /^[0-9a-f]{6}$/i.test(v) ? '#' + v.toLowerCase() : ''; };
   form.querySelectorAll('[data-hex]').forEach(t => {
     const sw = form.querySelector(`[data-sw="${t.name}"]`);
@@ -1346,12 +1433,12 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     sw.addEventListener('input', () => { t.value = sw.value.toUpperCase(); });
     t.value = t.value.toUpperCase(); sync();
   });
-  const base = location.href.split('#')[0].split('?')[0];
+  const base = S.root;
   const val = el => el.dataset.hex !== undefined ? hx(el.value).slice(1).toUpperCase() : el.value.trim();
   const build = editor => {
     const p = new URLSearchParams();
-    [...form.elements].forEach(el => { if (el.name && val(el)) p.set(el.name, val(el)); });
-    if (editor) p.set('editor', '1');
+    [...form.elements].forEach(el => { if (el.name && !META.includes(el.name) && val(el)) p.set(el.name, val(el)); });
+    if (editor) { p.set('editor', '1'); if (sl.value.trim()) p.set('slug', sl.value.trim()); }   // el slug solo viaja en la vista previa del editor
     return base + '?' + p;
   };
   document.getElementById('edBtn').addEventListener('click', () => form.classList.toggle('hidden'));
@@ -1360,9 +1447,37 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
     const url = build(false), b = e.target;
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { b.textContent = '¡Copiado!'; }).catch(() => prompt('Copia este enlace:', url));
   });
+  // 💾 Guardar en Supabase (upsert protegido con PIN en el servidor) y copiar el enlace corto limpio
+  document.getElementById('edSave').addEventListener('click', async e => {
+    const b = e.currentTarget, label = b.textContent, slug = sl.value.trim(), pin = pn.value.trim();
+    if (!S.ok) return say('Falta pegar SUPABASE_URL y SUPABASE_ANON_KEY en el index.html.', false);
+    if (!form.elements.marca.value.trim()) return say('Escribe el nombre de la tienda.', false);
+    if (!slugOk(slug)) return say('Slug no válido: solo minúsculas, números y guiones (ej. tomoka).', false);
+    if (!pin) return say('Escribe tu PIN de administrador.', false);
+    const cfg = {};
+    [...form.elements].forEach(el => { if (el.name && !META.includes(el.name)) { const v = val(el); if (v) cfg[el.name] = v; } });
+    b.disabled = true; b.textContent = 'Guardando…'; say('', true);
+    try {
+      // Evita pisar por error la demo de otro cliente al reutilizar un slug
+      if (slug !== S.slug && await S.rpc('get_demo', { p_slug: slug }).catch(() => null) && !confirm('Ya existe una demo con el enlace "' + slug + '". ¿Quieres sobrescribirla?')) { say('Cancelado: no se guardó nada.', false); return; }
+      const r = await S.rpc('guardar_demo', { p_slug: slug, p_config: cfg, p_pin: pin });
+      if (!r || r.ok !== true) {
+        const E = { pin: 'PIN incorrecto.', bloqueado: 'Demasiados intentos fallidos. Prueba de nuevo en ' + (r && r.minutos || 15) + ' min.', slug: 'Ese slug no es válido o está reservado.', config: 'La configuración no es válida.', sin_pin: 'Todavía no definiste tu PIN en Supabase (último paso de la guía).' };
+        return say((r && E[r.error]) || 'Respuesta inesperada de Supabase.', false);
+      }
+      try { localStorage.setItem(S.pinKey, pin); } catch (err) {}
+      const link = shortLink(r.slug || slug);
+      let copied = true;
+      try { await navigator.clipboard.writeText(link); } catch (err) { copied = false; }
+      if (!copied) prompt('Copia este enlace:', link);
+      say('✅ ' + (r.creado ? 'Demo creada' : 'Demo actualizada') + (copied ? ' · enlace copiado: ' : ': ') + link, true);
+    } catch (err) {
+      say('No se pudo guardar (' + (err && err.message || 'error de red') + '). Revisa la URL, la clave y que hayas ejecutado el SQL.', false);
+    } finally { b.disabled = false; b.textContent = label; }
+  });
   document.getElementById('edDl').addEventListener('click', () => {
     const cfg = { cliente: true };
-    [...form.elements].forEach(el => { if (el.name) cfg[el.name] = val(el); });
+    [...form.elements].forEach(el => { if (el.name && !META.includes(el.name)) cfg[el.name] = val(el); });   // el PIN y el slug nunca van en la descarga
     const site = (prompt('¿Cuál será la dirección final de esta versión? Se usa para la vista previa al compartir (por ejemplo https://thephone.netlify.app)', location.origin) || location.origin).trim().replace(/\/+$/, '');
     fetch(base).then(r => r.text()).then(h => {
       h = h.replace(/const DEFAULTS = \{[^\n]*\};/, () => 'const DEFAULTS = ' + JSON.stringify(cfg).replace(/</g, '\\u003c') + ';');
@@ -1383,7 +1498,7 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   });
 })();
 </script>
-<script>
+<script type="text/plain" data-run>
 (() => {
   const hdr = document.querySelector('header.hdr'); if (!hdr) return;
   let tick = false;
@@ -1404,6 +1519,26 @@ const DEFAULTS = {marca:'Tu Tienda',producto:'Sneakers Urban Pro',precio:'1450',
   const lg = document.getElementById('logo'); if (lg) lg.addEventListener('load', measure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   measure(); apply();
+})();
+</script>
+<script>
+// ③ ARRANQUE: ejecuta la plantilla cuando la configuración ya está lista (de inmediato si no hay slug).
+(() => {
+  const S = window.__SB || {};
+  const countVisit = () => {
+    // Solo visitas reales: con slug existente, fuera del editor y (opcional) fuera de tu propio navegador
+    if (!S.slug || !S.found || !S.ok || S.q.get('editor') === '1') return;
+    if (typeof NO_CONTAR_MIS_VISITAS !== 'undefined' && NO_CONTAR_MIS_VISITAS) { try { if (localStorage.getItem(S.pinKey)) return; } catch (e) {} }
+    S.rpc('incrementar_visita', { p_slug: S.slug }).catch(() => {});
+  };
+  const run = () => {
+    document.querySelectorAll('script[type="text/plain"][data-run]').forEach(o => {
+      const s = document.createElement('script'); s.textContent = o.textContent; o.replaceWith(s);   // se ejecutan en orden
+    });
+    document.documentElement.classList.remove('cfg-loading');
+    countVisit();
+  };
+  S.ready ? S.ready.then(run) : run();
 })();
 </script>
 </body>
