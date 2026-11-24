@@ -1,2 +1,8 @@
 [build]
   publish = "."
+
+# Enlaces cortos: /tomoka muestra index.html sin cambiar la direccion
+[[redirects]]
+  from = "/:slug"
+  to = "/index.html"
+  status = 200
